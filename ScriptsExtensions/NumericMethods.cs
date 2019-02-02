@@ -17,5 +17,11 @@ namespace Client.Scripts.Algorithms.Legacy
         {
             return Random.value < negativeProbability ? -value : value;
         }
+		
+				
+		public static Vector3 OnUnitCircle(Vector3 position, float radius)
+        {
+            return position + (Vector3)(Random.insideUnitCircle.normalized) * radius;
+        }
     }
 }

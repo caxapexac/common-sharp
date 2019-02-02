@@ -9,11 +9,6 @@ namespace Client.Scripts.Algorithms.Legacy
     
     public static class Extensions
     {
-        public static Vector3 OnUnitCircle(this Random random, Vector3 position, float radius)
-        {
-            return position + (Vector3)(Random.insideUnitCircle.normalized) * radius;
-        }
-
         public static void LookAt2D(this Transform me, Vector2 target)
         {
             Vector2 dir = target - (Vector2)me.position;
