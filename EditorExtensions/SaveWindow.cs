@@ -31,10 +31,10 @@ public class SaveWindow : EditorWindow
 
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Next save in:");
-        GUILayout.Label(timeToSave + " sec");
+        GUILayout.Label(Mathf.Max(0, timeToSave) + " sec");
         EditorGUILayout.EndHorizontal();
 
-        if (GUILayout.Button("SAVE") || EditorApplication.timeSinceStartup > _nextSave)
+        if (!EditorApplication.isPlaying && (GUILayout.Button("SAVE") || EditorApplication.timeSinceStartup > _nextSave))
         {
             Save();
         }
