@@ -22,6 +22,18 @@ namespace Client.Scripts.Algorithms.Legacy
                 }
             }
         }
+		
+		//todo check how it works
+		public static T GetRequiredComponent(this GameObject obj) where T : MonoBehaviour
+        {
+            T component = obj.GetComponent();
+            if(component == null)
+            {
+                Debug.LogError("Expected to find component of type " 
+                + typeof(T) + " but found none", obj);
+            }
+            return component;
+        }
 
         /// <summary>
         /// Sets the x component of the transform's position.
