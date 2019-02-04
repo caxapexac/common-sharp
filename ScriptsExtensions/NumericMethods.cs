@@ -12,16 +12,5 @@ namespace Client.Scripts.Algorithms.Legacy
             return (value - valueRangeMin) / (valueRangeMax - valueRangeMin) * (newRangeMax - newRangeMin)
                 + newRangeMin;
         }
-
-        public static int WithRandomSign(this int value, float negativeProbability = 0.5f)
-        {
-            return Random.value < negativeProbability ? -value : value;
-        }
-		
-				
-		public static Vector3 OnUnitCircle(Vector3 position, float radius)
-        {
-            return position + (Vector3)(Random.insideUnitCircle.normalized) * radius;
-        }
     }
 }

@@ -1,10 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace Client.Scripts.Algorithms.Legacy
 {
     public static class TransformMethods
     {
+		public static void LookAt2D(this Transform me, Vector2 target)
+        {
+            Vector2 dir = target - (Vector2)me.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            me.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+        public static void LookAt2D(this Transform me, Transform target)
+        {
+            me.LookAt2D(target.position);
+        }
+
+        public static void LookAt2D(this Transform me, GameObject target)
+        {
+            me.LookAt2D(target.transform.position);
+        }
+		
         /// <summary>
         /// Sets the position of a transform's children to zero.
         /// </summary>
