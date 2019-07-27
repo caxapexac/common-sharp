@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
+
 public class FriendsPopup : MonoBehaviour
 {
 	private int ItemHeight = 100;
