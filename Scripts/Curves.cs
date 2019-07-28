@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace Client.Scripts.Algorithms.Legacy
+namespace Client.Scripts.Algorithms.Scripts
 {
     public static class Curves
     {

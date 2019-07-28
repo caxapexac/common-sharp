@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // ReSharper disable IdentifierTypo
 // ReSharper disable once StringLiteralTypo
 
-namespace Client.Scripts.Algorithms
+namespace Client.Scripts.Algorithms.ScriptsApi
 {
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public class FileDialog

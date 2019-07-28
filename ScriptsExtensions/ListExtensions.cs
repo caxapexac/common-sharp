@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 
-namespace Client.Scripts.Algorithms.Legacy
+namespace Client.Scripts.Algorithms.ScriptsExtensions
 {
     public static class ListExtensions
     {
-		public static List<T> Clone<T>(this List<T> list)
-		{
-			return new List<T>(list);
-		}
-		
+        public static List<T> Clone<T>(this List<T> list)
+        {
+            return new List<T>(list);
+        }
+
         public static void Shuffle<T>(this IList<T> list)
         {
             int n = list.Count;
@@ -41,16 +41,18 @@ namespace Client.Scripts.Algorithms.Legacy
             list.RemoveAt(index);
             return item;
         }
-		
-		public static T[] ForEach<T>(this T[] array, Action<T> callback)
-		{
-			if (callback != null)
-				for (int i = 0; i < array.Length; i++)
-				{
-					callback(array[i]);
-				}
 
-			return array;
-		}
+        public static T[] ForEach<T>(this T[] array, Action<T> callback)
+        {
+            if (callback != null)
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    callback(array[i]);
+                }
+            }
+
+            return array;
+        }
     }
 }

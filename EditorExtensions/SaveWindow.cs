@@ -4,47 +4,50 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 
-public class SaveWindow : EditorWindow
+namespace Client.Scripts.Algorithms.EditorExtensions
 {
-    private float _saveTime = 42f;
-    private float _nextSave = 0f;
-
-    [MenuItem("Window/NOBODY_CAN_SAVE_ME_NOW")]
-    public static void ShowSaveWindow()
+    public class SaveWindow : EditorWindow
     {
-        SaveWindow sw = GetWindow<SaveWindow>("SAVER");
-        sw.minSize = new Vector2(1, 0.1f);
-        sw.Save();
-    }
+        private float _saveTime = 300f;
+        private float _nextSave = 0f;
 
-    private void OnGUI()
-    {
-        int timeToSave = (int)(_nextSave - EditorApplication.timeSinceStartup);
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Save each:");
-        int num;
-        if (int.TryParse(EditorGUILayout.TextField(_saveTime.ToString()), out num))
+        [MenuItem("Window/NOBODY_CAN_SAVE_ME_NOW")]
+        public static void ShowSaveWindow()
         {
-            _saveTime = num;
+            SaveWindow sw = GetWindow<SaveWindow>("SAVER");
+            sw.minSize = new Vector2(1, 0.1f);
+            sw.Save();
         }
-        EditorGUILayout.EndHorizontal();
 
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Next save in:");
-        GUILayout.Label(Mathf.Max(0, timeToSave) + " sec");
-        EditorGUILayout.EndHorizontal();
-
-        if (!EditorApplication.isPlaying && (GUILayout.Button("SAVE") || EditorApplication.timeSinceStartup > _nextSave))
+        private void OnGUI()
         {
-            Save();
-        }
-        Repaint();
-    }
+            int timeToSave = (int)(_nextSave - EditorApplication.timeSinceStartup);
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Save each:");
+            if (int.TryParse(EditorGUILayout.TextField(_saveTime.ToString()), out var num))
+            {
+                _saveTime = num;
+            }
+            EditorGUILayout.EndHorizontal();
 
-    private void Save()
-    {
-        EditorSceneManager.SaveOpenScenes();
-        Debug.Log("Auto Saved " + DateTime.Now.ToLongTimeString());
-        _nextSave = (int)(EditorApplication.timeSinceStartup + _saveTime);
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Next save in:");
+            GUILayout.Label(Mathf.Max(0, timeToSave) + " sec");
+            EditorGUILayout.EndHorizontal();
+
+            if (!EditorApplication.isPlaying
+                && (GUILayout.Button("SAVE") || EditorApplication.timeSinceStartup > _nextSave))
+            {
+                Save();
+            }
+            Repaint();
+        }
+
+        private void Save()
+        {
+            EditorSceneManager.SaveOpenScenes();
+            Debug.Log("Auto Saved " + DateTime.Now.ToLongTimeString());
+            _nextSave = (int)(EditorApplication.timeSinceStartup + _saveTime);
+        }
     }
 }

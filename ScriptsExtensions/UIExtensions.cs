@@ -5,31 +5,30 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UniTools
+
+namespace Client.Scripts.Algorithms.ScriptsExtensions
 {
-	public static class UIExtensions
-	{
-		public static void SetOnClick(this Button go, Action<GameObject> handler)
-		{
-			go.onClick.AddListener(() =>
-			{
-				if (handler != null)
-					handler(go.gameObject);
-			});
-		}
+    public static class UiExtensions
+    {
+        public static void SetOnClick(this Button go, Action<GameObject> handler)
+        {
+            go.onClick.AddListener(() =>
+            {
+                handler?.Invoke(go.gameObject);
+            });
+        }
 
-		public static void SetOnClick(this GameObject go, Action<GameObject> handler)
-		{
-			var eventHandler = go.GetComponent<Button>();
+        public static void SetOnClick(this GameObject go, Action<GameObject> handler)
+        {
+            var eventHandler = go.GetComponent<Button>();
 
-			if (eventHandler == null)
-				eventHandler = go.AddComponent<Button>();
+            if (eventHandler == null)
+                eventHandler = go.AddComponent<Button>();
 
-			eventHandler.onClick.AddListener(() =>
-			{
-				if (handler != null)
-					handler(go);
-			});
-		}
-	}
+            eventHandler.onClick.AddListener(() =>
+            {
+                handler?.Invoke(go);
+            });
+        }
+    }
 }

@@ -1,25 +1,30 @@
 using UnityEngine;
 
-public class RtsMouseCamera : MonoBehaviour
+
+namespace Client.Scripts.Algorithms.MonoBehaviours
 {
-    public float Sensitivity;
-    
-    private Vector3 _lastPosition;
-
-    private void LateUpdate()
+    public class RtsMouseCamera : MonoBehaviour
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _lastPosition = Input.mousePosition;
-        }
+        public float Sensitivity;
 
-        if (Input.GetMouseButton(0))
+        private Vector3 _lastPosition;
+
+        private void LateUpdate()
         {
-            var delta = (_lastPosition - Input.mousePosition);
-            var deltaxz = new Vector3(delta.x, 0f, delta.y);
-            transform.position = Vector3.Lerp(transform.position, transform.position + deltaxz, Sensitivity * Time.deltaTime);
-            _lastPosition = Input.mousePosition;
+            if (Input.GetMouseButtonDown(0))
+            {
+                _lastPosition = Input.mousePosition;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                var delta = (_lastPosition - Input.mousePosition);
+                var deltaxz = new Vector3(delta.x, 0f, delta.y);
+                var position = transform.position;
+                position = Vector3.Lerp(position, position + deltaxz, Sensitivity * Time.deltaTime);
+                transform.position = position;
+                _lastPosition = Input.mousePosition;
+            }
         }
     }
 }
-

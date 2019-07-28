@@ -1,8 +1,9 @@
 ﻿using System;
 using UnityEngine;
+// ReSharper disable CommentTypo
 
 
-namespace Client.Scripts.Algorithms.Legacy
+namespace Client.Scripts.Algorithms.Scripts
 {
     /* Leopotam:
      * я делаю как-то так
@@ -22,10 +23,10 @@ namespace Client.Scripts.Algorithms.Legacy
      */
     public sealed class PrefabPool<T> : IDisposable where T : Component
     {
-        T[] _items = new T[8];
-        int _itemsCount;
+        private T[] _items = new T[8];
+        private int _itemsCount;
 
-        T _prefab;
+        private T _prefab;
 
         public PrefabPool(string prefabPath)
         {

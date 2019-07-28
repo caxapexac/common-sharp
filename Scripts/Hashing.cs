@@ -1,4 +1,9 @@
-﻿namespace Client.Scripts.Algorithms.Legacy
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
+
+
+namespace Client.Scripts.Algorithms.Scripts
 {
     public class Hashing
     {
@@ -45,17 +50,17 @@
 
             return hash;
         }
-		
-		private static string CalculateMd5(string filename)
-		{
-			using (var md5 = MD5.Create())
-			{
-				using (var stream = File.OpenRead(filename))
-				{
-					var hash = md5.ComputeHash(stream);
-					return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-				}
-			}
-		}
+
+        private static string CalculateMd5(string filename)
+        {
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(filename))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
+            }
+        }
     }
 }

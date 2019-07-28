@@ -3,152 +3,153 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Consolation
+
+namespace Client.Scripts.Algorithms.MonoBehaviours.Gui
 {
     /// <summary>
     /// A console to display Unity's debug logs in-game.
     /// </summary>
-    class Console : MonoBehaviour
+    internal class Console : MonoBehaviour
     {
-        public static Version version = new Version(1, 0, 0);
+        public static Version Version = new Version(1, 0, 0);
 
         #region Inspector Settings
 
         /// <summary>
         /// The hotkey to show and hide the console window.
         /// </summary>
-        public KeyCode toggleKey = KeyCode.BackQuote;
+        public KeyCode ToggleKey = KeyCode.BackQuote;
 
         /// <summary>
         /// Whether to open as soon as the game starts.
         /// </summary>
-        public bool openOnStart = false;
+        public bool OpenOnStart = false;
 
         /// <summary>
         /// Whether to open the window by shaking the device (mobile-only).
         /// </summary>
-        public bool shakeToOpen = true;
+        public bool ShakeToOpen = true;
 
         /// <summary>
         /// The (squared) acceleration above which the window should open.
         /// </summary>
-        public float shakeAcceleration = 3f;
+        public float ShakeAcceleration = 3f;
 
         /// <summary>
         /// Whether to only keep a certain number of logs, useful if memory usage is a concern.
         /// </summary>
-        public bool restrictLogCount = false;
+        public bool RestrictLogCount = false;
 
         /// <summary>
         /// Number of logs to keep before removing old ones.
         /// </summary>
-        public int maxLogCount = 1000;
+        public int MaxLogCount = 1000;
 
         #endregion
 
-        static readonly GUIContent clearLabel = new GUIContent("Clear", "Clear the contents of the console.");
-        static readonly GUIContent collapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
-        const int margin = 20;
-        const string windowTitle = "Console";
+        private static readonly GUIContent ClearLabel = new GUIContent("Clear", "Clear the contents of the console.");
+        private static readonly GUIContent CollapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
+        private const int Margin = 20;
+        private const string WindowTitle = "Console";
 
-        static readonly Dictionary<LogType, Color> logTypeColors = new Dictionary<LogType, Color>
+        private static readonly Dictionary<LogType, Color> LogTypeColors = new Dictionary<LogType, Color>
         {
-            { LogType.Assert, Color.white },
-            { LogType.Error, Color.red },
-            { LogType.Exception, Color.red },
-            { LogType.Log, Color.white },
-            { LogType.Warning, Color.yellow },
+            {LogType.Assert, Color.white},
+            {LogType.Error, Color.red},
+            {LogType.Exception, Color.red},
+            {LogType.Log, Color.white},
+            {LogType.Warning, Color.yellow},
         };
 
-        bool isCollapsed;
-        bool isVisible;
-        readonly List<Log> logs = new List<Log>();
-        readonly ConcurrentQueue<Log> queuedLogs = new ConcurrentQueue<Log>();
+        private bool _isCollapsed;
+        private bool _isVisible;
+        private readonly List<Log> _logs = new List<Log>();
+        private readonly ConcurrentQueue<Log> _queuedLogs = new ConcurrentQueue<Log>();
 
-        Vector2 scrollPosition;
-        readonly Rect titleBarRect = new Rect(0, 0, 10000, 20);
-        Rect windowRect = new Rect(margin, margin, Screen.width - (margin * 2), Screen.height - (margin * 2));
+        private Vector2 _scrollPosition;
+        private readonly Rect _titleBarRect = new Rect(0, 0, 10000, 20);
+        private Rect _windowRect = new Rect(Margin, Margin, Screen.width - (Margin * 2), Screen.height - (Margin * 2));
 
-        readonly Dictionary<LogType, bool> logTypeFilters = new Dictionary<LogType, bool>
+        private readonly Dictionary<LogType, bool> _logTypeFilters = new Dictionary<LogType, bool>
         {
-            { LogType.Assert, true },
-            { LogType.Error, true },
-            { LogType.Exception, true },
-            { LogType.Log, true },
-            { LogType.Warning, true },
+            {LogType.Assert, true},
+            {LogType.Error, true},
+            {LogType.Exception, true},
+            {LogType.Log, true},
+            {LogType.Warning, true},
         };
 
         #region MonoBehaviour Messages
 
-        void OnDisable()
+        private void OnDisable()
         {
             Application.logMessageReceivedThreaded -= HandleLogThreaded;
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             Application.logMessageReceivedThreaded += HandleLogThreaded;
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
-            if (!isVisible)
+            if (!_isVisible)
             {
                 return;
             }
 
-            windowRect = GUILayout.Window(123456, windowRect, DrawWindow, windowTitle);
+            _windowRect = GUILayout.Window(123456, _windowRect, DrawWindow, WindowTitle);
         }
 
-        void Start()
+        private void Start()
         {
-            if (openOnStart)
+            if (OpenOnStart)
             {
-                isVisible = true;
+                _isVisible = true;
             }
         }
 
-        void Update()
+        private void Update()
         {
             UpdateQueuedLogs();
 
-            if (Input.GetKeyDown(toggleKey))
+            if (Input.GetKeyDown(ToggleKey))
             {
-                isVisible = !isVisible;
+                _isVisible = !_isVisible;
             }
 
-            if (shakeToOpen && Input.acceleration.sqrMagnitude > shakeAcceleration)
+            if (ShakeToOpen && Input.acceleration.sqrMagnitude > ShakeAcceleration)
             {
-                isVisible = true;
+                _isVisible = true;
             }
         }
 
         #endregion
 
-        void DrawCollapsedLog(Log log)
+        private void DrawCollapsedLog(Log log)
         {
             GUILayout.BeginHorizontal();
 
-                GUILayout.Label(log.GetTruncatedMessage());
-                GUILayout.FlexibleSpace();
-                GUILayout.Label(log.count.ToString(), GUI.skin.box);
+            GUILayout.Label(log.GetTruncatedMessage());
+            GUILayout.FlexibleSpace();
+            GUILayout.Label(log.Count.ToString(), GUI.skin.box);
 
             GUILayout.EndHorizontal();
         }
 
-        void DrawExpandedLog(Log log)
+        private void DrawExpandedLog(Log log)
         {
-            for (var i = 0; i < log.count; i += 1)
+            for (var i = 0; i < log.Count; i += 1)
             {
                 GUILayout.Label(log.GetTruncatedMessage());
             }
         }
 
-        void DrawLog(Log log)
+        private void DrawLog(Log log)
         {
-            GUI.contentColor = logTypeColors[log.type];
+            GUI.contentColor = LogTypeColors[log.Type];
 
-            if (isCollapsed)
+            if (_isCollapsed)
             {
                 DrawCollapsedLog(log);
             }
@@ -158,19 +159,19 @@ namespace Consolation
             }
         }
 
-        void DrawLogList()
+        private void DrawLogList()
         {
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
 
             // Used to determine height of accumulated log labels.
             GUILayout.BeginVertical();
 
-                var visibleLogs = logs.Where(IsLogVisible);
+            var visibleLogs = _logs.Where(IsLogVisible);
 
-                foreach (Log log in visibleLogs)
-                {
-                    DrawLog(log);
-                }
+            foreach (Log log in visibleLogs)
+            {
+                DrawLog(log);
+            }
 
             GUILayout.EndVertical();
             var innerScrollRect = GUILayoutUtility.GetLastRect();
@@ -187,72 +188,71 @@ namespace Consolation
             GUI.contentColor = Color.white;
         }
 
-        void DrawToolbar()
+        private void DrawToolbar()
         {
             GUILayout.BeginHorizontal();
 
-                if (GUILayout.Button(clearLabel))
-                {
-                    logs.Clear();
-                }
+            if (GUILayout.Button(ClearLabel))
+            {
+                _logs.Clear();
+            }
 
-                foreach (LogType logType in Enum.GetValues(typeof(LogType)))
-                {
-                    var currentState = logTypeFilters[logType];
-                    var label = logType.ToString();
-                    logTypeFilters[logType] = GUILayout.Toggle(currentState, label, GUILayout.ExpandWidth(false));
-                    GUILayout.Space(20);
-                }
+            foreach (LogType logType in Enum.GetValues(typeof(LogType)))
+            {
+                var currentState = _logTypeFilters[logType];
+                var label = logType.ToString();
+                _logTypeFilters[logType] = GUILayout.Toggle(currentState, label, GUILayout.ExpandWidth(false));
+                GUILayout.Space(20);
+            }
 
-                isCollapsed = GUILayout.Toggle(isCollapsed, collapseLabel, GUILayout.ExpandWidth(false));
+            _isCollapsed = GUILayout.Toggle(_isCollapsed, CollapseLabel, GUILayout.ExpandWidth(false));
 
             GUILayout.EndHorizontal();
         }
 
-        void DrawWindow(int windowID)
+        private void DrawWindow(int windowId)
         {
             DrawLogList();
             DrawToolbar();
 
             // Allow the window to be dragged by its title bar.
-            GUI.DragWindow(titleBarRect);
+            GUI.DragWindow(_titleBarRect);
         }
 
-        Log? GetLastLog()
+        private Log? GetLastLog()
         {
-            if (logs.Count == 0)
+            if (_logs.Count == 0)
             {
                 return null;
             }
 
-            return logs.Last();
+            return _logs.Last();
         }
 
-        void UpdateQueuedLogs()
+        private void UpdateQueuedLogs()
         {
-            Log log;
-            while (queuedLogs.TryDequeue(out log))
+            while (_queuedLogs.TryDequeue(out var log))
             {
                 ProcessLogItem(log);
             }
         }
 
-        void HandleLogThreaded(string message, string stackTrace, LogType type)
+        private void HandleLogThreaded(string message, string stackTrace, LogType type)
         {
             var log = new Log
             {
-                count = 1,
-                message = message,
-                stackTrace = stackTrace,
-                type = type,
+                Count = 1,
+                Message = message,
+                StackTrace = stackTrace,
+                Type = type,
             };
 
             // Queue the log into a ConcurrentQueue to be processed later in the Unity main thread,
             // so that we don't get GUI-related errors for logs coming from other threads
-            queuedLogs.Enqueue(log);
+            _queuedLogs.Enqueue(log);
         }
 
-        void ProcessLogItem(Log log)
+        private void ProcessLogItem(Log log)
         {
             var lastLog = GetLastLog();
             var isDuplicateOfLastLog = lastLog.HasValue && log.Equals(lastLog.Value);
@@ -260,22 +260,22 @@ namespace Consolation
             if (isDuplicateOfLastLog)
             {
                 // Replace previous log with incremented count instead of adding a new one.
-                log.count = lastLog.Value.count + 1;
-                logs[logs.Count - 1] = log;
+                log.Count = lastLog.Value.Count + 1;
+                _logs[_logs.Count - 1] = log;
             }
             else
             {
-                logs.Add(log);
+                _logs.Add(log);
                 TrimExcessLogs();
             }
         }
 
-        bool IsLogVisible(Log log)
+        private bool IsLogVisible(Log log)
         {
-            return logTypeFilters[log.type];
+            return _logTypeFilters[log.Type];
         }
 
-        bool IsScrolledToBottom(Rect innerScrollRect, Rect outerScrollRect)
+        private bool IsScrolledToBottom(Rect innerScrollRect, Rect outerScrollRect)
         {
             var innerScrollHeight = innerScrollRect.height;
 
@@ -289,41 +289,42 @@ namespace Consolation
             }
 
             // Scrolled to bottom (with error margin for float math)
-            return Mathf.Approximately(innerScrollHeight, scrollPosition.y + outerScrollHeight);
+            return Mathf.Approximately(innerScrollHeight, _scrollPosition.y + outerScrollHeight);
         }
 
-        void ScrollToBottom()
+        private void ScrollToBottom()
         {
-            scrollPosition = new Vector2(0, Int32.MaxValue);
+            _scrollPosition = new Vector2(0, Int32.MaxValue);
         }
 
-        void TrimExcessLogs()
+        private void TrimExcessLogs()
         {
-            if (!restrictLogCount)
+            if (!RestrictLogCount)
             {
                 return;
             }
 
-            var amountToRemove = logs.Count - maxLogCount;
+            var amountToRemove = _logs.Count - MaxLogCount;
 
             if (amountToRemove <= 0)
             {
                 return;
             }
 
-            logs.RemoveRange(0, amountToRemove);
+            _logs.RemoveRange(0, amountToRemove);
         }
     }
+
 
     /// <summary>
     /// A basic container for log details.
     /// </summary>
-    struct Log
+    internal struct Log
     {
-        public int count;
-        public string message;
-        public string stackTrace;
-        public LogType type;
+        public int Count;
+        public string Message;
+        public string StackTrace;
+        public LogType Type;
 
         /// <summary>
         /// The max string length supported by UnityEngine.GUILayout.Label without triggering this error:
@@ -333,7 +334,7 @@ namespace Consolation
 
         public bool Equals(Log log)
         {
-            return message == log.message && stackTrace == log.stackTrace && type == log.type;
+            return Message == log.Message && StackTrace == log.StackTrace && Type == log.Type;
         }
 
         /// <summary>
@@ -341,14 +342,15 @@ namespace Consolation
         /// </summary>
         public string GetTruncatedMessage()
         {
-            if (string.IsNullOrEmpty(message))
+            if (string.IsNullOrEmpty(Message))
             {
-                return message;
+                return Message;
             }
 
-            return message.Length <= MaxMessageLength ? message : message.Substring(0, MaxMessageLength);
+            return Message.Length <= MaxMessageLength ? Message : Message.Substring(0, MaxMessageLength);
         }
     }
+
 
     /// <summary>
     /// Alternative to System.Collections.Concurrent.ConcurrentQueue
@@ -360,28 +362,28 @@ namespace Consolation
     /// </remarks>
     public class ConcurrentQueue<T>
     {
-        private readonly System.Object queueLock = new System.Object();
-        private readonly Queue<T> queue = new Queue<T>();
+        private readonly System.Object _queueLock = new System.Object();
+        private readonly Queue<T> _queue = new Queue<T>();
 
         public void Enqueue(T item)
         {
-            lock (queueLock)
+            lock (_queueLock)
             {
-                queue.Enqueue(item);
+                _queue.Enqueue(item);
             }
         }
 
         public bool TryDequeue(out T result)
         {
-            lock (queueLock)
+            lock (_queueLock)
             {
-                if (queue.Count == 0)
+                if (_queue.Count == 0)
                 {
                     result = default(T);
                     return false;
                 }
 
-                result = queue.Dequeue();
+                result = _queue.Dequeue();
                 return true;
             }
         }

@@ -1,12 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-namespace Client.Scripts.Algorithms.Legacy
+namespace Client.Scripts.Algorithms.ScriptsExtensions
 {
     public static class TransformMethods
     {
-		public static void LookAt2D(this Transform me, Vector2 target)
+        public static void LookAt2D(this Transform me, Vector2 target)
         {
             Vector2 dir = target - (Vector2)me.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -22,7 +21,7 @@ namespace Client.Scripts.Algorithms.Legacy
         {
             me.LookAt2D(target.transform.position);
         }
-		
+
         /// <summary>
         /// Sets the position of a transform's children to zero.
         /// </summary>
@@ -36,26 +35,15 @@ namespace Client.Scripts.Algorithms.Legacy
 
                 if (recursive)
                 {
-                    child.ResetChildPositions(recursive);
+                    child.ResetChildPositions(true);
                 }
             }
-        }
-		
-		//todo check how it works
-		public static T GetRequiredComponent(this GameObject obj) where T : MonoBehaviour
-        {
-            T component = obj.GetComponent();
-            if(component == null)
-            {
-                Debug.LogError("Expected to find component of type " 
-                + typeof(T) + " but found none", obj);
-            }
-            return component;
         }
 
         /// <summary>
         /// Sets the x component of the transform's position.
         /// </summary>
+        /// <param name="transform"></param>
         /// <param name="x">Value of x.</param>
         public static void SetX(this Transform transform, float x)
         {
@@ -65,6 +53,7 @@ namespace Client.Scripts.Algorithms.Legacy
         /// <summary>
         /// Sets the y component of the transform's position.
         /// </summary>
+        /// <param name="transform"></param>
         /// <param name="y">Value of y.</param>
         public static void SetY(this Transform transform, float y)
         {
@@ -74,6 +63,7 @@ namespace Client.Scripts.Algorithms.Legacy
         /// <summary>
         /// Sets the z component of the transform's position.
         /// </summary>
+        /// <param name="transform"></param>
         /// <param name="z">Value of z.</param>
         public static void SetZ(this Transform transform, float z)
         {

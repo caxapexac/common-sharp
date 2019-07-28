@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-
-
-namespace Client.Scripts.Algorithms.Legacy
+﻿namespace Client.Scripts.Algorithms.ScriptsExtensions
 {
     public static class NumericMethods
     {

@@ -8,139 +8,146 @@ using UnityEngine.UI;
 using System.Collections;
 
 
-public class FriendsPopup : MonoBehaviour
+namespace Client.Scripts.Algorithms.MonoBehaviours.Gui
 {
-	private int ItemHeight = 100;
-	private const int Spacing = 8;
-	private const int Top = 16;
-	private const int Bottom = 50;
+    public class FriendsPopup : MonoBehaviour
+    {
+        private int _itemHeight = 100;
+        private const int Spacing = 8;
+        private const int Top = 16;
+        private const int Bottom = 50;
 
-	[SerializeField]
-	private FriendItemView[] _views;
+        [SerializeField]
+        private FriendItemView[] Views;
 
-	[SerializeField]
-	private RectTransform _content;
+        [SerializeField]
+        private RectTransform Content;
 
-	public event Action<int, FriendItemView> ItemShowed = delegate { };
+        public event Action<int, FriendItemView> ItemShowed = delegate { };
 
-	private int Count { get; set; }
+        private int Count { get; set; }
 
-	private float _y;
-	private int _oldInd = -1;
-	private RectTransform _item;
+        private float _y;
+        private int _oldInd = -1;
+        private RectTransform _item;
 
-	void Update ()
-	{
-		_y = _content.anchoredPosition.y - Spacing;
+        void Update()
+        {
+            _y = Content.anchoredPosition.y - Spacing;
 
-		if (_y < 0)
-			return;
-		
-		var inx = Mathf.FloorToInt (_y / (ItemHeight + Spacing));
+            if (_y < 0)
+                return;
 
-		if (_oldInd == inx)
-			return;
-		
-		//added to end
-		if (inx > _oldInd) {
-			var newInd = inx % _views.Length;
+            var inx = Mathf.FloorToInt(_y / (_itemHeight + Spacing));
 
-			newInd--;
+            if (_oldInd == inx)
+                return;
 
-			if (newInd < 0)
-				newInd = _views.Length - 1;
+            //added to end
+            if (inx > _oldInd)
+            {
+                var newInd = inx % Views.Length;
 
-			var id = inx + _views.Length - 1;
+                newInd--;
 
-			if (id < Count) {
-				_item = _views [newInd].GetComponent<RectTransform> ();
+                if (newInd < 0)
+                    newInd = Views.Length - 1;
 
-				var pos = _item.anchoredPosition;
+                var id = inx + Views.Length - 1;
 
-				pos.y = -(Top + id * Spacing + id * ItemHeight);
+                if (id < Count)
+                {
+                    _item = Views[newInd].GetComponent<RectTransform>();
 
-				_item.anchoredPosition = pos;
+                    var pos = _item.anchoredPosition;
 
-				ItemShowed (id, _views [newInd]);
-			}
-		}
-		//added to begin
-		else {
-			var newInd = inx % _views.Length;
+                    pos.y = -(Top + id * Spacing + id * _itemHeight);
 
-			_item = _views [newInd].GetComponent<RectTransform> ();
+                    _item.anchoredPosition = pos;
 
-			var pos = _item.anchoredPosition;
+                    ItemShowed(id, Views[newInd]);
+                }
+            }
 
-			pos.y = -(Top + inx * Spacing + inx * ItemHeight);
+            //added to begin
+            else
+            {
+                var newInd = inx % Views.Length;
 
-			_item.anchoredPosition = pos;
+                _item = Views[newInd].GetComponent<RectTransform>();
 
-			ItemShowed (inx, _views [newInd]);
-		}
+                var pos = _item.anchoredPosition;
 
-		_oldInd = inx;
-	}
+                pos.y = -(Top + inx * Spacing + inx * _itemHeight);
 
-	public void SetData (int count)
-	{
-		_oldInd = 0;
+                _item.anchoredPosition = pos;
 
-		Count = count;
+                ItemShowed(inx, Views[newInd]);
+            }
 
-		var h = ItemHeight * count * 1f + Top + Bottom + (count == 0 ? 0 : ((count - 1) * Spacing));
+            _oldInd = inx;
+        }
 
-		_content.sizeDelta = new Vector2 (_content.sizeDelta.x, h);
+        public void SetData(int count)
+        {
+            _oldInd = 0;
 
-		var pos = _content.anchoredPosition;
-		pos.y = 0;
-		_content.anchoredPosition = pos;
+            Count = count;
 
-		bool showed = false;
+            var h = _itemHeight * count * 1f + Top + Bottom + (count == 0 ? 0 : ((count - 1) * Spacing));
 
-		var y = Top;
+            Content.sizeDelta = new Vector2(Content.sizeDelta.x, h);
 
-		for (int i = 0; i < _views.Length; i++) {
-			showed = i < count;
+            var pos = Content.anchoredPosition;
+            pos.y = 0;
+            Content.anchoredPosition = pos;
 
-			_views [i].gameObject.SetActive (showed);
+            var y = Top;
 
-			if (showed) {
-				pos = _views [i].GetComponent<RectTransform> ().anchoredPosition;
-				pos.y = -y;
-				_views [i].GetComponent<RectTransform> ().anchoredPosition = pos;
+            for (int i = 0; i < Views.Length; i++)
+            {
+                var showed = i < count;
 
-				y += Spacing + ItemHeight;
+                Views[i].gameObject.SetActive(showed);
 
-				ItemShowed (i, _views [i]);
-			}
-		}
-	}
-}
+                if (showed)
+                {
+                    pos = Views[i].GetComponent<RectTransform>().anchoredPosition;
+                    pos.y = -y;
+                    Views[i].GetComponent<RectTransform>().anchoredPosition = pos;
 
-public class FriendItemView : MonoBehaviour
-{
-	[SerializeField]
-	private Text _nameText;
+                    y += Spacing + _itemHeight;
 
-	public void SetData (string friendName)
-	{
-		_nameText.text = friendName;
-	}
-}
+                    ItemShowed(i, Views[i]);
+                }
+            }
+        }
+    }
 
-public class Controller : MonoBehaviour
-{
-	[SerializeField]
-	private FriendsPopup _popup;
 
-	// Use this for initialization
-	void Start ()
-	{
-		_popup.ItemShowed += (index, view) => {
-			view.SetData ("item " + index);
-		};
+    public class FriendItemView : MonoBehaviour
+    {
+        [SerializeField]
+        private Text NameText;
 
-		_popup.SetData (1000);
-	}
+        public void SetData(string friendName)
+        {
+            NameText.text = friendName;
+        }
+    }
+
+
+    public class Controller : MonoBehaviour
+    {
+        [SerializeField]
+        private FriendsPopup Popup;
+
+        // Use this for initialization
+        void Start()
+        {
+            Popup.ItemShowed += (index, view) => { view.SetData("item " + index); };
+
+            Popup.SetData(1000);
+        }
+    }
 }
