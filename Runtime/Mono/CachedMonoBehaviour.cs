@@ -4,7 +4,7 @@
 using UnityEngine;
 
 
-namespace Client.Scripts.Algorithms.MonoBehaviours
+namespace Caxapexac.Common.Sharp.Runtime.Mono
 {
     /// <summary>
     /// MonoBehaviour with cached properties

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace Client.Scripts.Algorithms.MonoBehaviours
+namespace Caxapexac.Common.Sharp.Runtime.Mono
 {
     public class RtsMouseCamera : MonoBehaviour
     {

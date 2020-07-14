@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 
-namespace Client.Scripts.Algorithms.MonoBehaviours.Audio
+namespace Caxapexac.Common.Sharp.Runtime.Audio
 {
     public class AudioManager : MonoBehaviour
     {
@@ -49,7 +49,7 @@ namespace Client.Scripts.Algorithms.MonoBehaviours.Audio
 
             s.Source.Play();
         }
-        
+
         public void Stop(string sound)
         {
             Sound s = Array.Find(Sounds, item => item.Name == sound);

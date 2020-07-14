@@ -1,14 +1,11 @@
-//
-// Coded by afrokick 2016 
-//
-#pragma warning disable 0649
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
+#pragma warning disable 0649
 
-namespace Client.Scripts.Algorithms.MonoBehaviours.Gui
+// TODO
+namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
 {
     public class FriendsPopup : MonoBehaviour
     {
@@ -35,13 +32,11 @@ namespace Client.Scripts.Algorithms.MonoBehaviours.Gui
         {
             _y = Content.anchoredPosition.y - Spacing;
 
-            if (_y < 0)
-                return;
+            if (_y < 0) return;
 
             var inx = Mathf.FloorToInt(_y / (_itemHeight + Spacing));
 
-            if (_oldInd == inx)
-                return;
+            if (_oldInd == inx) return;
 
             //added to end
             if (inx > _oldInd)
@@ -50,8 +45,7 @@ namespace Client.Scripts.Algorithms.MonoBehaviours.Gui
 
                 newInd--;
 
-                if (newInd < 0)
-                    newInd = Views.Length - 1;
+                if (newInd < 0) newInd = Views.Length - 1;
 
                 var id = inx + Views.Length - 1;
 

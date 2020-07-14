@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 
 
-namespace Client.Scripts.Algorithms.MonoBehaviours.Gui
+namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
 {
     public class FpsDisplay : MonoBehaviour
     {

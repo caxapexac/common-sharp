@@ -2,7 +2,7 @@
 using UnityEngine.Audio;
 
 
-namespace Client.Scripts.Algorithms.MonoBehaviours.Audio
+namespace Caxapexac.Common.Sharp.Runtime.Audio
 {
     [System.Serializable]
     public class Sound

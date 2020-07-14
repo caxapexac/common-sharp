@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 
-namespace Client.Scripts.Algorithms.MonoBehaviours.Gui
+namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
 {
     /// <summary>
     /// A console to display Unity's debug logs in-game.
