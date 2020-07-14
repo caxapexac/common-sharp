@@ -1,7 +1,21 @@
 {
-    "name": "caxapexac.unity-cool-things",
-    "displayName": "caxapexac Unity Cool Things",
-    "version": "1.0.1",
-    "unity": "2019.2",
-    "description": "Useful features and extensions"
+  "name": "com.caxapexac.common.sharp",
+  "author": "caxapexac",
+  "displayName": "Caxapexac Common C# Collection",
+  "description": "Collection of C#/Unity3D classes to slightly improve workflow",
+  "unity": "2019.1",
+  "version": "2020.0.1",
+  "keywords": [
+    "csharp",
+    "c#",
+    "unity",
+    "unity3d",
+    "extensions",
+    "patterns"
+  ],
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/caxapexac/common-sharp.git"
+  }
 }
