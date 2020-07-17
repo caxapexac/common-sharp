@@ -11,7 +11,12 @@ Unity3D подобен куску говна. Когда юнитеки пыта
 а при попытке разработки на этом двигле приходится писать тонны велосипедов, 
 которые по-хорошему давно должны были быть стабильной частью архитектуры.
 
-Установка через package manager: 
-```
-"com.caxapexac.common.sharp": "https://github.com/caxapexac/common-sharp.git#master",
-```
+## Installation ##
+- Inside unity:
+  - Window
+  - Package Manager
+  - `+`
+  - From git URL...
+  - `https://github.com/caxapexac/common-sharp.git#master`
+- Inside manifest.json:
+  - ```"com.caxapexac.common.sharp": "https://github.com/caxapexac/common-sharp.git#master",```
