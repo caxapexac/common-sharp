@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Caxapexac.Common.Sharp.Runtime.Extensions
 {
-    public static class VectorMethods
+    public static class VectorExtension
     {
         public static Vector2 xy(this Vector3 v)
         {

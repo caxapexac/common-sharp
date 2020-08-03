@@ -1,6 +1,8 @@
 {
     "name": "Caxapexac.Common.Sharp.Editor",
-    "references": [],
+    "references": [
+        "GUID:961d57020783fab4b9c9289b0b6864dc"
+    ],
     "includePlatforms": [
         "Editor"
     ],

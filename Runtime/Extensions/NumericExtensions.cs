@@ -1,6 +1,6 @@
 ﻿namespace Caxapexac.Common.Sharp.Runtime.Extensions
 {
-    public static class NumericMethods
+    public static class NumericExtensions
     {
         public static float LinearRemap(this float value,
             float valueRangeMin, float valueRangeMax,

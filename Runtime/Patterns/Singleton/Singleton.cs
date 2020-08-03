@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace Caxapexac.Common.Sharp.Runtime.Patterns
+namespace Caxapexac.Common.Sharp.Runtime.Patterns.Singleton
 {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

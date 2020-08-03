@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+﻿using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+#endif
 
 
-namespace Project.Utility.Attributes
+namespace Caxapexac.Common.Sharp.Editor.Property
 {
     public class GreyOut : PropertyAttribute
     {

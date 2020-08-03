@@ -23,8 +23,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Mono
         {
             get
             {
-                if (_cachedTransform == null)
-                    _cachedTransform = base.transform;
+                if ((object)_cachedTransform == null) _cachedTransform = base.transform;
                 return _cachedTransform;
             }
         }
@@ -33,8 +32,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Mono
         {
             get
             {
-                if (_cachedRectTransform == null)
-                    _cachedRectTransform = transform as RectTransform;
+                if ((object)_cachedRectTransform == null) _cachedRectTransform = transform as RectTransform;
                 return _cachedRectTransform;
             }
         }
@@ -43,8 +41,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Mono
         {
             get
             {
-                if (_cachedGameObject == null)
-                    _cachedGameObject = base.gameObject;
+                if ((object)_cachedGameObject == null) _cachedGameObject = base.gameObject;
                 return _cachedGameObject;
             }
         }
@@ -53,8 +50,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Mono
         {
             get
             {
-                if (_cachedRigidbody2D == null)
-                    _cachedRigidbody2D = base.GetComponent<Rigidbody2D>();
+                if ((object)_cachedRigidbody2D == null) _cachedRigidbody2D = base.GetComponent<Rigidbody2D>();
                 return _cachedRigidbody2D;
             }
         }
@@ -63,8 +59,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Mono
         {
             get
             {
-                if (_cachedCollider == null)
-                    _cachedCollider = base.GetComponent<Collider>();
+                if ((object)_cachedCollider == null) _cachedCollider = base.GetComponent<Collider>();
 
                 return _cachedCollider;
             }
@@ -74,8 +69,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Mono
         {
             get
             {
-                if (_cachedRigidbody == null)
-                    _cachedRigidbody = base.GetComponent<Rigidbody>();
+                if ((object)_cachedRigidbody == null) _cachedRigidbody = base.GetComponent<Rigidbody>();
 
                 return _cachedRigidbody;
             }
@@ -85,8 +79,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Mono
         {
             get
             {
-                if (_cachedAudioSource == null)
-                    _cachedAudioSource = base.GetComponent<AudioSource>();
+                if ((object)_cachedAudioSource == null) _cachedAudioSource = base.GetComponent<AudioSource>();
 
                 return _cachedAudioSource;
             }

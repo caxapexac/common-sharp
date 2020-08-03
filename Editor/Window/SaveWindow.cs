@@ -11,7 +11,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window
         private float _saveTime = 300f;
         private float _nextSave = 0f;
 
-        [MenuItem("Window/SaveWindow")]
+        [MenuItem ("Window/Common/Save Window", false, 1)]
         public static void ShowSaveWindow()
         {
             SaveWindow sw = GetWindow<SaveWindow>("SAVER");

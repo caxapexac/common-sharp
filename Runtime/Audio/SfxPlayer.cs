@@ -1,4 +1,5 @@
 using Caxapexac.Common.Sharp.Runtime.Patterns;
+using Caxapexac.Common.Sharp.Runtime.Patterns.Singleton;
 using UnityEngine;
 
 

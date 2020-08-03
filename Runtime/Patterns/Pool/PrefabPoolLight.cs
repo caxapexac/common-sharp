@@ -4,7 +4,7 @@ using UnityEngine;
 // ReSharper disable CommentTypo
 
 
-namespace Caxapexac.Common.Sharp.Runtime.Patterns
+namespace Caxapexac.Common.Sharp.Runtime.Patterns.Pool
 {
     /* Leopotam:
      * я делаю как-то так
@@ -22,14 +22,14 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns
      * тут все нужно делать руками и внимательно следить за тем что грузишь
      * потому что эксепшнов в конструкторе быть не должно
      */
-    public sealed class PrefabPool<T> : IDisposable where T : Component
+    public sealed class PrefabPoolLight<T> : IDisposable where T : Component
     {
         private T[] _items = new T[8];
         private int _itemsCount;
 
         private T _prefab;
 
-        public PrefabPool(string prefabPath)
+        public PrefabPoolLight(string prefabPath)
         {
             _prefab = Resources.Load<T>(prefabPath);
         }
