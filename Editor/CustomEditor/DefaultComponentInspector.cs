@@ -17,11 +17,11 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
     /// </summary>
     [CanEditMultipleObjects]
     [UnityEditor.CustomEditor(typeof(Object), true, isFallback = true)]
-    sealed class DefaultComponentInspector : UnityEditor.Editor
+    internal sealed class DefaultComponentInspector : UnityEditor.Editor
     {
-        static Dictionary<string, ReorderableListProperty> _reorderableLists;
+        private static Dictionary<string, ReorderableListProperty> _reorderableLists;
 
-        void OnEnable()
+        private void OnEnable()
         {
             if (_reorderableLists == null)
             {
@@ -30,7 +30,7 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
             _reorderableLists.Clear();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             if (_reorderableLists != null)
             {
@@ -57,7 +57,7 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
             serializedObject.ApplyModifiedProperties();
         }
 
-        void DrawProperty(SerializedProperty property)
+        private void DrawProperty(SerializedProperty property)
         {
             if (property.name.Equals("m_Script")
                 && property.type.Equals("PPtr<MonoScript>")
@@ -76,7 +76,7 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
             }
         }
 
-        void DrawArray(SerializedProperty property)
+        private void DrawArray(SerializedProperty property)
         {
             if (EditorGUILayout.Foldout(property.isExpanded, property.displayName, true) != property.isExpanded)
             {
@@ -101,7 +101,7 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
             }
         }
 
-        ReorderableListProperty GetReorderableList(SerializedProperty property)
+        private ReorderableListProperty GetReorderableList(SerializedProperty property)
         {
             ReorderableListProperty retVal;
             if (_reorderableLists.TryGetValue(property.name, out retVal))
@@ -134,19 +134,19 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
                 List.elementHeightCallback += OnElementHeight;
             }
 
-            bool OnCanRemove(ReorderableList list)
+            private bool OnCanRemove(ReorderableList list)
             {
                 return List.count > 0;
             }
 
-            float OnElementHeight(int id)
+            private float OnElementHeight(int id)
             {
                 return 4f
                     + Mathf.Max(EditorGUIUtility.singleLineHeight,
                         EditorGUI.GetPropertyHeight(Property.GetArrayElementAtIndex(id), GUIContent.none, true));
             }
 
-            void OnDrawElement(Rect rect, int index, bool active, bool focused)
+            private void OnDrawElement(Rect rect, int index, bool active, bool focused)
             {
                 if (Property.GetArrayElementAtIndex(index).propertyType == SerializedPropertyType.Generic)
                 {

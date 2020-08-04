@@ -15,12 +15,12 @@ namespace Caxapexac.Common.Sharp.Runtime.Animation
     public sealed class SetIntOnStateExit : StateMachineBehaviour
     {
         [SerializeField]
-        string _intName;
+        private string IntName = "";
 
         [SerializeField]
-        int _intValue;
+        private int IntValue = 0;
 
-        int _fieldHash = -1;
+        private int _fieldHash = -1;
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -28,15 +28,15 @@ namespace Caxapexac.Common.Sharp.Runtime.Animation
             if (_fieldHash == -1)
             {
 #if UNITY_EDITOR
-                if (string.IsNullOrEmpty(_intName))
+                if (string.IsNullOrEmpty(IntName))
                 {
                     Debug.LogWarning("Integer field name is empty", animator);
                     return;
                 }
 #endif
-                _fieldHash = Animator.StringToHash(_intName);
+                _fieldHash = Animator.StringToHash(IntName);
             }
-            animator.SetInteger(_fieldHash, _intValue);
+            animator.SetInteger(_fieldHash, IntValue);
         }
     }
 }

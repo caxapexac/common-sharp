@@ -55,38 +55,38 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra {
         /// </summary>
         public const float Deg2Rad = PI / 180f;
 
-        const int SinCosIndexMask = ~(-1 << 12);
+        private const int SinCosIndexMask = ~(-1 << 12);
 
-        static readonly float[] _sinCache;
+        private static readonly float[] _sinCache;
 
-        static readonly float[] _cosCache;
+        private static readonly float[] _cosCache;
 
-        const float SinCosIndexFactor = SinCosCacheSize / PI_2;
+        private const float SinCosIndexFactor = SinCosCacheSize / PI_2;
 
-        const int SinCosCacheSize = SinCosIndexMask + 1;
+        private const int SinCosCacheSize = SinCosIndexMask + 1;
 
-        const int Atan2Size = 1024;
+        private const int Atan2Size = 1024;
 
-        const int Atan2NegSize = -Atan2Size;
+        private const int Atan2NegSize = -Atan2Size;
 
-        static float[] _atan2CachePPY = new float[Atan2Size + 1];
+        private static float[] _atan2CachePPY = new float[Atan2Size + 1];
 
-        static float[] _atan2CachePPX = new float[Atan2Size + 1];
+        private static float[] _atan2CachePPX = new float[Atan2Size + 1];
 
-        static float[] _atan2CachePNY = new float[Atan2Size + 1];
+        private static float[] _atan2CachePNY = new float[Atan2Size + 1];
 
-        static float[] _atan2CachePNX = new float[Atan2Size + 1];
+        private static float[] _atan2CachePNX = new float[Atan2Size + 1];
 
-        static float[] _atan2CacheNPY = new float[Atan2Size + 1];
+        private static float[] _atan2CacheNPY = new float[Atan2Size + 1];
 
-        static float[] _atan2CacheNPX = new float[Atan2Size + 1];
+        private static float[] _atan2CacheNPX = new float[Atan2Size + 1];
 
-        static float[] _atan2CacheNNY = new float[Atan2Size + 1];
+        private static float[] _atan2CacheNNY = new float[Atan2Size + 1];
 
-        static float[] _atan2CacheNNX = new float[Atan2Size + 1];
+        private static float[] _atan2CacheNNX = new float[Atan2Size + 1];
 
         [StructLayout (LayoutKind.Explicit)]
-        struct FloatInt {
+        private struct FloatInt {
             [FieldOffset (0)]
             public float Float;
 
@@ -95,7 +95,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra {
         }
 
         [StructLayout (LayoutKind.Explicit)]
-        struct DoubleInt64 {
+        private struct DoubleInt64 {
             [FieldOffset (0)]
             public double Double;
 

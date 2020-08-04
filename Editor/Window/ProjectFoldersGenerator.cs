@@ -16,7 +16,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window
     /// <summary>
     /// Project folders generator.
     /// </summary>
-    sealed class ProjectFoldersGenerator : EditorWindow
+    internal sealed class ProjectFoldersGenerator : EditorWindow
     {
         [Flags]
         public enum Options
@@ -47,7 +47,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window
         }
 
 
-        static readonly Dictionary<int, List<string>> DefinedPaths = new Dictionary<int, List<string>>
+        private static readonly Dictionary<int, List<string>> DefinedPaths = new Dictionary<int, List<string>>
         {
             {
                 (int)Options.Animations, new List<string> {"Sources", "Controllers"}
@@ -58,44 +58,44 @@ namespace Caxapexac.Common.Sharp.Editor.Window
             }
         };
 
-        const string Title = "Project folders generator";
+        private const string Title = "Project folders generator";
 
-        const Options DefaultOptions = (Options)(-1);
+        private const Options DefaultOptions = (Options)(-1);
 
-        const Options RootOnlyOptions = Options.Plugins;
+        private const Options RootOnlyOptions = Options.Plugins;
 
-        const string DefaultRootProjectFolder = "Client";
+        private const string DefaultRootProjectFolder = "Client";
 
-        const string DefaultCvsFileName = "RemoveMe.txt";
+        private const string DefaultCvsFileName = "RemoveMe.txt";
 
-        string _projectRootFolder;
+        private string _projectRootFolder;
 
-        Options _options;
+        private Options _options;
 
-        bool _cvsSupport;
+        private bool _cvsSupport;
 
-        string _cvsFileName;
+        private string _cvsFileName;
 
-        string[] _optionNames;
+        private string[] _optionNames;
 
         [MenuItem("Window/Common/Project Folders Generator...", false, 1)]
-        static void InitGeneration()
+        private static void InitGeneration()
         {
             var win = GetWindow<ProjectFoldersGenerator>(true);
             win.Reset();
         }
 
-        void Awake()
+        private void Awake()
         {
             Reset();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             titleContent.text = Title;
         }
 
-        void Reset()
+        private void Reset()
         {
             _projectRootFolder = DefaultRootProjectFolder;
             _options = DefaultOptions;
@@ -103,7 +103,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window
             _cvsFileName = DefaultCvsFileName;
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             if (_optionNames == null)
             {
@@ -142,7 +142,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window
             }
         }
 
-        static void GenerateCvsSupport(string path, string cvsFileName)
+        private static void GenerateCvsSupport(string path, string cvsFileName)
         {
             if (!string.IsNullOrEmpty(cvsFileName))
             {
@@ -154,7 +154,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window
             }
         }
 
-        static void GenerateItem(string rootFolder, int item, string cvsFileName)
+        private static void GenerateItem(string rootFolder, int item, string cvsFileName)
         {
             var fullPath = (((int)RootOnlyOptions) & item) != 0 ? Application.dataPath : Path.Combine(Application.dataPath, rootFolder);
 

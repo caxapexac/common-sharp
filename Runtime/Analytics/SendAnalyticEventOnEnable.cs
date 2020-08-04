@@ -16,16 +16,16 @@ namespace Caxapexac.Common.Sharp.Runtime.Analytics
     public sealed class SendAnalyticEventOnEnable : MonoBehaviour
     {
         [SerializeField]
-        string _category = "Category";
+        private string Category = "Category";
 
         [SerializeField]
-        string _event = "Event";
+        private string Event = "Event";
 
-        void OnEnable()
+        private void OnEnable()
         {
-            if (!string.IsNullOrEmpty(_category) && !string.IsNullOrEmpty(_event))
+            if (!string.IsNullOrEmpty(Category) && !string.IsNullOrEmpty(Event))
             {
-                Service<GoogleAnalyticsManager>.Get().TrackEvent(_category, _event);
+                Service<GoogleAnalyticsManager>.Get().TrackEvent(Category, Event);
             }
         }
     }

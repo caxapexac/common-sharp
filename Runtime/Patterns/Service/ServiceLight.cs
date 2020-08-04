@@ -16,7 +16,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns.Service
     /// </summary>
     public sealed class ServiceLight<T> where T : class
     {
-        static T _instance;
+        private static T _instance;
 
         /// <summary>
         /// Gets global instance of T type.

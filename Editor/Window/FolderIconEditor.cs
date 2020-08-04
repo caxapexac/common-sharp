@@ -6,16 +6,16 @@
 
 using System;
 using System.Collections.Generic;
+using Caxapexac.Common.Sharp.Runtime.Data;
 using Caxapexac.Common.Sharp.Runtime.Patterns;
 using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
-using LeopotamGroup.Serialization;
 using UnityEditor;
 using UnityEngine;
 
 namespace LeopotamGroup.EditorHelpers.UnityEditors {
-    sealed class FolderIconEditor : EditorWindow {
-        class FolderIconDesc {
-            Color32? _validColor;
+    internal sealed class FolderIconEditor : EditorWindow {
+        private class FolderIconDesc {
+            private Color32? _validColor;
 
             [JsonIgnore]
             public Color32 ValidColor {
@@ -40,26 +40,27 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             public string OverlayIcon;
         }
 
-        const string Title = "Folder Icon Editor";
 
-        const int IconSize = 64;
+        private const string Title = "Folder Icon Editor";
 
-        const string FolderIconName = "Folder Icon";
+        private const int IconSize = 64;
 
-        const string StorageKey = "lg.folder-icons";
+        private const string FolderIconName = "Folder Icon";
 
-        static Texture2D _folderIconBack;
+        private const string StorageKey = "lg.folder-icons";
 
-        static Dictionary<string, FolderIconDesc> _allDescs;
+        private static Texture2D _folderIconBack;
 
-        string _folderPath;
+        private static Dictionary<string, FolderIconDesc> _allDescs;
 
-        string _folderGuid;
+        private string _folderPath;
 
-        FolderIconDesc _folderDesc;
+        private string _folderGuid;
+
+        private FolderIconDesc _folderDesc;
 
         [InitializeOnLoadMethod]
-        static void InitFolderIconEditor () {
+        private static void InitFolderIconEditor () {
             EditorApplication.projectWindowItemOnGUI += OnDrawProjectWindowItem;
             if ((object) _folderIconBack == null) {
                 _folderIconBack = EditorGUIUtility.Load (FolderIconName) as Texture2D;
@@ -68,7 +69,7 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             SaveInfo ();
         }
 
-        static void LoadInfo () {
+        private static void LoadInfo () {
             try {
                 _allDescs = Service<JsonSerialization>.Get ()
                     .Deserialize<Dictionary<string, FolderIconDesc>> (
@@ -81,7 +82,7 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             }
         }
 
-        static void SaveInfo () {
+        private static void SaveInfo () {
             if (_allDescs.Count > 0) {
                 try {
                     ProjectPrefs.SetString (StorageKey, Service<JsonSerialization>.Get ().Serialize (_allDescs));
@@ -93,7 +94,7 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             }
         }
 
-        static void OnDrawProjectWindowItem (string guid, Rect rect) {
+        private static void OnDrawProjectWindowItem (string guid, Rect rect) {
             var path = AssetDatabase.GUIDToAssetPath (guid);
             if (AssetDatabase.IsValidFolder (path)) {
                 var icon = GetCustomIcon (guid);
@@ -127,12 +128,12 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             }
         }
 
-        static FolderIconDesc GetCustomIcon (string guid) {
+        private static FolderIconDesc GetCustomIcon (string guid) {
             return _allDescs.ContainsKey (guid) ? _allDescs[guid] : null;
         }
 
         [MenuItem ("Assets/Common/Folder Icon Editor...", false, 1)]
-        static void OpenUi () {
+        private static void OpenUi () {
             var path = AssetDatabase.GetAssetPath (Selection.activeObject);
             if (!string.IsNullOrEmpty (path) && AssetDatabase.IsValidFolder (path)) {
                 var win = GetWindow<FolderIconEditor> (true);
@@ -143,23 +144,23 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
         }
 
         [MenuItem ("Assets/Common/Folder Icon Editor Reset", false, 100)]
-        static void ClearAllUi () {
+        private static void ClearAllUi () {
             _allDescs.Clear ();
             SaveInfo ();
             EditorUtility.DisplayDialog (Title, "Successfully reset", "Close");
         }
 
-        void Init (string folderPath) {
+        private void Init (string folderPath) {
             _folderPath = folderPath;
             _folderGuid = AssetDatabase.AssetPathToGUID (_folderPath);
             _folderDesc = GetCustomIcon (_folderGuid) ?? new FolderIconDesc ();
         }
 
-        void OnEnable () {
+        private void OnEnable () {
             titleContent.text = Title;
         }
 
-        void OnGUI () {
+        private void OnGUI () {
             if (_folderDesc == null) {
                 Close ();
                 return;
@@ -191,11 +192,11 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             }
         }
 
-        void OnLostFocus () {
+        private void OnLostFocus () {
             Close ();
         }
 
-        void OnDisable () {
+        private void OnDisable () {
             SaveInfo ();
         }
     }

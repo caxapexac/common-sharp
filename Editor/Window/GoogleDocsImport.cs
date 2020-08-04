@@ -18,22 +18,22 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
     /// <summary>
     /// GoogleDocs data downloader.
     /// </summary>
-    sealed class GoogleDocsDownloader : EditorWindow {
-        const string StorePath = "{0}/../ProjectSettings/com.leopotam.googledocs.import.txt";
-        const string Title = "GoogleDocs Downloader";
-        const string UrlDefault = "http://localhost";
-        const string ResDefault = "NewCsv.csv";
-        static readonly Regex CsvMultilineFixRegex = new Regex ("\"([^\"]|\"\"|\\n)*\"");
-        static readonly Regex CsvParseRegex = new Regex ("(?<=^|,)(\"(?:[^\"]|\"\")*\"|[^,]*)");
-        static readonly List<string> _csvBuffer = new List<string> (32);
-        List<RecordInfo> _items;
-        Vector2 _scrollPos;
-        string _newUrl;
-        string _newAsset;
-        JsonMode _newMode;
+    internal sealed class GoogleDocsDownloader : EditorWindow {
+        private const string StorePath = "{0}/../ProjectSettings/com.leopotam.googledocs.import.txt";
+        private const string Title = "GoogleDocs Downloader";
+        private const string UrlDefault = "http://localhost";
+        private const string ResDefault = "NewCsv.csv";
+        private static readonly Regex CsvMultilineFixRegex = new Regex ("\"([^\"]|\"\"|\\n)*\"");
+        private static readonly Regex CsvParseRegex = new Regex ("(?<=^|,)(\"(?:[^\"]|\"\")*\"|[^,]*)");
+        private static readonly List<string> _csvBuffer = new List<string> (32);
+        private List<RecordInfo> _items;
+        private Vector2 _scrollPos;
+        private string _newUrl;
+        private string _newAsset;
+        private JsonMode _newMode;
 
         [MenuItem ("Window/Common/Google Docs Downloader...", false, 1)]
-        static void OpenEditorWindow () {
+        private static void OpenEditorWindow () {
             var win = GetWindow<GoogleDocsDownloader> (true);
             var pos = win.position;
             pos.width = 600f;
@@ -42,11 +42,11 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             win.titleContent.text = Title;
         }
 
-        void OnEnable () {
+        private void OnEnable () {
             _scrollPos = Vector2.zero;
         }
 
-        void OnGUI () {
+        private void OnGUI () {
             if (_items == null) {
                 _items = LoadSettings ();
             }
@@ -118,7 +118,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             GUI.enabled = true;
         }
 
-        static List<RecordInfo> LoadSettings () {
+        private static List<RecordInfo> LoadSettings () {
             List<RecordInfo> res;
             try {
                 var assetPath = string.Format (StorePath, Application.dataPath);
@@ -133,7 +133,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             return res;
         }
 
-        static void SaveSettings (List<RecordInfo> items) {
+        private static void SaveSettings (List<RecordInfo> items) {
             var assetPath = string.Format (StorePath, Application.dataPath);
             if (items != null && items.Count > 0) {
                 var data = new SavedData ();
@@ -146,7 +146,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             }
         }
 
-        static string ConvertToDictJson (string data) {
+        private static string ConvertToDictJson (string data) {
             var sb = new StringBuilder (data.Length * 2);
             var list = CsvToDict (data);
             if (list.Count < 2) {
@@ -205,7 +205,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             return sb.ToString ();
         }
 
-        static string ConvertToArrayJson (string data) {
+        private static string ConvertToArrayJson (string data) {
             var sb = new StringBuilder (data.Length * 2);
             var list = CsvToArray (data);
             if (list.Count < 2) {
@@ -257,7 +257,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             return sb.ToString ();
         }
 
-        static void ParseCsvLine (string data) {
+        private static void ParseCsvLine (string data) {
             _csvBuffer.Clear ();
             foreach (Match m in CsvParseRegex.Matches (data)) {
                 var part = m.Value.Trim ();
@@ -271,7 +271,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             }
         }
 
-        static Dictionary<string, string[]> CsvToDict (string data) {
+        private static Dictionary<string, string[]> CsvToDict (string data) {
             var list = new Dictionary<string, string[]> ();
             var headerLen = -1;
             string key;
@@ -295,7 +295,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             return list;
         }
 
-        static List<string[]> CsvToArray (string data) {
+        private static List<string[]> CsvToArray (string data) {
             var list = new List<string[]> ();
             var headerLen = -1;
             using (var reader = new StringReader (data)) {
@@ -364,7 +364,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
         }
 
         [Serializable]
-        sealed class SavedData {
+        private sealed class SavedData {
             public List<RecordInfo> Items;
         }
 

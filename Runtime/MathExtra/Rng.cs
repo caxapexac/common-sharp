@@ -11,21 +11,21 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
     /// </summary>
     public sealed class Rng
     {
-        const int N = 624;
+        private const int N = 624;
 
-        const int M = 397;
+        private const int M = 397;
 
-        const ulong MatrixA = 0x9908b0dfUL;
+        private const ulong MatrixA = 0x9908b0dfUL;
 
-        const ulong UpperMask = 0x80000000UL;
+        private const ulong UpperMask = 0x80000000UL;
 
-        const ulong LowerMask = 0x7fffffffUL;
+        private const ulong LowerMask = 0x7fffffffUL;
 
-        readonly ulong[] _mt = new ulong[N];
+        private readonly ulong[] _mt = new ulong[N];
 
-        readonly ulong[] _mag01 = {0x0UL, MatrixA};
+        private readonly ulong[] _mag01 = {0x0UL, MatrixA};
 
-        int _mti = N + 1;
+        private int _mti = N + 1;
 
         /// <summary>
         /// Default initialization.
@@ -43,7 +43,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             SetSeed(seed);
         }
 
-        ulong GetRandomUInt32()
+        private ulong GetRandomUInt32()
         {
             ulong y;
             if (_mti >= N)

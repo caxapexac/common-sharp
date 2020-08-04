@@ -16,19 +16,19 @@ namespace Caxapexac.Common.Sharp.Runtime.Collections
     /// </summary>
     public class FastStack<T>
     {
-        const int InitCapacity = 8;
+        private const int InitCapacity = 8;
 
-        T[] _items;
+        private T[] _items;
 
-        int _capacity;
+        private int _capacity;
 
-        int _count;
+        private int _count;
 
-        readonly bool _isNullable;
+        private readonly bool _isNullable;
 
-        readonly EqualityComparer<T> _comparer;
+        private readonly EqualityComparer<T> _comparer;
 
-        bool _useObjectCastComparer;
+        private bool _useObjectCastComparer;
 
         /// <summary>
         /// Default constructor.

@@ -27,7 +27,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers
         /// </summary>
         public static readonly WaitForFixedUpdate WaitForFixedUpdate = new WaitForFixedUpdate();
 
-        static readonly Dictionary<float, FastList<IEnumerator>> _waitForSeconds = new Dictionary<float, FastList<IEnumerator>>(4);
+        private static readonly Dictionary<float, FastList<IEnumerator>> _waitForSeconds = new Dictionary<float, FastList<IEnumerator>>(4);
 
         /// <summary>
         /// Get WaitForSeconds yield instruction.
@@ -69,13 +69,13 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers
         /// <summary>
         /// Custom WaitForSeconds implementation for support pooling / reset.
         /// </summary>
-        sealed class CustomWaitForSeconds : IEnumerator
+        private sealed class CustomWaitForSeconds : IEnumerator
         {
-            float _delay;
+            private float _delay;
 
-            IList<IEnumerator> _poolList;
+            private IList<IEnumerator> _poolList;
 
-            float _endTime;
+            private float _endTime;
 
             object IEnumerator.Current
             {

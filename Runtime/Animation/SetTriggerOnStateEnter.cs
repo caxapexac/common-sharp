@@ -15,12 +15,12 @@ namespace Caxapexac.Common.Sharp.Runtime.Animation
     public sealed class SetTriggerOnStateEnter : StateMachineBehaviour
     {
         [SerializeField]
-        string _triggerName;
+        private string TriggerName = "";
 
         [SerializeField]
-        bool _triggerValue;
+        private bool TriggerValue = false;
 
-        int _fieldHash = -1;
+        private int _fieldHash = -1;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -28,16 +28,16 @@ namespace Caxapexac.Common.Sharp.Runtime.Animation
             if (_fieldHash == -1)
             {
 #if UNITY_EDITOR
-                if (string.IsNullOrEmpty(_triggerName))
+                if (string.IsNullOrEmpty(TriggerName))
                 {
                     Debug.LogWarning("Trigger field name is empty", animator);
                     return;
                 }
 #endif
-                _fieldHash = Animator.StringToHash(_triggerName);
+                _fieldHash = Animator.StringToHash(TriggerName);
             }
 
-            if (_triggerValue)
+            if (TriggerValue)
             {
                 animator.SetTrigger(_fieldHash);
             }

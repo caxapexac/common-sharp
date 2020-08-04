@@ -49,21 +49,21 @@ namespace Caxapexac.Common.Sharp.Editor.Other
     public static class GameObjectIcon
     {
 #if UNITY_EDITOR
-        static readonly List<Texture2D> _icons;
+        private static readonly List<Texture2D> _icons;
 
-        const string SetIconMethodName = "SetIconForObject";
+        private const string SetIconMethodName = "SetIconForObject";
 
-        const string LabelIconMask = "sv_label_";
+        private const string LabelIconMask = "sv_label_";
 
-        const string ImageIconMask = "sv_icon_dot";
+        private const string ImageIconMask = "sv_icon_dot";
 
-        const string ImageIconSmallSuffix = "_sml";
+        private const string ImageIconSmallSuffix = "_sml";
 
-        const string ImageIconLargeSuffix = "_pix16_gizmo";
+        private const string ImageIconLargeSuffix = "_pix16_gizmo";
 
-        static readonly MethodInfo _setIcon;
+        private static readonly MethodInfo _setIcon;
 
-        static readonly object[] _setIconArgs;
+        private static readonly object[] _setIconArgs;
 
         static GameObjectIcon()
         {
@@ -76,7 +76,7 @@ namespace Caxapexac.Common.Sharp.Editor.Other
             FillIcons(_icons, ImageIconMask, ImageIconLargeSuffix, 16);
         }
 
-        static void FillIcons(IList<Texture2D> dict, string baseName, string suffix, int count)
+        private static void FillIcons(IList<Texture2D> dict, string baseName, string suffix, int count)
         {
             GUIContent content;
             for (var i = 0; i < count; i++)
@@ -86,13 +86,13 @@ namespace Caxapexac.Common.Sharp.Editor.Other
             }
         }
 
-        static Texture2D GetIconTexture(int iconOffset, int iconId)
+        private static Texture2D GetIconTexture(int iconOffset, int iconId)
         {
             iconOffset = Mathf.Clamp(iconOffset + iconId, 0, _icons.Count - 1);
             return _icons[iconOffset];
         }
 
-        static void SetIcon(GameObject go, Texture2D icon)
+        private static void SetIcon(GameObject go, Texture2D icon)
         {
             _setIconArgs[0] = go;
             _setIconArgs[1] = icon;

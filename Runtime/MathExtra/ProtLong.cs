@@ -32,13 +32,13 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             }
         }
 
-        const ulong XorMask = 0xaaaaaaaaaaaaaaaa;
+        private const ulong XorMask = 0xaaaaaaaaaaaaaaaa;
 
         [FieldOffset(0)]
-        long _encrypt;
+        private long _encrypt;
 
         [FieldOffset(0)]
-        ulong _conv;
+        private ulong _conv;
 
         public static implicit operator long(ProtLong v)
         {

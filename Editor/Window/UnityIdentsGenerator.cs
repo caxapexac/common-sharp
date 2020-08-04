@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Caxapexac.Common.Sharp.Runtime.Data;
+using LeopotamGroup.EditorHelpers;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -17,7 +19,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
     /// <summary>
     /// Unity idents generator.
     /// </summary>
-    class UnityIdentsGenerator : EditorWindow {
+    internal class UnityIdentsGenerator : EditorWindow {
         [Flags]
         public enum Options {
             Layers = 1,
@@ -29,17 +31,18 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             SortingLayers = 64
         }
 
-        const string Title = "Unity idents generator";
 
-        const string SettingsKey = "lg.unity-idents";
+        private const string Title = "Unity idents generator";
 
-        const string DefaultFilename = "Client/Scripts/Common/UnityIdents.cs";
+        private const string SettingsKey = "lg.unity-idents";
 
-        const string DefaultNamespace = "Client.Common";
+        private const string DefaultFilename = "Client/Scripts/Common/UnityIdents.cs";
 
-        const string DefaultIgnoredPaths = "";
+        private const string DefaultNamespace = "Client.Common";
 
-        const Options DefaultOptions = (Options) (-1);
+        private const string DefaultIgnoredPaths = "";
+
+        private const Options DefaultOptions = (Options) (-1);
 
         public class GenerationSettings {
             [JsonName ("o")]
@@ -52,38 +55,39 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             public string IgnoredPaths = DefaultIgnoredPaths;
         }
 
-        const string CodeTemplate =
+
+        private const string CodeTemplate =
             "// Auto generated code, dont change it manually!\n\n" +
             "using UnityEngine;\n\nnamespace {0} {{\n\tpublic static partial class {1} {{\n{2}\n\t}}\n}}";
 
-        const string LayerName = "{0}public static readonly int Layer{1} = LayerMask.NameToLayer (\"{2}\");";
+        private const string LayerName = "{0}public static readonly int Layer{1} = LayerMask.NameToLayer (\"{2}\");";
 
-        const string LayerMask = "{0}public static readonly int MaskLayer{1} = 1 << Layer{1};";
+        private const string LayerMask = "{0}public static readonly int MaskLayer{1} = 1 << Layer{1};";
 
-        const string TagName = "{0}public const string Tag{1} = \"{2}\";";
+        private const string TagName = "{0}public const string Tag{1} = \"{2}\";";
 
-        const string SceneName = "{0}public const string Scene{1} = \"{2}\";";
+        private const string SceneName = "{0}public const string Scene{1} = \"{2}\";";
 
-        const string AnimatorName = "{0}public static readonly int Animator{1} = Animator.StringToHash (\"{2}\");";
+        private const string AnimatorName = "{0}public static readonly int Animator{1} = Animator.StringToHash (\"{2}\");";
 
-        const string AxisName = "{0}public const string Axis{1} = \"{2}\";";
+        private const string AxisName = "{0}public const string Axis{1} = \"{2}\";";
 
-        const string ShaderName = "{0}public static readonly int Shader{1} = Shader.PropertyToID (\"{2}\");";
+        private const string ShaderName = "{0}public static readonly int Shader{1} = Shader.PropertyToID (\"{2}\");";
 
-        const string SortingLayerName = "{0}public const int SortingLayer{1} = {2};";
+        private const string SortingLayerName = "{0}public const int SortingLayer{1} = {2};";
 
-        GenerationSettings _settings;
+        private GenerationSettings _settings;
 
-        string[] _optionNames;
+        private string[] _optionNames;
 
-        readonly JsonSerialization _serializer = new JsonSerialization ();
+        private readonly JsonSerialization _serializer = new JsonSerialization ();
 
         [MenuItem ("Window/Common/Unity Idents Generator...", false, 1)]
-        static void InitGeneration () {
+        private static void InitGeneration () {
             GetWindow<UnityIdentsGenerator> (true);
         }
 
-        void OnEnable () {
+        private void OnEnable () {
             titleContent.text = Title;
             _settings = null;
             try {
@@ -94,7 +98,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             }
         }
 
-        void OnGUI () {
+        private void OnGUI () {
             if (_optionNames == null) {
                 _optionNames = Enum.GetNames (typeof (Options));
             }
@@ -123,7 +127,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             }
         }
 
-        static bool ShouldBeIgnored (string assetPath, string[] ignoredPaths) {
+        private static bool ShouldBeIgnored (string assetPath, string[] ignoredPaths) {
             if (string.IsNullOrEmpty (assetPath)) {
                 return true;
             }
@@ -140,7 +144,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             return i != -1;
         }
 
-        static string GenerateFields (string indent, GenerationSettings settings) {
+        private static string GenerateFields (string indent, GenerationSettings settings) {
             var lines = new List<string> (128);
             var uniquesList = new HashSet<string> ();
             var options = settings.Options;
@@ -238,7 +242,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             return string.Join ("\n\n", lines.ToArray ());
         }
 
-        static string CleanupName (string dirtyName) {
+        private static string CleanupName (string dirtyName) {
             // cant use "CultureInfo.InvariantCulture.TextInfo.ToTitleCase" due it will break already upcased chars.
             var sb = new StringBuilder ();
             var needUp = true;
@@ -253,7 +257,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
             return sb.ToString ();
         }
 
-        static string CleanupValue (string dirtyValue) {
+        private static string CleanupValue (string dirtyValue) {
             return dirtyValue.Replace ("\"", "\\\"");
         }
 

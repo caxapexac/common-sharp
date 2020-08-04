@@ -10,9 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using Caxapexac.Common.Sharp.Runtime.Data;
 using Caxapexac.Common.Sharp.Runtime.Patterns;
 using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
-using LeopotamGroup.Serialization;
 using UnityEngine;
 
 namespace LeopotamGroup.EditorHelpers {
@@ -20,17 +20,17 @@ namespace LeopotamGroup.EditorHelpers {
     /// EditorPrefs replacement with keeping data per project.
     /// </summary>
     public static class ProjectPrefs {
-        const string StorePath = "{0}/../ProjectSettings/LeopotamGroupProjectPrefs.txt";
+        private const string StorePath = "{0}/../ProjectSettings/LeopotamGroupProjectPrefs.txt";
 
-        static string _storeFile;
+        private static string _storeFile;
 
-        static Dictionary<string, string> _data;
+        private static Dictionary<string, string> _data;
 
         static ProjectPrefs () {
             Service<JsonSerialization>.Get ();
         }
 
-        static void LoadData () {
+        private static void LoadData () {
             if (_storeFile == null) {
                 _storeFile = string.Format (StorePath, Application.dataPath);
             }
@@ -48,7 +48,7 @@ namespace LeopotamGroup.EditorHelpers {
             }
         }
 
-        static void SaveData () {
+        private static void SaveData () {
             try {
                 if (_data.Count > 0) {
                     File.WriteAllText (_storeFile, Service<JsonSerialization>.Get ().Serialize (_data));

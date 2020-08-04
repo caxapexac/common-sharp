@@ -11,17 +11,17 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
     /// </summary>
     public sealed class RngFast
     {
-        const double InvMaxIntExOne = 1.0 / (int.MaxValue + 1.0);
+        private const double InvMaxIntExOne = 1.0 / (int.MaxValue + 1.0);
 
-        const double InvIntMax = 1.0 / int.MaxValue;
+        private const double InvIntMax = 1.0 / int.MaxValue;
 
-        uint _x;
+        private uint _x;
 
-        uint _y;
+        private uint _y;
 
-        uint _z;
+        private uint _z;
 
-        uint _w;
+        private uint _w;
 
         /// <summary>
         /// Default initialization.

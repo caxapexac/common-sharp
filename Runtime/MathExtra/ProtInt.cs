@@ -32,13 +32,13 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             }
         }
 
-        const uint XorMask = 0xaaaaaaaa;
+        private const uint XorMask = 0xaaaaaaaa;
 
         [FieldOffset(0)]
-        int _encrypt;
+        private int _encrypt;
 
         [FieldOffset(0)]
-        uint _conv;
+        private uint _conv;
 
         public static implicit operator int(ProtInt v)
         {

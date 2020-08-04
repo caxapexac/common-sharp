@@ -57,19 +57,19 @@ namespace Caxapexac.Common.Sharp.Runtime.Collections
             }
         }
 
-        const int InitCapacity = 8;
+        private const int InitCapacity = 8;
 
-        readonly bool _isNullable;
+        private readonly bool _isNullable;
 
-        T[] _items;
+        private T[] _items;
 
-        int _count;
+        private int _count;
 
-        int _capacity;
+        private int _capacity;
 
-        readonly EqualityComparer<T> _comparer;
+        private readonly EqualityComparer<T> _comparer;
 
-        bool _useObjectCastComparer;
+        private bool _useObjectCastComparer;
 
         /// <summary>
         /// Default constructor.

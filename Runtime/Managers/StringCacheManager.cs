@@ -16,11 +16,11 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers
     /// </summary>
     public sealed class StringCacheManager<T>
     {
-        readonly Dictionary<T, string> _cache;
+        private readonly Dictionary<T, string> _cache;
 
-        readonly string _format;
+        private readonly string _format;
 
-        readonly IFormatProvider _formatter;
+        private readonly IFormatProvider _formatter;
 
         /// <summary>
         /// Create new instance of strings cache.

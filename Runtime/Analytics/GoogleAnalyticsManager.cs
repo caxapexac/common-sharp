@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using Caxapexac.Common.Sharp.Runtime.Managers;
 using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
 using Leopotam.Localization;
 using UnityEngine;
@@ -23,14 +24,14 @@ namespace Caxapexac.Common.Sharp.Runtime.Analytics
     public sealed class GoogleAnalyticsManager : MonoBehaviourService<GoogleAnalyticsManager>
     {
         [SerializeField]
-        string _trackerId;
+        private string TrackerId = "";
 
         /// <summary>
         /// Is TrackerID filled ans manager ready to send data.
         /// </summary>
         public bool IsInited
         {
-            get { return !string.IsNullOrEmpty(_trackerId); }
+            get { return !string.IsNullOrEmpty(TrackerId); }
         }
 
         /// <summary>
@@ -73,15 +74,15 @@ namespace Caxapexac.Common.Sharp.Runtime.Analytics
             }
         }
 
-        const string AnalyticsUrl = "http://www.google-analytics.com/collect?v=1&tid={0}&cid={1}&sr={2}x{3}&an={4}&av={5}&z=";
+        private const string AnalyticsUrl = "http://www.google-analytics.com/collect?v=1&tid={0}&cid={1}&sr={2}x{3}&an={4}&av={5}&z=";
 
-        const string DeviceHashKey = "_deviceHash";
+        private const string DeviceHashKey = "_deviceHash";
 
-        readonly Queue<string> _requests = new Queue<string>(64);
+        private readonly Queue<string> _requests = new Queue<string>(64);
 
-        string _requestUrl;
+        private string _requestUrl;
 
-        string _deviceHash;
+        private string _deviceHash;
 
         protected override void OnCreateService()
         {
@@ -92,7 +93,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Analytics
         {
         }
 
-        IEnumerator Start()
+        private IEnumerator Start()
         {
             _requestUrl = null;
 
@@ -100,14 +101,14 @@ namespace Caxapexac.Common.Sharp.Runtime.Analytics
             yield return null;
 
 #if UNITY_EDITOR
-            if (string.IsNullOrEmpty(_trackerId))
+            if (string.IsNullOrEmpty(TrackerId))
             {
                 Debug.LogWarning("GA.TrackerID not defined");
             }
 #endif
-            if (!string.IsNullOrEmpty(_trackerId))
+            if (!string.IsNullOrEmpty(TrackerId))
             {
-                _requestUrl = string.Format(AnalyticsUrl, _trackerId, DeviceHash, Screen.width,
+                _requestUrl = string.Format(AnalyticsUrl, TrackerId, DeviceHash, Screen.width,
                     Screen.height, Application.identifier, Application.version);
             }
 
@@ -147,7 +148,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Analytics
             }
         }
 
-        void EnqueueRequest(string url)
+        private void EnqueueRequest(string url)
         {
             _requests.Enqueue(url);
         }

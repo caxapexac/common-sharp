@@ -12,9 +12,9 @@ using UnityEngine;
 namespace Caxapexac.Common.Sharp.Editor.Property
 {
     [CustomPropertyDrawer(typeof(HtmlColorAttribute))]
-    sealed class HtmlColorAttributeInspector : PropertyDrawer
+    internal sealed class HtmlColorAttributeInspector : PropertyDrawer
     {
-        const int HtmlLineWidth = 280;
+        private const int HtmlLineWidth = 280;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

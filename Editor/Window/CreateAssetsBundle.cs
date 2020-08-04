@@ -6,9 +6,9 @@
 
 using System;
 using System.IO;
+using Caxapexac.Common.Sharp.Runtime.Data;
 using Caxapexac.Common.Sharp.Runtime.Patterns;
 using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
-using LeopotamGroup.Serialization;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
     /// <summary>
     /// Buildmanager for assets bundle
     /// </summary>
-    sealed class CreateAssetsBundle : EditorWindow {
+    internal sealed class CreateAssetsBundle : EditorWindow {
 
         public class BuildSettings {
             [JsonName ("o")]
@@ -27,10 +27,12 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             [JsonName ("t")]
             public BuildTarget Target = BuildTarget.iOS;
         }
-        const string Title = "Asset bundles";
-        const string SettingsKey = "lg.build-bundle";
-        const string DefaultPath = "AssetBundles";
-        BuildSettings _settings;
+
+
+        private const string Title = "Asset bundles";
+        private const string SettingsKey = "lg.build-bundle";
+        private const string DefaultPath = "AssetBundles";
+        private BuildSettings _settings;
 
         [MenuItem ("Assets/Common/Create Asset Bundle...", false, 1)]
         public static void OpenEditorWindow () {
@@ -41,7 +43,7 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             win.position = pos;
         }
 
-        void OnEnable () {
+        private void OnEnable () {
             titleContent.text = Title;
             _settings = null;
             try {
@@ -52,7 +54,7 @@ namespace LeopotamGroup.EditorHelpers.UnityEditors {
             }
         }
 
-        void OnGUI () {
+        private void OnGUI () {
             GUILayout.Label ("AssetBundles Settings", EditorStyles.boldLabel);
 
             GUILayout.BeginHorizontal (GUI.skin.box);

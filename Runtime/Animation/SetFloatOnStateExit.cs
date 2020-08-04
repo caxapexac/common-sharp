@@ -15,12 +15,12 @@ namespace Caxapexac.Common.Sharp.Runtime.Animation
     public sealed class SetFloatOnStateExit : StateMachineBehaviour
     {
         [SerializeField]
-        string _floatName;
+        private string FloatName = "";
 
         [SerializeField]
-        float _floatValue;
+        private float FloatValue = 0;
 
-        int _fieldHash = -1;
+        private int _fieldHash = -1;
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -28,15 +28,15 @@ namespace Caxapexac.Common.Sharp.Runtime.Animation
             if (_fieldHash == -1)
             {
 #if UNITY_EDITOR
-                if (string.IsNullOrEmpty(_floatName))
+                if (string.IsNullOrEmpty(FloatName))
                 {
                     Debug.LogWarning("Float field name is empty", animator);
                     return;
                 }
 #endif
-                _fieldHash = Animator.StringToHash(_floatName);
+                _fieldHash = Animator.StringToHash(FloatName);
             }
-            animator.SetFloat(_fieldHash, _floatValue);
+            animator.SetFloat(_fieldHash, FloatValue);
         }
     }
 }

@@ -16,11 +16,11 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
     /// </summary>
     public static class MathExtensions
     {
-        static readonly StringBuilder _floatToStrBuf = new StringBuilder(64);
+        private static readonly StringBuilder _floatToStrBuf = new StringBuilder(64);
 
-        static readonly string[] _shortNumberOrders = {"", "k", "M", "G", "T", "P", "E"};
+        private static readonly string[] _shortNumberOrders = {"", "k", "M", "G", "T", "P", "E"};
 
-        static readonly float _invLog1K = 1 / (float)System.Math.Log(1000);
+        private static readonly float _invLog1K = 1 / (float)System.Math.Log(1000);
 
         /// <summary>
         /// Convert number to string with "kilo-million-billion" suffix with rounding.

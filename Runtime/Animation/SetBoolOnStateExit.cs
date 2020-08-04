@@ -15,12 +15,12 @@ namespace Caxapexac.Common.Sharp.Runtime.Animation
     public sealed class SetBoolOnStateExit : StateMachineBehaviour
     {
         [SerializeField]
-        string _boolName;
+        private string BoolName = "";
 
         [SerializeField]
-        bool _boolValue;
+        private bool BoolValue = false;
 
-        int _fieldHash = -1;
+        private int _fieldHash = -1;
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -28,15 +28,15 @@ namespace Caxapexac.Common.Sharp.Runtime.Animation
             if (_fieldHash == -1)
             {
 #if UNITY_EDITOR
-                if (string.IsNullOrEmpty(_boolName))
+                if (string.IsNullOrEmpty(BoolName))
                 {
                     Debug.LogWarning("Bool field name is empty", animator);
                     return;
                 }
 #endif
-                _fieldHash = Animator.StringToHash(_boolName);
+                _fieldHash = Animator.StringToHash(BoolName);
             }
-            animator.SetBool(_fieldHash, _boolValue);
+            animator.SetBool(_fieldHash, BoolValue);
         }
     }
 }

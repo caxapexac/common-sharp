@@ -28,7 +28,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
         private int _oldInd = -1;
         private RectTransform _item;
 
-        void Update()
+        private void Update()
         {
             _y = Content.anchoredPosition.y - Spacing;
 
@@ -137,7 +137,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
         private FriendsPopup Popup;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             Popup.ItemShowed += (index, view) => { view.SetData("item " + index); };
 

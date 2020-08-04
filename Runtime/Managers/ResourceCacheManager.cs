@@ -16,7 +16,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers
     /// </summary>
     public sealed class ResourceCacheManager : MonoBehaviourService<ResourceCacheManager>
     {
-        readonly Dictionary<string, Object> _cache = new Dictionary<string, Object>(512);
+        private readonly Dictionary<string, Object> _cache = new Dictionary<string, Object>(512);
 
         /// <summary>
         /// Return loaded resource from cache or load it. Important: if you request resource with one type,

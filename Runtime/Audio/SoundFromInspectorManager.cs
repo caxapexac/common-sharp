@@ -1,30 +1,23 @@
 using System;
+using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
 using UnityEngine;
 using UnityEngine.Audio;
 
 
 namespace Caxapexac.Common.Sharp.Runtime.Audio
 {
-    public class AudioManager : MonoBehaviour
+    /// <summary>
+    /// Prefer using SoundFromResourcesManager instead of this one
+    /// </summary>
+    public class SoundFromInspectorManager : MonoBehaviourService<SoundFromInspectorManager>
     {
-        public static AudioManager Instance;
-
         public AudioMixerGroup MixerGroup;
 
         public Sound[] Sounds;
 
-        private void Awake()
+        protected override void OnCreateService()
         {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-
+            DontDestroyOnLoad(gameObject);
             foreach (Sound s in Sounds)
             {
                 s.Source = gameObject.AddComponent<AudioSource>();
@@ -33,6 +26,10 @@ namespace Caxapexac.Common.Sharp.Runtime.Audio
 
                 s.Source.outputAudioMixerGroup = MixerGroup;
             }
+        }
+
+        protected override void OnDestroyService()
+        {
         }
 
         public void Play(string sound)

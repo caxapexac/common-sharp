@@ -15,7 +15,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns.Service
     /// </summary>
     public static class Service<T> where T : class
     {
-        static T _instance;
+        private static T _instance;
 
         /// <summary>
         /// Is instance of service created.

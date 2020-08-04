@@ -33,7 +33,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers
             get { return SceneManager.GetActiveScene().name; }
         }
 
-        readonly Stack<string> _history = new Stack<string>(8);
+        private readonly Stack<string> _history = new Stack<string>(8);
 
         protected override void OnCreateService()
         {

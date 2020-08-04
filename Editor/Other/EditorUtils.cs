@@ -15,7 +15,7 @@ namespace Caxapexac.Common.Sharp.Editor.Other
     /// <summary>
     /// For internal use.
     /// </summary>
-    sealed class CustomEndNameAction : EndNameEditAction
+    internal sealed class CustomEndNameAction : EndNameEditAction
     {
         public Action<string> Callback;
 
@@ -32,7 +32,7 @@ namespace Caxapexac.Common.Sharp.Editor.Other
     /// <summary>
     /// Editor utils.
     /// </summary>
-    sealed class EditorUtils
+    internal sealed class EditorUtils
     {
         /// <summary>
         /// Create asset with name editing behaviour.

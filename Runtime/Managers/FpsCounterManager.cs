@@ -12,38 +12,38 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers {
     /// <summary>
     /// Fps counter service.
     /// </summary>
-    sealed class FpsCounterManager : MonoBehaviourService<FpsCounterManager> {
-        const int UpdateFrequency = 2;
+    internal sealed class FpsCounterManager : MonoBehaviourService<FpsCounterManager> {
+        private const int UpdateFrequency = 2;
 
-        const float InvUpdatesPerSecond = 1 / (float) UpdateFrequency;
+        private const float InvUpdatesPerSecond = 1 / (float) UpdateFrequency;
 
-        const float BaseFontSize = 16 / 768f;
+        private const float BaseFontSize = 16 / 768f;
 
-        int _frameCount;
+        private int _frameCount;
 
-        float _lastTime;
-
-        [SerializeField]
-        bool _drawShadow = true;
+        private float _lastTime;
 
         [SerializeField]
-        float _xOffset;
+        private bool _drawShadow = true;
 
         [SerializeField]
-        float _yOffset;
+        private float _xOffset;
 
         [SerializeField]
-        TextAnchor _anchor = TextAnchor.LowerLeft;
+        private float _yOffset;
 
-        GUIStyle _style;
+        [SerializeField]
+        private TextAnchor _anchor = TextAnchor.LowerLeft;
 
-        Rect _rect;
+        private GUIStyle _style;
 
-        Rect _rectShadow;
+        private Rect _rect;
 
-        Color _color = Color.white;
+        private Rect _rectShadow;
 
-        readonly StringCacheManager<int> _stringCacheManager = new StringCacheManager<int> (null, null, 256);
+        private Color _color = Color.white;
+
+        private readonly StringCacheManager<int> _stringCacheManager = new StringCacheManager<int> (null, null, 256);
 
         protected override void OnCreateService () {
             DontDestroyOnLoad (gameObject);
@@ -56,14 +56,14 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers {
 
         protected override void OnDestroyService () { }
 
-        void CalculateRect () {
+        private void CalculateRect () {
             _rect = new Rect (_xOffset, _yOffset, Screen.width, Screen.height);
             _rectShadow = new Rect (_xOffset + 1, _yOffset + 1, Screen.width, Screen.height);
             var fontSize = (int) (BaseFontSize * Screen.height);
             _style.fontSize = fontSize;
         }
 
-        void OnGUI () {
+        private void OnGUI () {
             if (Event.current.type != EventType.Repaint) {
                 return;
             }
@@ -79,7 +79,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers {
             GUI.Label (_rect, fpsString, _style);
         }
 
-        void Update () {
+        private void Update () {
             var currTime = Time.realtimeSinceStartup;
             if (currTime - _lastTime > InvUpdatesPerSecond) {
                 CurrentFps = _frameCount * UpdateFrequency;
