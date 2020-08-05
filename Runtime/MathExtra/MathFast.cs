@@ -17,7 +17,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra {
         /// <summary>
         /// PI approximation.
         /// </summary>
-        public const float PI = 3.141592654f;
+        public const float Pi = 3.141592654f;
 
         public static float Min (float a, float b) {
             return a > b ? b : a;
@@ -38,22 +38,22 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra {
         /// <summary>
         /// PI/2 approximation.
         /// </summary>
-        public const float PI_DIV_2 = 3.141592654f * 0.5f;
+        public const float PiDiv2 = 3.141592654f * 0.5f;
 
         /// <summary>
         /// PI*2 approximation.
         /// </summary>
-        public const float PI_2 = PI * 2f;
+        public const float Pi2 = Pi * 2f;
 
         /// <summary>
         /// Radians to Degrees conversion multiplier.
         /// </summary>
-        public const float Rad2Deg = 180f / PI;
+        public const float Rad2Deg = 180f / Pi;
 
         /// <summary>
         /// Degrees to Radians conversion multiplier.
         /// </summary>
-        public const float Deg2Rad = PI / 180f;
+        public const float Deg2Rad = Pi / 180f;
 
         private const int SinCosIndexMask = ~(-1 << 12);
 
@@ -61,7 +61,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra {
 
         private static readonly float[] _cosCache;
 
-        private const float SinCosIndexFactor = SinCosCacheSize / PI_2;
+        private const float SinCosIndexFactor = SinCosCacheSize / Pi2;
 
         private const int SinCosCacheSize = SinCosIndexMask + 1;
 
@@ -69,21 +69,21 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra {
 
         private const int Atan2NegSize = -Atan2Size;
 
-        private static float[] _atan2CachePPY = new float[Atan2Size + 1];
+        private static float[] _atan2CachePpy = new float[Atan2Size + 1];
 
-        private static float[] _atan2CachePPX = new float[Atan2Size + 1];
+        private static float[] _atan2CachePpx = new float[Atan2Size + 1];
 
-        private static float[] _atan2CachePNY = new float[Atan2Size + 1];
+        private static float[] _atan2CachePny = new float[Atan2Size + 1];
 
-        private static float[] _atan2CachePNX = new float[Atan2Size + 1];
+        private static float[] _atan2CachePnx = new float[Atan2Size + 1];
 
-        private static float[] _atan2CacheNPY = new float[Atan2Size + 1];
+        private static float[] _atan2CacheNpy = new float[Atan2Size + 1];
 
-        private static float[] _atan2CacheNPX = new float[Atan2Size + 1];
+        private static float[] _atan2CacheNpx = new float[Atan2Size + 1];
 
-        private static float[] _atan2CacheNNY = new float[Atan2Size + 1];
+        private static float[] _atan2CacheNny = new float[Atan2Size + 1];
 
-        private static float[] _atan2CacheNNX = new float[Atan2Size + 1];
+        private static float[] _atan2CacheNnx = new float[Atan2Size + 1];
 
         [StructLayout (LayoutKind.Explicit)]
         private struct FloatInt {
@@ -109,27 +109,27 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra {
             _cosCache = new float[SinCosCacheSize];
             int i;
             for (i = 0; i < SinCosCacheSize; i++) {
-                _sinCache[i] = (float) System.Math.Sin ((i + 0.5f) / SinCosCacheSize * PI_2);
-                _cosCache[i] = (float) System.Math.Cos ((i + 0.5f) / SinCosCacheSize * PI_2);
+                _sinCache[i] = (float) System.Math.Sin ((i + 0.5f) / SinCosCacheSize * Pi2);
+                _cosCache[i] = (float) System.Math.Cos ((i + 0.5f) / SinCosCacheSize * Pi2);
             }
 
             var factor = SinCosCacheSize / 360f;
             for (i = 0; i < 360; i += 90) {
-                _sinCache[(int) (i * factor) & SinCosIndexMask] = (float) System.Math.Sin (i * PI / 180f);
-                _cosCache[(int) (i * factor) & SinCosIndexMask] = (float) System.Math.Cos (i * PI / 180f);
+                _sinCache[(int) (i * factor) & SinCosIndexMask] = (float) System.Math.Sin (i * Pi / 180f);
+                _cosCache[(int) (i * factor) & SinCosIndexMask] = (float) System.Math.Cos (i * Pi / 180f);
             }
 
             // Atan2
             var invAtan2Size = 1f / Atan2Size;
             for (i = 0; i <= Atan2Size; i++) {
-                _atan2CachePPY[i] = (float) System.Math.Atan (i * invAtan2Size);
-                _atan2CachePPX[i] = PI_DIV_2 - _atan2CachePPY[i];
-                _atan2CachePNY[i] = -_atan2CachePPY[i];
-                _atan2CachePNX[i] = _atan2CachePPY[i] - PI_DIV_2;
-                _atan2CacheNPY[i] = PI - _atan2CachePPY[i];
-                _atan2CacheNPX[i] = _atan2CachePPY[i] + PI_DIV_2;
-                _atan2CacheNNY[i] = _atan2CachePPY[i] - PI;
-                _atan2CacheNNX[i] = -PI_DIV_2 - _atan2CachePPY[i];
+                _atan2CachePpy[i] = (float) System.Math.Atan (i * invAtan2Size);
+                _atan2CachePpx[i] = PiDiv2 - _atan2CachePpy[i];
+                _atan2CachePny[i] = -_atan2CachePpy[i];
+                _atan2CachePnx[i] = _atan2CachePpy[i] - PiDiv2;
+                _atan2CacheNpy[i] = Pi - _atan2CachePpy[i];
+                _atan2CacheNpx[i] = _atan2CachePpy[i] + PiDiv2;
+                _atan2CacheNny[i] = _atan2CachePpy[i] - Pi;
+                _atan2CacheNnx[i] = -PiDiv2 - _atan2CachePpy[i];
             }
         }
 
@@ -199,29 +199,29 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra {
             if (x >= 0) {
                 if (y >= 0) {
                     if (x >= y) {
-                        return _atan2CachePPY[(int) (Atan2Size * y / x + 0.5)];
+                        return _atan2CachePpy[(int) (Atan2Size * y / x + 0.5)];
                     } else {
-                        return _atan2CachePPX[(int) (Atan2Size * x / y + 0.5)];
+                        return _atan2CachePpx[(int) (Atan2Size * x / y + 0.5)];
                     }
                 } else {
                     if (x >= -y) {
-                        return _atan2CachePNY[(int) (Atan2NegSize * y / x + 0.5)];
+                        return _atan2CachePny[(int) (Atan2NegSize * y / x + 0.5)];
                     } else {
-                        return _atan2CachePNX[(int) (Atan2NegSize * x / y + 0.5)];
+                        return _atan2CachePnx[(int) (Atan2NegSize * x / y + 0.5)];
                     }
                 }
             } else {
                 if (y >= 0) {
                     if (-x >= y) {
-                        return _atan2CacheNPY[(int) (Atan2NegSize * y / x + 0.5)];
+                        return _atan2CacheNpy[(int) (Atan2NegSize * y / x + 0.5)];
                     } else {
-                        return _atan2CacheNPX[(int) (Atan2NegSize * x / y + 0.5)];
+                        return _atan2CacheNpx[(int) (Atan2NegSize * x / y + 0.5)];
                     }
                 } else {
                     if (x <= y) {
-                        return _atan2CacheNNY[(int) (Atan2Size * y / x + 0.5)];
+                        return _atan2CacheNny[(int) (Atan2Size * y / x + 0.5)];
                     } else {
-                        return _atan2CacheNNX[(int) (Atan2Size * x / y + 0.5)];
+                        return _atan2CacheNnx[(int) (Atan2Size * x / y + 0.5)];
                     }
                 }
             }

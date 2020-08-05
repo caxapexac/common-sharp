@@ -23,8 +23,8 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
         private const string Title = "GoogleDocs Downloader";
         private const string UrlDefault = "http://localhost";
         private const string ResDefault = "NewCsv.csv";
-        private static readonly Regex CsvMultilineFixRegex = new Regex ("\"([^\"]|\"\"|\\n)*\"");
-        private static readonly Regex CsvParseRegex = new Regex ("(?<=^|,)(\"(?:[^\"]|\"\")*\"|[^,]*)");
+        private static readonly Regex _csvMultilineFixRegex = new Regex ("\"([^\"]|\"\"|\\n)*\"");
+        private static readonly Regex _csvParseRegex = new Regex ("(?<=^|,)(\"(?:[^\"]|\"\")*\"|[^,]*)");
         private static readonly List<string> _csvBuffer = new List<string> (32);
         private List<RecordInfo> _items;
         private Vector2 _scrollPos;
@@ -259,7 +259,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
 
         private static void ParseCsvLine (string data) {
             _csvBuffer.Clear ();
-            foreach (Match m in CsvParseRegex.Matches (data)) {
+            foreach (Match m in _csvParseRegex.Matches (data)) {
                 var part = m.Value.Trim ();
                 if (part.Length > 0) {
                     if (part[0] == '"' && part[part.Length - 1] == '"') {
@@ -339,7 +339,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window {
                                 Directory.CreateDirectory (folder);
                             }
                             // fix for multiline string.
-                            data = CsvMultilineFixRegex.Replace (data, m => m.Value.Replace ("\n", "\\n"));
+                            data = _csvMultilineFixRegex.Replace (data, m => m.Value.Replace ("\n", "\\n"));
                             // json generation.
                             switch (item.Mode) {
                                 case JsonMode.Array:

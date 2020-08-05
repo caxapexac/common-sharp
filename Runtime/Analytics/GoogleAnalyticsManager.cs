@@ -137,6 +137,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Analytics
 
                     using (var req = UnityWebRequest.Get(url))
                     {
+                        req.SetRequestHeader("user-agent", "");
                         yield return req.SendWebRequest();
                     }
                     url = null;

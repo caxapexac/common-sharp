@@ -19,7 +19,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Managers
     /// Base - final inherited type.
     /// T - Parameter type for exchange data between main and background threads.
     /// </summary>
-    public abstract class BackgroundWorkerBase<Base, T> : MonoBehaviourService<Base> where Base : class
+    public abstract class BackgroundWorkerBase<TBase, T> : MonoBehaviourService<TBase> where TBase : class
     {
         /// <summary>
         /// Is background thread started and inited.

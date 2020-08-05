@@ -47,7 +47,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window
         }
 
 
-        private static readonly Dictionary<int, List<string>> DefinedPaths = new Dictionary<int, List<string>>
+        private static readonly Dictionary<int, List<string>> _definedPaths = new Dictionary<int, List<string>>
         {
             {
                 (int)Options.Animations, new List<string> {"Sources", "Controllers"}
@@ -164,10 +164,10 @@ namespace Caxapexac.Common.Sharp.Editor.Window
                 Directory.CreateDirectory(fullPath);
             }
 
-            if (DefinedPaths.ContainsKey(item))
+            if (_definedPaths.ContainsKey(item))
             {
                 string path;
-                foreach (var subFolder in DefinedPaths[item])
+                foreach (var subFolder in _definedPaths[item])
                 {
                     path = Path.Combine(fullPath, subFolder);
                     if (!Directory.Exists(path))

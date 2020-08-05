@@ -47,12 +47,12 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
 
         #endregion
 
-        private static readonly GUIContent ClearLabel = new GUIContent("Clear", "Clear the contents of the console.");
-        private static readonly GUIContent CollapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
+        private static readonly GUIContent _clearLabel = new GUIContent("Clear", "Clear the contents of the console.");
+        private static readonly GUIContent _collapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
         private const int Margin = 20;
         private const string WindowTitle = "Console";
 
-        private static readonly Dictionary<LogType, Color> LogTypeColors = new Dictionary<LogType, Color>
+        private static readonly Dictionary<LogType, Color> _logTypeColors = new Dictionary<LogType, Color>
         {
             {LogType.Assert, Color.white},
             {LogType.Error, Color.red},
@@ -147,7 +147,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
 
         private void DrawLog(Log log)
         {
-            GUI.contentColor = LogTypeColors[log.Type];
+            GUI.contentColor = _logTypeColors[log.Type];
 
             if (_isCollapsed)
             {
@@ -192,7 +192,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
         {
             GUILayout.BeginHorizontal();
 
-            if (GUILayout.Button(ClearLabel))
+            if (GUILayout.Button(_clearLabel))
             {
                 _logs.Clear();
             }
@@ -205,7 +205,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
                 GUILayout.Space(20);
             }
 
-            _isCollapsed = GUILayout.Toggle(_isCollapsed, CollapseLabel, GUILayout.ExpandWidth(false));
+            _isCollapsed = GUILayout.Toggle(_isCollapsed, _collapseLabel, GUILayout.ExpandWidth(false));
 
             GUILayout.EndHorizontal();
         }

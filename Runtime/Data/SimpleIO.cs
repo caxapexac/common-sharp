@@ -13,18 +13,18 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
     /// </summary>
     public static class SimpleIo
     {
-        private readonly static string AbsolutePath = Application.persistentDataPath + "/";
+        private readonly static string _absolutePath = Application.persistentDataPath + "/";
 
         public static bool Exists(string relativePath)
         {
-            var path = Path.Combine(AbsolutePath, relativePath);
+            var path = Path.Combine(_absolutePath, relativePath);
 
             return File.Exists(path);
         }
 
         public static void Remove(string relativePath)
         {
-            var path = Path.Combine(AbsolutePath, relativePath);
+            var path = Path.Combine(_absolutePath, relativePath);
 
             if (File.Exists(path))
                 File.Delete(path);
@@ -32,7 +32,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public static void Write(string relativePath, byte[] data)
         {
-            var path = Path.Combine(AbsolutePath, relativePath);
+            var path = Path.Combine(_absolutePath, relativePath);
 
             if (File.Exists(path))
                 File.Delete(path);
@@ -42,7 +42,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public static byte[] Read(string relativePath)
         {
-            var path = Path.Combine(AbsolutePath, relativePath);
+            var path = Path.Combine(_absolutePath, relativePath);
 
             if (File.Exists(path))
                 return File.ReadAllBytes(path);
@@ -52,7 +52,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public static void WriteText(string relativePath, string data)
         {
-            var path = Path.Combine(AbsolutePath, relativePath);
+            var path = Path.Combine(_absolutePath, relativePath);
 
             if (File.Exists(path))
                 File.Delete(path);
@@ -62,7 +62,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public static string ReadText(string relativePath)
         {
-            var path = Path.Combine(AbsolutePath, relativePath);
+            var path = Path.Combine(_absolutePath, relativePath);
 
             if (File.Exists(path))
                 return File.ReadAllText(path);
