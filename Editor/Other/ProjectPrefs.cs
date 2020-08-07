@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Caxapexac.Common.Sharp.Runtime.Data;
-using Caxapexac.Common.Sharp.Runtime.Patterns;
 using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
 using UnityEngine;
 

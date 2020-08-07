@@ -6,10 +6,10 @@
 
 using System;
 using Caxapexac.Common.Sharp.Runtime.Collections;
-using Caxapexac.Common.Sharp.Runtime.Patterns.Pool;
 using UnityEngine;
 
-namespace LeopotamGroup.Pooling {
+
+namespace Caxapexac.Common.Sharp.Runtime.Patterns.Pool {
     /// <summary>
     /// Pool container. Supports spawning of named prefab from Resources folder.
     /// </summary>
@@ -97,12 +97,7 @@ namespace LeopotamGroup.Pooling {
 
             return obj;
         }
-
-        /// <summary>
-        /// Recycle specified instance to pool.
-        /// </summary>
-        /// <param name="obj">Instance to recycle.</param>
-
+        
         /// <summary>
         /// Recycle specified instance to pool.
         /// </summary>
@@ -166,7 +161,7 @@ namespace LeopotamGroup.Pooling {
 #endif
                 ).AddComponent<PoolContainer> ();
             container._prefabPath = prefabPath;
-            container._itemsRoot = itemsRoot;
+            container._itemsRoot = itemsRoot ? itemsRoot : container.transform;
             container._overridedType = overridedType;
             return container;
         }
