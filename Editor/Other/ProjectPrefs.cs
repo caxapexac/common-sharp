@@ -14,7 +14,8 @@ using Caxapexac.Common.Sharp.Runtime.Data;
 using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
 using UnityEngine;
 
-namespace LeopotamGroup.EditorHelpers {
+
+namespace Caxapexac.Common.Sharp.Editor.Other {
     /// <summary>
     /// EditorPrefs replacement with keeping data per project.
     /// </summary>

@@ -2,7 +2,8 @@ using Caxapexac.Common.Sharp.Editor.Attributes;
 using UnityEditor;
 using UnityEngine;
 
-namespace LeopotamGroup.EditorHelpers.UnityEditors {
+
+namespace Caxapexac.Common.Sharp.Editor.Property {
     /// <summary>
     /// Helper for single layer selector.
     /// </summary>

@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace LeopotamGroup.EditorHelpers.Editor {
+namespace Caxapexac.Common.Sharp.Editor.Property {
     /// <summary>
     /// Helper for custom flags selector.
     /// </summary>

@@ -6,12 +6,14 @@
 
 using System;
 using System.IO;
+using Caxapexac.Common.Sharp.Editor.Other;
 using Caxapexac.Common.Sharp.Runtime.Data;
 using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
 using UnityEditor;
 using UnityEngine;
 
-namespace LeopotamGroup.EditorHelpers.UnityEditors {
+
+namespace Caxapexac.Common.Sharp.Editor.Window {
 
     /// <summary>
     /// Buildmanager for assets bundle
