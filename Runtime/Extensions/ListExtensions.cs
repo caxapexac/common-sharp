@@ -1,58 +1,116 @@
 ﻿using System;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
+using System.Linq;
 
 
 namespace Caxapexac.Common.Sharp.Runtime.Extensions
 {
     public static class ListExtensions
     {
-        public static List<T> Clone<T>(this List<T> list)
+        private static readonly Random _random = new Random();
+
+
+        public delegate void Iterator<T>(T item, int idx);
+
+
+        public static bool IsNullOrEmpty<T>(this IList<T> self)
         {
-            return new List<T>(list);
+            if (self == null) return true;
+            return self.Count == 0;
         }
 
-        public static void Shuffle<T>(this IList<T> list)
+        public static void Loop<T>(this IList<T> self, Iterator<T> iter)
         {
-            int n = list.Count;
-            while (n > 1)
+            for (int i = 0; i < self.Count; ++i)
             {
-                n--;
-                int k = Random.Range(0, n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
+                iter(self[i], i);
             }
         }
 
-        public static T RandomItem<T>(this IList<T> list)
+        public static T Last<T>(this IList<T> self)
         {
-            if (list.Count == 0)
-                throw new IndexOutOfRangeException("Cannot select a random item from an empty list");
-            return list[UnityEngine.Random.Range(0, list.Count)];
+            return self.Count > 0 ? self[self.Count - 1] : default(T);
         }
 
-        public static T RemoveRandom<T>(this IList<T> list)
+        public static T GetRandom<T>(this IList<T> self)
         {
-            if (list.Count == 0)
-                throw new IndexOutOfRangeException("Cannot remove a random item from an empty list");
-            int index = Random.Range(0, list.Count);
-            T item = list[index];
-            list.RemoveAt(index);
-            return item;
+            return self[_random.Next(0, self.Count)];
         }
 
-        public static T[] ForEach<T>(this T[] array, Action<T> callback)
+        public static List<T> GetRandom<T>(this IList<T> self, int size)
         {
-            if (callback != null)
+            var randomItems = new List<T>(size);
+            var itemsCopy = self.ToList();
+
+            while (itemsCopy.Count > 0 && randomItems.Count < size)
             {
-                for (int i = 0; i < array.Length; i++)
+                var randomItem = itemsCopy[_random.Next(0, itemsCopy.Count)];
+                itemsCopy.Remove(randomItem);
+                randomItems.Add(randomItem);
+            }
+
+            if (randomItems.Count >= size) return randomItems;
+
+            while (self.Count > 0 && randomItems.Count < size)
+            {
+                var randomItem = self[_random.Next(0, self.Count)];
+                randomItems.Add(randomItem);
+            }
+
+            return randomItems;
+        }
+
+        public static void Shuffle<T>(this IList<T> self)
+        {
+            var itemsCount = self.Count;
+
+            while (itemsCount > 1)
+            {
+                itemsCount--;
+                var index = _random.Next(itemsCount + 1);
+                var value = self[index];
+                self[index] = self[itemsCount];
+                self[itemsCount] = value;
+            }
+        }
+
+        public static void Swap<T>(this IList<T> self, int indexA, int indexB)
+        {
+            T tmp = self[indexA];
+            self[indexA] = self[indexB];
+            self[indexB] = tmp;
+        }
+
+        public static bool IsEqual<T>(this IList<T> self, IList<T> other) where T : IEquatable<T>
+        {
+            if (self.Count != other.Count)
+            {
+                return false;
+            }
+            for (int i = 0; i < self.Count; ++i)
+            {
+                if (!self[i].Equals(other[i]))
                 {
-                    callback(array[i]);
+                    return false;
                 }
             }
+            return true;
+        }
 
-            return array;
+        public static bool IsContain<T>(this IList<T> self, IList<T> other, bool shouldSameSize = true)
+        {
+            if (shouldSameSize && self.Count != other.Count)
+            {
+                return false;
+            }
+            for (int i = 0; i < other.Count; ++i)
+            {
+                if (!self.Contains(other[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

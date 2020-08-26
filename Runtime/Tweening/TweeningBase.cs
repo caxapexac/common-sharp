@@ -6,6 +6,7 @@
 
 using System;
 using Caxapexac.Common.Sharp.Runtime.Extensions;
+using Caxapexac.Common.Sharp.Runtime.Extensions.Unity;
 using UnityEngine;
 
 
@@ -76,7 +77,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Tweening
             {
                 return null;
             }
-            return go.EnsureGetComponent<T>();
+            return go.EnsureComponent<T>();
         }
 
         private void OnEnable()

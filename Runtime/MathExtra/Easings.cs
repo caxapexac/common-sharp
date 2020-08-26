@@ -163,10 +163,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return 2 * p * p;
             }
-            else
-            {
-                return (-2 * p * p) + (4 * p) - 1;
-            }
+            return (-2 * p * p) + (4 * p) - 1;
         }
 
         /// <summary>
@@ -197,11 +194,8 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return 4 * p * p * p;
             }
-            else
-            {
-                float f = ((2 * p) - 2);
-                return 0.5f * f * f * f + 1;
-            }
+            float f = ((2 * p) - 2);
+            return 0.5f * f * f * f + 1;
         }
 
         /// <summary>
@@ -232,11 +226,8 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return 8 * p * p * p * p;
             }
-            else
-            {
-                float f = (p - 1);
-                return -8 * f * f * f * f + 1;
-            }
+            float f = (p - 1);
+            return -8 * f * f * f * f + 1;
         }
 
         /// <summary>
@@ -267,11 +258,8 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return 16 * p * p * p * p * p;
             }
-            else
-            {
-                float f = ((2 * p) - 2);
-                return 0.5f * f * f * f * f * f + 1;
-            }
+            float f = ((2 * p) - 2);
+            return 0.5f * f * f * f * f * f + 1;
         }
 
         /// <summary>
@@ -325,10 +313,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return 0.5f * (1 - Math.Sqrt(1 - 4 * (p * p)));
             }
-            else
-            {
-                return 0.5f * (Math.Sqrt(-((2 * p) - 3) * ((2 * p) - 1)) + 1);
-            }
+            return 0.5f * (Math.Sqrt(-((2 * p) - 3) * ((2 * p) - 1)) + 1);
         }
 
         /// <summary>
@@ -360,10 +345,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return 0.5f * Math.Pow(2, (20 * p) - 10);
             }
-            else
-            {
-                return -0.5f * Math.Pow(2, (-20 * p) + 10) + 1;
-            }
+            return -0.5f * Math.Pow(2, (-20 * p) + 10) + 1;
         }
 
         /// <summary>
@@ -393,10 +375,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return 0.5f * Math.Sin(13 * HALFPI * (2 * p)) * Math.Pow(2, 10 * ((2 * p) - 1));
             }
-            else
-            {
-                return 0.5f * (Math.Sin(-13 * HALFPI * ((2 * p - 1) + 1)) * Math.Pow(2, -10 * (2 * p - 1)) + 2);
-            }
+            return 0.5f * (Math.Sin(-13 * HALFPI * ((2 * p - 1) + 1)) * Math.Pow(2, -10 * (2 * p - 1)) + 2);
         }
 
         /// <summary>
@@ -450,18 +429,15 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return (121 * p * p) / 16.0f;
             }
-            else if (p < 8 / 11.0f)
+            if (p < 8 / 11.0f)
             {
                 return (363 / 40.0f * p * p) - (99 / 10.0f * p) + 17 / 5.0f;
             }
-            else if (p < 9 / 10.0f)
+            if (p < 9 / 10.0f)
             {
                 return (4356 / 361.0f * p * p) - (35442 / 1805.0f * p) + 16061 / 1805.0f;
             }
-            else
-            {
-                return (54 / 5.0f * p * p) - (513 / 25.0f * p) + 268 / 25.0f;
-            }
+            return (54 / 5.0f * p * p) - (513 / 25.0f * p) + 268 / 25.0f;
         }
 
         /// <summary>
@@ -472,10 +448,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
             {
                 return 0.5f * BounceEaseIn(p * 2);
             }
-            else
-            {
-                return 0.5f * BounceEaseOut(p * 2 - 1) + 0.5f;
-            }
+            return 0.5f * BounceEaseOut(p * 2 - 1) + 0.5f;
         }
     }
 }

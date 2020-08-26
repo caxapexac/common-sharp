@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,21 +18,24 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
             return (T)values.GetValue((int)Mathf.Round(Random.value * (values.Length - 1)));
         }
 
-        public static float RandomFixed(this int x)
+        public static Color RandomColor
         {
-            x = (x << 13) ^ x;
-            return (float)(1.0 - ((x * (x * x * 15731 + 789221) + 1376312589) & 2147483647) / 1073741824.0);
+            get => new Color(Random.Range(.1f, .9f), Random.Range(.1f, .9f), Random.Range(.1f, .9f));
         }
 
-        public static int WithRandomSign(this int value, float negativeProbability = 0.5f)
+        public static Color RandomBright
         {
-            return Random.value < negativeProbability ? -value : value;
+            get => new Color(Random.Range(.4f, 1), Random.Range(.4f, 1), Random.Range(.4f, 1));
         }
 
-
-        public static Vector3 OnUnitCircle(this Vector3 position, float radius)
+        public static Color RandomDim
         {
-            return position + (Vector3)(Random.insideUnitCircle.normalized) * radius;
+            get => new Color(Random.Range(.4f, .6f), Random.Range(.4f, .8f), Random.Range(.4f, .8f));
+        }
+
+        public static Vector3 OnUnitCircle(this Random self, Vector3 offset, float radius)
+        {
+            return offset + (Vector3)(Random.insideUnitCircle.normalized) * radius;
         }
     }
 }

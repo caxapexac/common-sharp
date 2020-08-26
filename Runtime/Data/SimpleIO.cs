@@ -13,7 +13,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
     /// </summary>
     public static class SimpleIo
     {
-        private readonly static string _absolutePath = Application.persistentDataPath + "/";
+        private static readonly string _absolutePath = Application.persistentDataPath + "/";
 
         public static bool Exists(string relativePath)
         {

@@ -1,7 +1,11 @@
 ﻿/*
  * Created by Alexander Sosnovskiy. May 3, 2016
  */
+using System;
 using UnityEngine;
+
+// ReSharper disable RedundantCast.0
+// ReSharper disable InconsistentNaming
 
 
 namespace Caxapexac.Common.Sharp.Runtime.Cached
@@ -11,31 +15,34 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
     /// </summary>
     public class CachedMonoBehaviour : MonoBehaviour
     {
-        private Transform _cachedTransform;
+        [NonSerialized]
         private GameObject _cachedGameObject;
-        private Rigidbody2D _cachedRigidbody2D;
-        private Collider _cachedCollider;
-        private Rigidbody _cachedRigidbody;
+        [NonSerialized]
+        private Transform _cachedTransform;
+        [NonSerialized]
         private RectTransform _cachedRectTransform;
+
+        [NonSerialized]
+        private Collider _cachedCollider;
+        [NonSerialized]
+        private Collider2D _cachedCollider2D;
+        [NonSerialized]
+        private Rigidbody _cachedRigidbody;
+        [NonSerialized]
+        private Rigidbody2D _cachedRigidbody2D;
+        [NonSerialized]
+        private Joint _cachedJoint;
+
+        [NonSerialized]
+        private Camera _cachedCamera;
+        [NonSerialized]
         private AudioSource _cachedAudioSource;
-
-        public new Transform transform
-        {
-            get
-            {
-                if ((object)_cachedTransform == null) _cachedTransform = base.transform;
-                return _cachedTransform;
-            }
-        }
-
-        public RectTransform rectTransform
-        {
-            get
-            {
-                if ((object)_cachedRectTransform == null) _cachedRectTransform = transform as RectTransform;
-                return _cachedRectTransform;
-            }
-        }
+        [NonSerialized]
+        private Light _cachedLight;
+        [NonSerialized]
+        private Renderer _cachedRenderer;
+        [NonSerialized]
+        private ParticleSystem _cachedParticleSystem;
 
         public new GameObject gameObject
         {
@@ -46,12 +53,21 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
             }
         }
 
-        public new Rigidbody2D rigidbody2D
+        public new Transform transform
         {
             get
             {
-                if ((object)_cachedRigidbody2D == null) _cachedRigidbody2D = base.GetComponent<Rigidbody2D>();
-                return _cachedRigidbody2D;
+                if ((object)_cachedTransform == null) _cachedTransform = base.transform;
+                return _cachedTransform;
+            }
+        }
+
+        public new RectTransform rectTransform
+        {
+            get
+            {
+                if ((object)_cachedRectTransform == null) _cachedRectTransform = transform as RectTransform;
+                return _cachedRectTransform;
             }
         }
 
@@ -65,6 +81,16 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
             }
         }
 
+        public new Collider2D collider2D
+        {
+            get
+            {
+                if ((object)_cachedCollider2D == null) _cachedCollider2D = base.GetComponent<Collider2D>();
+
+                return _cachedCollider2D;
+            }
+        }
+
         public new Rigidbody rigidbody
         {
             get
@@ -75,6 +101,35 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
             }
         }
 
+        public new Rigidbody2D rigidbody2D
+        {
+            get
+            {
+                if ((object)_cachedRigidbody2D == null) _cachedRigidbody2D = base.GetComponent<Rigidbody2D>();
+                return _cachedRigidbody2D;
+            }
+        }
+
+        public new Joint joint
+        {
+            get
+            {
+                if ((object)_cachedJoint == null) _cachedJoint = base.GetComponent<Joint>();
+                return _cachedJoint;
+            }
+        }
+
+
+        public new Camera camera
+        {
+            get
+            {
+                if ((object)_cachedCamera == null) _cachedCamera = base.GetComponent<Camera>();
+
+                return _cachedCamera;
+            }
+        }
+
         public new AudioSource audio
         {
             get
@@ -82,6 +137,36 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
                 if ((object)_cachedAudioSource == null) _cachedAudioSource = base.GetComponent<AudioSource>();
 
                 return _cachedAudioSource;
+            }
+        }
+
+        public new Light light
+        {
+            get
+            {
+                if ((object)_cachedLight == null) _cachedLight = base.GetComponent<Light>();
+
+                return _cachedLight;
+            }
+        }
+
+        public new Renderer renderer
+        {
+            get
+            {
+                if ((object)_cachedRenderer == null) _cachedRenderer = base.GetComponent<Renderer>();
+
+                return _cachedRenderer;
+            }
+        }
+
+        public new ParticleSystem particleSystem
+        {
+            get
+            {
+                if ((object)_cachedParticleSystem == null) _cachedParticleSystem = base.GetComponent<ParticleSystem>();
+
+                return _cachedParticleSystem;
             }
         }
     }
