@@ -28,7 +28,7 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
 
         #region Copy Methods
 
-        [MenuItem("CONTEXT/Transform/Copy Transform", false, 150)]
+        [MenuItem("CONTEXT/Transform/Copy Transform (legacy)", false, 150)]
         private static void CopyTransform()
         {
             CopyPosition();
@@ -36,21 +36,21 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
             CopyScale();
         }
 
-        [MenuItem("CONTEXT/Transform/Copy Position", false, 151)]
+        [MenuItem("CONTEXT/Transform/Copy Position (legacy)", false, 151)]
         private static void CopyPosition()
         {
             clipboard.position = Selection.activeTransform.localPosition;
             clipboard.isPositionSet = true;
         }
 
-        [MenuItem("CONTEXT/Transform/Copy Rotation", false, 152)]
+        [MenuItem("CONTEXT/Transform/Copy Rotation (legacy)", false, 152)]
         private static void CopyRotation()
         {
             clipboard.rotation = Selection.activeTransform.localRotation;
             clipboard.isRotationSet = true;
         }
 
-        [MenuItem("CONTEXT/Transform/Copy Scale", false, 153)]
+        [MenuItem("CONTEXT/Transform/Copy Scale (legacy)", false, 153)]
         private static void CopyScale()
         {
             clipboard.scale = Selection.activeTransform.localScale;
@@ -61,7 +61,7 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
 
         #region Paste Methods
 
-        [MenuItem("CONTEXT/Transform/Paste Transform", false, 200)]
+        [MenuItem("CONTEXT/Transform/Paste Transform (legacy)", false, 200)]
         private static void PasteTransform()
         {
             PastePosition();
@@ -69,21 +69,21 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
             PasteScale();
         }
 
-        [MenuItem("CONTEXT/Transform/Paste Position", false, 201)]
+        [MenuItem("CONTEXT/Transform/Paste Position (legacy)", false, 201)]
         private static void PastePosition()
         {
             Undo.RecordObject(Selection.activeTransform, "Paste Position");
             Selection.activeTransform.localPosition = clipboard.position;
         }
 
-        [MenuItem("CONTEXT/Transform/Paste Rotation", false, 202)]
+        [MenuItem("CONTEXT/Transform/Paste Rotation (legacy)", false, 202)]
         private static void PasteRotation()
         {
             Undo.RecordObject(Selection.activeTransform, "Paste Rotation");
             Selection.activeTransform.localRotation = clipboard.rotation;
         }
 
-        [MenuItem("CONTEXT/Transform/Paste Scale", false, 203)]
+        [MenuItem("CONTEXT/Transform/Paste Scale (legacy)", false, 203)]
         private static void PasteScale()
         {
             Undo.RecordObject(Selection.activeTransform, "Paste Scale");
@@ -94,37 +94,37 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
 
         #region Validation
 
-        [MenuItem("CONTEXT/Transform/Paste Transform", true)]
+        [MenuItem("CONTEXT/Transform/Paste Transform (legacy)", true)]
         private static bool ValidatePasteTransform()
         {
             return ValidatePastePosition() && ValidatePasteRotation() && ValidatePasteScale();
         }
 
-        [MenuItem("CONTEXT/Transform/Paste Position", true)]
+        [MenuItem("CONTEXT/Transform/Paste Position (legacy)", true)]
         private static bool ValidatePastePosition()
         {
             return clipboard.isPositionSet;
         }
 
-        [MenuItem("CONTEXT/Transform/Paste Rotation", true)]
+        [MenuItem("CONTEXT/Transform/Paste Rotation (legacy)", true)]
         private static bool ValidatePasteRotation()
         {
             return clipboard.isRotationSet;
         }
 
-        [MenuItem("CONTEXT/Transform/Paste Scale", true)]
+        [MenuItem("CONTEXT/Transform/Paste Scale (legacy)", true)]
         private static bool ValidatePasteScale()
         {
             return clipboard.isScaleSet;
         }
 
-        [MenuItem("CONTEXT/Transform/Push To Children", true)]
+        [MenuItem("CONTEXT/Transform/Push To Children (legacy)", true)]
         private static bool ValidatePushToChildren()
         {
             return Selection.activeTransform.childCount > 0;
         }
 
-        [MenuItem("CONTEXT/Transform/Push To Parent", true)]
+        [MenuItem("CONTEXT/Transform/Push To Parent (legacy)", true)]
         private static bool ValidatePushToParent()
         {
             return Selection.activeTransform.parent != null;
