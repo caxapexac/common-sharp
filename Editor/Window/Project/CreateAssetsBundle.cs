@@ -39,7 +39,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window.Project
         [MenuItem("Tools/Common/Create Asset Bundle")]
         public static void OpenEditorWindow()
         {
-            var win = EditorWindow.GetWindow(typeof(CreateAssetsBundle));
+            var win = GetWindow(typeof(CreateAssetsBundle));
             var pos = win.position;
             pos.width = 500f;
             pos.height = 250f;

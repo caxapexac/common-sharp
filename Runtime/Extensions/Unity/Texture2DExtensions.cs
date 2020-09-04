@@ -43,6 +43,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions.Unity
                 for (int x = 0; x < targetWidth; x++)
                 {
                     var p = new Vector2(Mathf.Clamp(xOffset + x / factor, 0, sourceWidth - 1), Mathf.Clamp(yOffset + y / factor, 0, sourceHeight - 1));
+
                     // bilinear filtering
                     var c11 = data[Mathf.FloorToInt(p.x) + sourceWidth * (Mathf.FloorToInt(p.y))];
                     var c12 = data[Mathf.FloorToInt(p.x) + sourceWidth * (Mathf.CeilToInt(p.y))];

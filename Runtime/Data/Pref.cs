@@ -20,7 +20,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public T Value
         {
-            get { return _value; }
+            get => _value;
             set
             {
                 _prevValue = _value;
@@ -32,7 +32,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public T PrevValue
         {
-            get { return _prevValue; }
+            get => _prevValue;
         }
 
         public Pref(string playerPrefsPath, T defaultValue = default)

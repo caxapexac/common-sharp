@@ -79,7 +79,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
 
             object IEnumerator.Current
             {
-                get { return null; }
+                get => null;
             }
 
             bool IEnumerator.MoveNext()

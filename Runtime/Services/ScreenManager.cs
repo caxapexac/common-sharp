@@ -22,7 +22,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services
         /// </summary>
         public string Previous
         {
-            get { return _history.Count > 0 ? _history.Peek() : null; }
+            get => _history.Count > 0 ? _history.Peek() : null;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services
         /// </summary>
         public string Current
         {
-            get { return SceneManager.GetActiveScene().name; }
+            get => SceneManager.GetActiveScene().name;
         }
 
         private readonly Stack<string> _history = new Stack<string>(8);

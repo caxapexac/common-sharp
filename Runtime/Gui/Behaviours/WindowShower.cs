@@ -8,7 +8,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Behaviours
         public bool State = false;
         public KeyCode keyCode;
         public GameObject content;
-        
+
         private void Update()
         {
             if (Input.GetKeyDown(keyCode)) State = !State;
@@ -27,7 +27,6 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Behaviours
 
         public void Close()
         {
-            
         }
     }
 }

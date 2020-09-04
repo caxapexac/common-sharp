@@ -9,7 +9,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Audio
         {
             return Mathf.Log10(decimalVolume) * 20;
         }
-        
+
         public static float GetNormalVolume(float soundVolume)
         {
             return Mathf.Pow(10, soundVolume / 20);

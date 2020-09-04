@@ -39,13 +39,13 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Pool
 
         public virtual PoolContainer PoolContainer
         {
-            get { return _container; }
-            set { _container = value; }
+            get => _container;
+            set => _container = value;
         }
 
         public virtual Transform PoolTransform
         {
-            get { return transform; }
+            get => transform;
         }
 
 

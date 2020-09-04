@@ -24,8 +24,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.UnityEvents
     public class UnityEventString : UnityEvent<string>
     {
     }
-    
-    
+
 
     [Serializable]
     public class UnityEventPointerEventData : UnityEvent<PointerEventData>

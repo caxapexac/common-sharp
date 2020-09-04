@@ -57,13 +57,13 @@ namespace Caxapexac.Common.Sharp.Runtime.DebugHelpers
             var renderer = mesh.GetComponent<MeshRenderer>();
             DrawDebugBounds(renderer, color);
         }
-        
+
         public static void DrawDebugBounds(MeshRenderer renderer, Color color)
         {
             var bounds = renderer.bounds;
             DrawDebugBounds(bounds, color);
         }
-        
+
         public static void DrawDebugBounds(Bounds bounds, Color color)
         {
 #if UNITY_EDITOR

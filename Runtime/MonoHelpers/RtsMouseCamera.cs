@@ -19,9 +19,9 @@ namespace Caxapexac.Common.Sharp.Runtime.MonoHelpers
             if (Input.GetMouseButton(0))
             {
                 var delta = (_lastPosition - Input.mousePosition);
-                var deltaxz = new Vector3(delta.x, 0f, delta.y);
+                var deltaXZ = new Vector3(delta.x, 0f, delta.y);
                 var position = transform.position;
-                position = Vector3.Lerp(position, position + deltaxz, Sensitivity * Time.deltaTime);
+                position = Vector3.Lerp(position, position + deltaXZ, Sensitivity * Time.deltaTime);
                 transform.position = position;
                 _lastPosition = Input.mousePosition;
             }

@@ -8,7 +8,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.UnityEvents
     {
         public UnityEventString onEndEditEvent;
         public UnityEventString onValueChangedEvent;
-        
+
         private InputField _inputField;
 
         private void Awake()

@@ -10,7 +10,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Pool
     public class PoolManager : MonoBehaviourService<PoolManager>
     {
         private Dictionary<string, PoolContainer> _pools;
-        
+
         protected override void OnCreateService()
         {
             _pools = new Dictionary<string, PoolContainer>();
@@ -18,7 +18,6 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Pool
 
         protected override void OnDestroyService()
         {
-            
         }
 
         public IPoolObject Get(string path)

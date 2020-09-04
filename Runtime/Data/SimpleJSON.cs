@@ -61,31 +61,69 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         FloatValue = 7,
     }
 
+
     public class JsonNode
     {
         #region common interface
-        public virtual void Add(string aKey, JsonNode aItem) { }
-        public virtual JsonNode this[int aIndex] { get { return null; } set { } }
-        public virtual JsonNode this[string aKey] { get { return null; } set { } }
-        public virtual string Value { get { return ""; } set { } }
-        public virtual int Count { get { return 0; } }
+
+        public virtual void Add(string aKey, JsonNode aItem)
+        {
+        }
+
+        public virtual JsonNode this[int aIndex]
+        {
+            get => null;
+            set { }
+        }
+
+        public virtual JsonNode this[string aKey]
+        {
+            get => null;
+            set { }
+        }
+
+        public virtual string Value
+        {
+            get => "";
+            set { }
+        }
+
+        public virtual int Count
+        {
+            get => 0;
+        }
 
         public virtual void Add(JsonNode aItem)
         {
             Add("", aItem);
         }
 
-        public virtual JsonNode Remove(string aKey) { return null; }
-        public virtual JsonNode Remove(int aIndex) { return null; }
-        public virtual JsonNode Remove(JsonNode aNode) { return aNode; }
+        public virtual JsonNode Remove(string aKey)
+        {
+            return null;
+        }
 
-        public virtual IEnumerable<JsonNode> Childs { get { yield break; } }
-        public IEnumerable<JsonNode> DeepChilds
+        public virtual JsonNode Remove(int aIndex)
+        {
+            return null;
+        }
+
+        public virtual JsonNode Remove(JsonNode aNode)
+        {
+            return aNode;
+        }
+
+        public virtual IEnumerable<JsonNode> Children
+        {
+            get { yield break; }
+        }
+
+        public IEnumerable<JsonNode> DeepChildren
         {
             get
             {
-                foreach (var c in Childs)
-                    foreach (var d in c.DeepChilds)
+                foreach (var c in Children)
+                    foreach (var d in c.DeepChildren)
                         yield return d;
             }
         }
@@ -94,6 +132,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         {
             return "JSONNode";
         }
+
         public virtual string ToString(string aPrefix)
         {
             return "JSONNode";
@@ -102,119 +141,101 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         #endregion common interface
 
         #region typecasting properties
+
         public virtual int AsInt
         {
             get
             {
                 int v = 0;
-                if (int.TryParse(Value, out v))
-                    return v;
+                if (int.TryParse(Value, out v)) return v;
                 return 0;
             }
-            set
-            {
-                Value = value.ToString();
-            }
+            set => Value = value.ToString();
         }
+
         public virtual float AsFloat
         {
             get
             {
                 float v = 0.0f;
-                if (float.TryParse(Value, out v))
-                    return v;
+                if (float.TryParse(Value, out v)) return v;
                 return 0.0f;
             }
-            set
-            {
-                Value = value.ToString();
-            }
+            set => Value = value.ToString();
         }
+
         public virtual double AsDouble
         {
             get
             {
                 double v = 0.0;
-                if (double.TryParse(Value, out v))
-                    return v;
+                if (double.TryParse(Value, out v)) return v;
                 return 0.0;
             }
-            set
-            {
-                Value = value.ToString();
-            }
+            set => Value = value.ToString();
         }
+
         public virtual bool AsBool
         {
             get
             {
                 bool v = false;
-                if (bool.TryParse(Value, out v))
-                    return v;
+                if (bool.TryParse(Value, out v)) return v;
                 return !string.IsNullOrEmpty(Value);
             }
-            set
-            {
-                Value = (value) ? "true" : "false";
-            }
+            set => Value = (value) ? "true" : "false";
         }
 
         public virtual DateTime AsDateTime
         {
-            get { return DateTime.Parse(Value).ToUniversalTime(); }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get => DateTime.Parse(Value).ToUniversalTime();
+            set => throw new NotImplementedException();
         }
 
         public virtual JsonArray AsArray
         {
-            get
-            {
-                return this as JsonArray;
-            }
-        }
-        public virtual JsonClass AsObject
-        {
-            get
-            {
-                return this as JsonClass;
-            }
+            get => this as JsonArray;
         }
 
+        public virtual JsonClass AsObject
+        {
+            get => this as JsonClass;
+        }
 
         #endregion typecasting properties
 
         #region operators
+
         public static implicit operator JsonNode(string s)
         {
             return new JsonData(s);
         }
+
         public static implicit operator string(JsonNode d)
         {
             return (d == null) ? null : d.Value;
         }
+
         public static bool operator ==(JsonNode a, object b)
         {
-            if (b == null && a is JsonLazyCreator)
-                return true;
-            return System.Object.ReferenceEquals(a, b);
+            if (b == null && a is JsonLazyCreator) return true;
+            return ReferenceEquals(a, b);
         }
 
         public static bool operator !=(JsonNode a, object b)
         {
             return !(a == b);
         }
+
         public override bool Equals(object obj)
         {
-            return System.Object.ReferenceEquals(this, obj);
+            return ReferenceEquals(this, obj);
         }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
 
         #endregion operators
 
@@ -225,14 +246,30 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             {
                 switch (c)
                 {
-                    case '\\': result += "\\\\"; break;
-                    case '\"': result += "\\\""; break;
-                    case '\n': result += "\\n"; break;
-                    case '\r': result += "\\r"; break;
-                    case '\t': result += "\\t"; break;
-                    case '\b': result += "\\b"; break;
-                    case '\f': result += "\\f"; break;
-                    default: result += c; break;
+                    case '\\':
+                        result += "\\\\";
+                        break;
+                    case '\"':
+                        result += "\\\"";
+                        break;
+                    case '\n':
+                        result += "\\n";
+                        break;
+                    case '\r':
+                        result += "\\r";
+                        break;
+                    case '\t':
+                        result += "\\t";
+                        break;
+                    case '\b':
+                        result += "\\b";
+                        break;
+                    case '\f':
+                        result += "\\f";
+                        break;
+                    default:
+                        result += c;
+                        break;
                 }
             }
             return result;
@@ -262,8 +299,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                             tokenName = tokenName.Trim();
                             if (ctx is JsonArray)
                                 ctx.Add(stack.Peek());
-                            else if (tokenName != "")
-                                ctx.Add(tokenName, stack.Peek());
+                            else if (tokenName != "") ctx.Add(tokenName, stack.Peek());
                         }
                         tokenName = "";
                         token = "";
@@ -283,8 +319,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                             tokenName = tokenName.Trim();
                             if (ctx is JsonArray)
                                 ctx.Add(stack.Peek());
-                            else if (tokenName != "")
-                                ctx.Add(tokenName, stack.Peek());
+                            else if (tokenName != "") ctx.Add(tokenName, stack.Peek());
                         }
                         tokenName = "";
                         token = "";
@@ -298,8 +333,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                             token += aJson[i];
                             break;
                         }
-                        if (stack.Count == 0)
-                            throw new Exception("JSON Parse: Too many closing brackets");
+                        if (stack.Count == 0) throw new Exception("JSON Parse: Too many closing brackets");
 
                         stack.Pop();
                         if (token != "")
@@ -307,13 +341,11 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                             tokenName = tokenName.Trim();
                             if (ctx is JsonArray)
                                 ctx.Add(token);
-                            else if (tokenName != "")
-                                ctx.Add(tokenName, token);
+                            else if (tokenName != "") ctx.Add(tokenName, token);
                         }
                         tokenName = "";
                         token = "";
-                        if (stack.Count > 0)
-                            ctx = stack.Peek();
+                        if (stack.Count > 0) ctx = stack.Peek();
                         break;
 
                     case ':':
@@ -340,8 +372,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                         {
                             if (ctx is JsonArray)
                                 ctx.Add(token);
-                            else if (tokenName != "")
-                                ctx.Add(tokenName, token);
+                            else if (tokenName != "") ctx.Add(tokenName, token);
                         }
                         tokenName = "";
                         token = "";
@@ -353,8 +384,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
                     case ' ':
                     case '\t':
-                        if (quoteMode)
-                            token += aJson[i];
+                        if (quoteMode) token += aJson[i];
                         break;
 
                     case '\\':
@@ -364,19 +394,31 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                             char c = aJson[i];
                             switch (c)
                             {
-                                case 't': token += '\t'; break;
-                                case 'r': token += '\r'; break;
-                                case 'n': token += '\n'; break;
-                                case 'b': token += '\b'; break;
-                                case 'f': token += '\f'; break;
+                                case 't':
+                                    token += '\t';
+                                    break;
+                                case 'r':
+                                    token += '\r';
+                                    break;
+                                case 'n':
+                                    token += '\n';
+                                    break;
+                                case 'b':
+                                    token += '\b';
+                                    break;
+                                case 'f':
+                                    token += '\f';
+                                    break;
                                 case 'u':
-                                    {
-                                        string s = aJson.Substring(i + 1, 4);
-                                        token += (char)int.Parse(s, System.Globalization.NumberStyles.AllowHexSpecifier);
-                                        i += 4;
-                                        break;
-                                    }
-                                default: token += c; break;
+                                {
+                                    string s = aJson.Substring(i + 1, 4);
+                                    token += (char)int.Parse(s, System.Globalization.NumberStyles.AllowHexSpecifier);
+                                    i += 4;
+                                    break;
+                                }
+                                default:
+                                    token += c;
+                                    break;
                             }
                         }
                         break;
@@ -394,7 +436,9 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             return ctx;
         }
 
-        public virtual void Serialize(System.IO.BinaryWriter aWriter) { }
+        public virtual void Serialize(System.IO.BinaryWriter aWriter)
+        {
+        }
 
         public void SaveToStream(System.IO.Stream aData)
         {
@@ -434,16 +478,18 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                 return System.Convert.ToBase64String(stream.ToArray());
             }
         }
- 
+
 #else
         public void SaveToCompressedStream(System.IO.Stream aData)
         {
             throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
         }
+
         public void SaveToCompressedFile(string aFileName)
         {
             throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
         }
+
         public string SaveToCompressedBase64()
         {
             throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
@@ -462,65 +508,66 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             throw new Exception("Can't use File IO stuff in webplayer");
 #endif
         }
+
         public string SaveToBase64()
         {
             using (var stream = new System.IO.MemoryStream())
             {
                 SaveToStream(stream);
                 stream.Position = 0;
-                return System.Convert.ToBase64String(stream.ToArray());
+                return Convert.ToBase64String(stream.ToArray());
             }
         }
+
         public static JsonNode Deserialize(System.IO.BinaryReader aReader)
         {
             JsonBinaryTag type = (JsonBinaryTag)aReader.ReadByte();
             switch (type)
             {
                 case JsonBinaryTag.Array:
-                    {
-                        int count = aReader.ReadInt32();
-                        JsonArray tmp = new JsonArray();
-                        for (int i = 0; i < count; i++)
-                            tmp.Add(Deserialize(aReader));
-                        return tmp;
-                    }
+                {
+                    int count = aReader.ReadInt32();
+                    JsonArray tmp = new JsonArray();
+                    for (int i = 0; i < count; i++) tmp.Add(Deserialize(aReader));
+                    return tmp;
+                }
                 case JsonBinaryTag.Class:
+                {
+                    int count = aReader.ReadInt32();
+                    JsonClass tmp = new JsonClass();
+                    for (int i = 0; i < count; i++)
                     {
-                        int count = aReader.ReadInt32();
-                        JsonClass tmp = new JsonClass();
-                        for (int i = 0; i < count; i++)
-                        {
-                            string key = aReader.ReadString();
-                            var val = Deserialize(aReader);
-                            tmp.Add(key, val);
-                        }
-                        return tmp;
+                        string key = aReader.ReadString();
+                        var val = Deserialize(aReader);
+                        tmp.Add(key, val);
                     }
+                    return tmp;
+                }
                 case JsonBinaryTag.Value:
-                    {
-                        return new JsonData(aReader.ReadString());
-                    }
+                {
+                    return new JsonData(aReader.ReadString());
+                }
                 case JsonBinaryTag.IntValue:
-                    {
-                        return new JsonData(aReader.ReadInt32());
-                    }
+                {
+                    return new JsonData(aReader.ReadInt32());
+                }
                 case JsonBinaryTag.DoubleValue:
-                    {
-                        return new JsonData(aReader.ReadDouble());
-                    }
+                {
+                    return new JsonData(aReader.ReadDouble());
+                }
                 case JsonBinaryTag.BoolValue:
-                    {
-                        return new JsonData(aReader.ReadBoolean());
-                    }
+                {
+                    return new JsonData(aReader.ReadBoolean());
+                }
                 case JsonBinaryTag.FloatValue:
-                    {
-                        return new JsonData(aReader.ReadSingle());
-                    }
+                {
+                    return new JsonData(aReader.ReadSingle());
+                }
 
                 default:
-                    {
-                        throw new Exception("Error deserializing JSON. Unknown tag: " + type);
-                    }
+                {
+                    throw new Exception("Error deserializing JSON. Unknown tag: " + type);
+                }
             }
         }
 
@@ -553,10 +600,12 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         {
             throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
         }
+
         public static JsonNode LoadFromCompressedStream(System.IO.Stream aData)
         {
             throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
         }
+
         public static JsonNode LoadFromCompressedBase64(string aBase64)
         {
             throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
@@ -570,6 +619,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                 return Deserialize(r);
             }
         }
+
         public static JsonNode LoadFromFile(string aFileName)
         {
 #if USE_FileIO
@@ -581,24 +631,26 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             throw new Exception("Can't use File IO stuff in webplayer");
 #endif
         }
+
         public static JsonNode LoadFromBase64(string aBase64)
         {
-            var tmp = System.Convert.FromBase64String(aBase64);
+            var tmp = Convert.FromBase64String(aBase64);
             var stream = new System.IO.MemoryStream(tmp);
             stream.Position = 0;
             return LoadFromStream(stream);
         }
     } // End of JSONNode
 
+
     public class JsonArray : JsonNode, IEnumerable
     {
         private List<JsonNode> _mList = new List<JsonNode>();
+
         public override JsonNode this[int aIndex]
         {
             get
             {
-                if (aIndex < 0 || aIndex >= _mList.Count)
-                    return new JsonLazyCreator(this);
+                if (aIndex < 0 || aIndex >= _mList.Count) return new JsonLazyCreator(this);
                 return _mList[aIndex];
             }
             set
@@ -609,70 +661,75 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                     _mList[aIndex] = value;
             }
         }
+
         public override JsonNode this[string aKey]
         {
-            get { return new JsonLazyCreator(this); }
-            set { _mList.Add(value); }
+            get => new JsonLazyCreator(this);
+            set => _mList.Add(value);
         }
+
         public override int Count
         {
-            get { return _mList.Count; }
+            get => _mList.Count;
         }
+
         public override void Add(string aKey, JsonNode aItem)
         {
             _mList.Add(aItem);
         }
+
         public override JsonNode Remove(int aIndex)
         {
-            if (aIndex < 0 || aIndex >= _mList.Count)
-                return null;
+            if (aIndex < 0 || aIndex >= _mList.Count) return null;
             JsonNode tmp = _mList[aIndex];
             _mList.RemoveAt(aIndex);
             return tmp;
         }
+
         public override JsonNode Remove(JsonNode aNode)
         {
             _mList.Remove(aNode);
             return aNode;
         }
-        public override IEnumerable<JsonNode> Childs
+
+        public override IEnumerable<JsonNode> Children
         {
             get
             {
-                foreach (JsonNode n in _mList)
-                    yield return n;
+                foreach (JsonNode n in _mList) yield return n;
             }
         }
+
         public IEnumerator GetEnumerator()
         {
-            foreach (JsonNode n in _mList)
-                yield return n;
+            foreach (JsonNode n in _mList) yield return n;
         }
+
         public override string ToString()
         {
             string result = "[ ";
             foreach (JsonNode n in _mList)
             {
-                if (result.Length > 2)
-                    result += ", ";
+                if (result.Length > 2) result += ", ";
                 result += n.ToString();
             }
             result += " ]";
             return result;
         }
+
         public override string ToString(string aPrefix)
         {
             string result = "[ ";
             foreach (JsonNode n in _mList)
             {
-                if (result.Length > 3)
-                    result += ", ";
+                if (result.Length > 3) result += ", ";
                 result += "\n" + aPrefix + "   ";
                 result += n.ToString(aPrefix + "   ");
             }
             result += "\n" + aPrefix + "]";
             return result;
         }
+
         public override void Serialize(System.IO.BinaryWriter aWriter)
         {
             aWriter.Write((byte)JsonBinaryTag.Array);
@@ -684,9 +741,11 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         }
     } // End of JSONArray
 
+
     public class JsonClass : JsonNode, IEnumerable
     {
         private Dictionary<string, JsonNode> _mDict = new Dictionary<string, JsonNode>();
+
         public override JsonNode this[string aKey]
         {
             get
@@ -704,25 +763,25 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                     _mDict.Add(aKey, value);
             }
         }
+
         public override JsonNode this[int aIndex]
         {
             get
             {
-                if (aIndex < 0 || aIndex >= _mDict.Count)
-                    return null;
+                if (aIndex < 0 || aIndex >= _mDict.Count) return null;
                 return _mDict.ElementAt(aIndex).Value;
             }
             set
             {
-                if (aIndex < 0 || aIndex >= _mDict.Count)
-                    return;
+                if (aIndex < 0 || aIndex >= _mDict.Count) return;
                 string key = _mDict.ElementAt(aIndex).Key;
                 _mDict[key] = value;
             }
         }
+
         public override int Count
         {
-            get { return _mDict.Count; }
+            get => _mDict.Count;
         }
 
 
@@ -741,20 +800,20 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public override JsonNode Remove(string aKey)
         {
-            if (!_mDict.ContainsKey(aKey))
-                return null;
+            if (!_mDict.ContainsKey(aKey)) return null;
             JsonNode tmp = _mDict[aKey];
             _mDict.Remove(aKey);
             return tmp;
         }
+
         public override JsonNode Remove(int aIndex)
         {
-            if (aIndex < 0 || aIndex >= _mDict.Count)
-                return null;
+            if (aIndex < 0 || aIndex >= _mDict.Count) return null;
             var item = _mDict.ElementAt(aIndex);
             _mDict.Remove(item.Key);
             return item.Value;
         }
+
         public override JsonNode Remove(JsonNode aNode)
         {
             try
@@ -769,45 +828,44 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             }
         }
 
-        public override IEnumerable<JsonNode> Childs
+        public override IEnumerable<JsonNode> Children
         {
             get
             {
-                foreach (KeyValuePair<string, JsonNode> n in _mDict)
-                    yield return n.Value;
+                foreach (KeyValuePair<string, JsonNode> n in _mDict) yield return n.Value;
             }
         }
 
         public IEnumerator GetEnumerator()
         {
-            foreach (KeyValuePair<string, JsonNode> n in _mDict)
-                yield return n;
+            foreach (KeyValuePair<string, JsonNode> n in _mDict) yield return n;
         }
+
         public override string ToString()
         {
             string result = "{";
             foreach (KeyValuePair<string, JsonNode> n in _mDict)
             {
-                if (result.Length > 2)
-                    result += ", ";
+                if (result.Length > 2) result += ", ";
                 result += "\"" + Escape(n.Key) + "\":" + n.Value.ToString();
             }
             result += "}";
             return result;
         }
+
         public override string ToString(string aPrefix)
         {
             string result = "{ ";
             foreach (KeyValuePair<string, JsonNode> n in _mDict)
             {
-                if (result.Length > 3)
-                    result += ", ";
+                if (result.Length > 3) result += ", ";
                 result += "\n" + aPrefix + "   ";
                 result += "\"" + Escape(n.Key) + "\" : " + n.Value.ToString(aPrefix + "   ");
             }
             result += "\n" + aPrefix + "}";
             return result;
         }
+
         public override void Serialize(System.IO.BinaryWriter aWriter)
         {
             aWriter.Write((byte)JsonBinaryTag.Class);
@@ -820,30 +878,37 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         }
     } // End of JSONClass
 
+
     public class JsonData : JsonNode
     {
         private string _mData;
+
         public override string Value
         {
-            get { return _mData; }
-            set { _mData = value; }
+            get => _mData;
+            set => _mData = value;
         }
+
         public JsonData(string aData)
         {
             _mData = aData;
         }
+
         public JsonData(float aData)
         {
             AsFloat = aData;
         }
+
         public JsonData(double aData)
         {
             AsDouble = aData;
         }
+
         public JsonData(bool aData)
         {
             AsBool = aData;
         }
+
         public JsonData(int aData)
         {
             AsInt = aData;
@@ -853,30 +918,32 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         {
             return "\"" + Escape(_mData) + "\"";
         }
+
         public override string ToString(string aPrefix)
         {
             return "\"" + Escape(_mData) + "\"";
         }
+
         public override void Serialize(System.IO.BinaryWriter aWriter)
         {
             var tmp = new JsonData("");
 
             tmp.AsInt = AsInt;
-            if (tmp._mData == this._mData)
+            if (tmp._mData == _mData)
             {
                 aWriter.Write((byte)JsonBinaryTag.IntValue);
                 aWriter.Write(AsInt);
                 return;
             }
             tmp.AsFloat = AsFloat;
-            if (tmp._mData == this._mData)
+            if (tmp._mData == _mData)
             {
                 aWriter.Write((byte)JsonBinaryTag.FloatValue);
                 aWriter.Write(AsFloat);
                 return;
             }
             tmp.AsDouble = AsDouble;
-            if (tmp._mData == this._mData)
+            if (tmp._mData == _mData)
             {
                 aWriter.Write((byte)JsonBinaryTag.DoubleValue);
                 aWriter.Write(AsDouble);
@@ -884,7 +951,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             }
 
             tmp.AsBool = AsBool;
-            if (tmp._mData == this._mData)
+            if (tmp._mData == _mData)
             {
                 aWriter.Write((byte)JsonBinaryTag.BoolValue);
                 aWriter.Write(AsBool);
@@ -894,6 +961,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             aWriter.Write(_mData);
         }
     } // End of JSONData
+
 
     internal class JsonLazyCreator : JsonNode
     {
@@ -905,6 +973,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             _mNode = aNode;
             _mKey = null;
         }
+
         public JsonLazyCreator(JsonNode aNode, string aKey)
         {
             _mNode = aNode;
@@ -926,10 +995,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public override JsonNode this[int aIndex]
         {
-            get
-            {
-                return new JsonLazyCreator(this);
-            }
+            get => new JsonLazyCreator(this);
             set
             {
                 var tmp = new JsonArray();
@@ -940,10 +1006,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
         public override JsonNode this[string aKey]
         {
-            get
-            {
-                return new JsonLazyCreator(this, aKey);
-            }
+            get => new JsonLazyCreator(this, aKey);
             set
             {
                 var tmp = new JsonClass();
@@ -951,35 +1014,38 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                 Set(tmp);
             }
         }
+
         public override void Add(JsonNode aItem)
         {
             var tmp = new JsonArray();
             tmp.Add(aItem);
             Set(tmp);
         }
+
         public override void Add(string aKey, JsonNode aItem)
         {
             var tmp = new JsonClass();
             tmp.Add(aKey, aItem);
             Set(tmp);
         }
+
         public static bool operator ==(JsonLazyCreator a, object b)
         {
-            if (b == null)
-                return true;
-            return System.Object.ReferenceEquals(a, b);
+            if (b == null) return true;
+            return ReferenceEquals(a, b);
         }
 
         public static bool operator !=(JsonLazyCreator a, object b)
         {
             return !(a == b);
         }
+
         public override bool Equals(object obj)
         {
-            if (obj == null)
-                return true;
-            return System.Object.ReferenceEquals(this, obj);
+            if (obj == null) return true;
+            return ReferenceEquals(this, obj);
         }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -989,6 +1055,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         {
             return "";
         }
+
         public override string ToString(string aPrefix)
         {
             return "";
@@ -1008,6 +1075,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                 Set(tmp);
             }
         }
+
         public override float AsFloat
         {
             get
@@ -1022,6 +1090,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                 Set(tmp);
             }
         }
+
         public override double AsDouble
         {
             get
@@ -1036,6 +1105,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                 Set(tmp);
             }
         }
+
         public override bool AsBool
         {
             get
@@ -1050,6 +1120,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                 Set(tmp);
             }
         }
+
         public override JsonArray AsArray
         {
             get
@@ -1059,6 +1130,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                 return tmp;
             }
         }
+
         public override JsonClass AsObject
         {
             get
@@ -1069,6 +1141,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
             }
         }
     } // End of JSONLazyCreator
+
 
     public static class Json
     {

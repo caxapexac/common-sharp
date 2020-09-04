@@ -104,11 +104,11 @@ namespace Caxapexac.Common.Sharp.Runtime.Services
         /// Amount of items to process as result from background worker. Negative / zero values means - all items.
         /// By default, 1 item will be processed.
         /// </summary>
-        protected int ItemsAmountToProcessAtForground;
+        protected int ItemsAmountToProcessAtForeground;
 
         protected override void OnCreateService()
         {
-            ItemsAmountToProcessAtForground = 1;
+            ItemsAmountToProcessAtForeground = 1;
             _thread = new Thread(OnBackgroundThreadProc);
             _thread.Start();
         }
@@ -183,7 +183,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services
             }
             if (count > 0)
             {
-                var maxAmount = ItemsAmountToProcessAtForground;
+                var maxAmount = ItemsAmountToProcessAtForeground;
                 if (maxAmount > 0)
                 {
                     count = count < maxAmount ? count : maxAmount;

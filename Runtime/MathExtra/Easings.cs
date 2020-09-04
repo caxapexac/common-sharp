@@ -1,4 +1,5 @@
 using System;
+
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable CompareOfFloatsByEqualityOperator
 // ReSharper disable InconsistentNaming
@@ -12,7 +13,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
     public static class Easings
     {
         private const float PI = (float)Math.PI;
-        private const float HALFPI = (float)Math.PI / 2.0f;
+        private const float HALF_PI = (float)Math.PI / 2.0f;
 
 
         /// <summary>
@@ -267,7 +268,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
         /// </summary>
         public static double SineEaseIn(float p)
         {
-            return Math.Sin((p - 1) * HALFPI) + 1;
+            return Math.Sin((p - 1) * HALF_PI) + 1;
         }
 
         /// <summary>
@@ -275,7 +276,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
         /// </summary>
         public static double SineEaseOut(float p)
         {
-            return Math.Sin(p * HALFPI);
+            return Math.Sin(p * HALF_PI);
         }
 
         /// <summary>
@@ -353,7 +354,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
         /// </summary>
         public static double ElasticEaseIn(float p)
         {
-            return Math.Sin(13 * HALFPI * p) * Math.Pow(2, 10 * (p - 1));
+            return Math.Sin(13 * HALF_PI * p) * Math.Pow(2, 10 * (p - 1));
         }
 
         /// <summary>
@@ -361,7 +362,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
         /// </summary>
         public static double ElasticEaseOut(float p)
         {
-            return Math.Sin(-13 * HALFPI * (p + 1)) * Math.Pow(2, -10 * p) + 1;
+            return Math.Sin(-13 * HALF_PI * (p + 1)) * Math.Pow(2, -10 * p) + 1;
         }
 
         /// <summary>
@@ -373,9 +374,9 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
         {
             if (p < 0.5f)
             {
-                return 0.5f * Math.Sin(13 * HALFPI * (2 * p)) * Math.Pow(2, 10 * ((2 * p) - 1));
+                return 0.5f * Math.Sin(13 * HALF_PI * (2 * p)) * Math.Pow(2, 10 * ((2 * p) - 1));
             }
-            return 0.5f * (Math.Sin(-13 * HALFPI * ((2 * p - 1) + 1)) * Math.Pow(2, -10 * (2 * p - 1)) + 2);
+            return 0.5f * (Math.Sin(-13 * HALF_PI * ((2 * p - 1) + 1)) * Math.Pow(2, -10 * (2 * p - 1)) + 2);
         }
 
         /// <summary>

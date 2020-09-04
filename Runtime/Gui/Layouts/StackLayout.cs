@@ -35,7 +35,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Layouts
         /// </summary>
         public OneAxisAlignment ChildAlignment
         {
-            get { return _childAlignment; }
+            get => _childAlignment;
             set
             {
                 if (_childAlignment != value)
@@ -51,7 +51,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Layouts
         /// </summary>
         public float Padding
         {
-            get { return _padding; }
+            get => _padding;
             set
             {
                 if (_padding != value)
@@ -67,7 +67,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Layouts
         /// </summary>
         public bool IsVertical
         {
-            get { return _isVertical; }
+            get => _isVertical;
             set
             {
                 if (_isVertical != value)
@@ -83,7 +83,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Layouts
         /// </summary>
         public bool IsReverse
         {
-            get { return _isReverse; }
+            get => _isReverse;
             set
             {
                 if (_isReverse != value)

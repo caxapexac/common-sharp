@@ -12,7 +12,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Behaviours
         public KeyCode ClickCode;
 
         private Button _button;
-        
+
         private void Awake()
         {
             _button = GetComponent<Button>();

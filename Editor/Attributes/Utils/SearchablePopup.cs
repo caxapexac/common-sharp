@@ -107,7 +107,7 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.Utils
             /// <summary> Total possible entries in the list. </summary>
             public int MaxLength
             {
-                get { return allItems.Length; }
+                get => allItems.Length;
             }
 
             /// <summary>

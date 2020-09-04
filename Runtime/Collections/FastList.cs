@@ -22,7 +22,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Collections
         /// </summary>
         public int Count
         {
-            get { return _count; }
+            get => _count;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Collections
         /// </summary>
         public int Capacity
         {
-            get { return _capacity; }
+            get => _capacity;
         }
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Collections
         /// </summary>
         public bool IsReadOnly
         {
-            get { return false; }
+            get => false;
         }
 
         /// <summary>

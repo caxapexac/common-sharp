@@ -164,7 +164,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
         /// </summary>
         public override string ToString()
         {
-            return string.Format("[{0},{1}]", Min, Max);
+            return $"[{Min},{Max}]";
         }
 
         /// <summary>

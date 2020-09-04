@@ -65,7 +65,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Collections
         /// </summary>
         public int Count
         {
-            get { return _count; }
+            get => _count;
         }
 
         /// <summary>

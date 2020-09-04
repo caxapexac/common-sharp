@@ -5,7 +5,6 @@
 // ----------------------------------------------------------------------------
 
 using System;
-using Caxapexac.Common.Sharp.Runtime.Extensions;
 using Caxapexac.Common.Sharp.Runtime.Extensions.Unity;
 using UnityEngine;
 
@@ -58,7 +57,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Tweening
         /// <value>The value.</value>
         public float Value
         {
-            get { return Curve.Evaluate(CurrentTime); }
+            get => Curve.Evaluate(CurrentTime);
         }
 
         /// <summary>

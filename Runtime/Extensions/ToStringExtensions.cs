@@ -5,7 +5,6 @@
 // ----------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -23,7 +22,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
 
         private static readonly string[] _shortNumberOrders = {"", "k", "M", "G", "T", "P", "E"};
 
-        private static readonly float _invLog1K = 1 / (float)System.Math.Log(1000);
+        private static readonly float _invLog1K = 1 / (float)Math.Log(1000);
 
         /// <summary>
         /// Convert number to string with "kilo-million-billion" suffix with rounding.
@@ -53,13 +52,13 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
                 sign = 1;
             }
 
-            var i = self > 0 ? (int)(System.Math.Floor(System.Math.Log(self) * _invLog1K)) : 0;
+            var i = self > 0 ? (int)(Math.Floor(Math.Log(self) * _invLog1K)) : 0;
             if (i >= _shortNumberOrders.Length)
             {
                 i = _shortNumberOrders.Length - 1;
             }
             var mask = digitsAfterPoint == 2 ? "0.##" : "0." + new string('#', digitsAfterPoint);
-            return (sign * self / System.Math.Pow(1000, i)).ToString(mask, NumberFormatInfo.InvariantInfo) + _shortNumberOrders[i];
+            return (sign * self / Math.Pow(1000, i)).ToString(mask, NumberFormatInfo.InvariantInfo) + _shortNumberOrders[i];
         }
 
         /// <summary>
@@ -71,7 +70,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
         {
             lock (_floatToStrBuf)
             {
-                const int precMul = 100000;
+                const int preciseMul = 100000;
                 _floatToStrBuf.Length = 0;
                 var isNeg = self < 0f;
                 if (isNeg)
@@ -79,13 +78,13 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
                     self = -self;
                 }
                 var v0 = (uint)self;
-                var diff = (self - v0) * precMul;
+                var diff = (self - v0) * preciseMul;
                 var v1 = (uint)diff;
                 diff -= v1;
                 if (diff > 0.5f)
                 {
                     v1++;
-                    if (v1 >= precMul)
+                    if (v1 >= preciseMul)
                     {
                         v1 = 0;
                         v0++;
@@ -171,7 +170,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
             string[] splits = self.Split(separator);
             for (int i = 0; i < splits.Length; i++)
             {
-                String s = splits[i];
+                string s = splits[i];
                 capitalized += $"{s[0].ToString().ToUpper()}{s.Substring(1)}";
                 if (i < splits.Length - 1) capitalized += replaceWith;
             }

@@ -22,7 +22,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns.Service
         /// </summary>
         public static bool IsRegistered
         {
-            get { return (object)_instance != null; }
+            get => (object)_instance != null;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns.Service
                 if (list == null || list.Length == 0)
                 {
                     throw new UnityException(
-                        string.Format("Service<{0}>.Get() can be used only with exists / loaded asset of this type", type.Name));
+                        $"Service<{type.Name}>.Get() can be used only with exists / loaded asset of this type");
                 }
                 _instance = list[0] as T;
                 return _instance;
@@ -55,7 +55,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns.Service
 #if UNITY_EDITOR
             if (type.IsSubclassOf(typeof(Component)) && !type.IsSubclassOf(typeof(MonoBehaviourService<T>)))
             {
-                throw new UnityException(string.Format("\"{0}\" - invalid type, should be inherited from MonoBehaviourService", type.Name));
+                throw new UnityException($"\"{type.Name}\" - invalid type, should be inherited from MonoBehaviourService");
             }
 #endif
 
@@ -65,7 +65,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns.Service
 #if UNITY_EDITOR
                 if (!Application.isPlaying)
                 {
-                    throw new UnityException(string.Format("Service<{0}>.Get() can be used only at PLAY mode", type.Name));
+                    throw new UnityException($"Service<{type.Name}>.Get() can be used only at PLAY mode");
                 }
 #endif
                 new GameObject(
@@ -89,8 +89,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns.Service
         {
             if (IsRegistered)
             {
-                throw new UnityException(string.Format(
-                    "Cant register \"{0}\" as service - type already registered", typeof(T).Name));
+                throw new UnityException($"Cant register \"{typeof(T).Name}\" as service - type already registered");
             }
             if (instance == null)
             {

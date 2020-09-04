@@ -34,10 +34,10 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Audio
         /// </summary>
         public float SoundVolume
         {
-            get { return _fxes[0].volume; }
+            get => _sounds[0].volume;
             set
             {
-                foreach (var item in _fxes)
+                foreach (var item in _sounds)
                 {
                     item.volume = value;
                 }
@@ -49,8 +49,8 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Audio
         /// </summary>
         public float MusicVolume
         {
-            get { return _music.volume; }
-            set { _music.volume = value; }
+            get => _music.volume;
+            set => _music.volume = value;
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Audio
 
         private AudioSource _music;
 
-        private AudioSource[] _fxes;
+        private AudioSource[] _sounds;
 
         protected override void OnCreateService()
         {
@@ -70,16 +70,16 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Audio
 
             _music = gameObject.AddComponent<AudioSource>();
 
-            _fxes = new AudioSource[(int)SoundFxChannel.Max + 1];
+            _sounds = new AudioSource[(int)SoundFxChannel.Max + 1];
             var go = gameObject;
-            for (var i = 0; i < _fxes.Length; i++)
+            for (var i = 0; i < _sounds.Length; i++)
             {
-                _fxes[i] = go.AddComponent<AudioSource>();
+                _sounds[i] = go.AddComponent<AudioSource>();
             }
 
             _music.loop = false;
             _music.playOnAwake = false;
-            foreach (var item in _fxes)
+            foreach (var item in _sounds)
             {
                 item.loop = false;
                 item.playOnAwake = false;
@@ -123,7 +123,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Audio
         /// <param name="forceInterrupt">Force interrupt previous FX at chanel.</param>
         public void PlayFx(AudioClip clip, SoundFxChannel channel = SoundFxChannel.First, bool forceInterrupt = false)
         {
-            var fx = _fxes[(int)channel];
+            var fx = _sounds[(int)channel];
             if (!forceInterrupt && fx.isPlaying)
             {
                 return;
@@ -145,7 +145,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Audio
         /// <param name="channel">Channel.</param>
         public void StopFx(SoundFxChannel channel)
         {
-            var fx = _fxes[(int)channel];
+            var fx = _sounds[(int)channel];
             if (fx.isPlaying)
             {
                 fx.Stop();

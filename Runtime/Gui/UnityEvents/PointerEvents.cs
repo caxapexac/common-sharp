@@ -15,7 +15,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.UnityEvents
         public UnityEventPointerEventData onPointerUpEvent;
         public UnityEventPointerEventData onPointerExitEvent;
         public UnityEventPointerEventData onPointerEnterEvent;
-        
+
         public void OnPointerDown(PointerEventData eventData)
         {
             onPointerDownEvent.Invoke(eventData);

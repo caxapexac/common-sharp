@@ -8,14 +8,17 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace Caxapexac.Common.Sharp.Editor.Attributes.Inspectors {
+namespace Caxapexac.Common.Sharp.Editor.Attributes.Inspectors
+{
     /// <summary>
     /// Helper for custom flags selector.
     /// </summary>
-    [CustomPropertyDrawer (typeof (EnumFlagsAttribute))]
-    internal sealed class EnumFlagsInspector : PropertyDrawer {
-        public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) {
-            property.intValue = EditorGUI.MaskField (position, label, property.intValue, property.enumNames);
+    [CustomPropertyDrawer(typeof(EnumFlagsAttribute))]
+    internal sealed class EnumFlagsInspector : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            property.intValue = EditorGUI.MaskField(position, label, property.intValue, property.enumNames);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.UnityEvents
     public class DropdownEvents : MonoBehaviour
     {
         public UnityEventInt onValueChangedEvent;
-        
+
         private Dropdown _dropdown;
 
         private void Awake()

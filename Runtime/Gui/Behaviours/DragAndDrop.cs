@@ -11,7 +11,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Behaviours
     {
         private Vector2 _startPosition;
         private Vector2 _startMousePosition;
-        
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             _startPosition = transform.position;
@@ -25,7 +25,6 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Behaviours
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            
         }
     }
 }

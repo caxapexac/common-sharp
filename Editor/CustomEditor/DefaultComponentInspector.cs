@@ -121,8 +121,8 @@ namespace Caxapexac.Common.Sharp.Editor.CustomEditor
 
             public SerializedProperty Property
             {
-                get { return List.serializedProperty; }
-                set { List.serializedProperty = value; }
+                get => List.serializedProperty;
+                set => List.serializedProperty = value;
             }
 
             public ReorderableListProperty(SerializedProperty property)

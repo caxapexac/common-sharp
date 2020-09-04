@@ -99,7 +99,7 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.Inspectors
 
             return parent;
         }
-        
+
 
         public static bool BehaviourPropertyIsVisible(MonoBehaviour behaviour, string propertyName, ConditionalFieldAttribute appliedAttribute)
         {

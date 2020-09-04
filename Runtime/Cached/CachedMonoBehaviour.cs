@@ -62,7 +62,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
             }
         }
 
-        public new RectTransform rectTransform
+        public RectTransform rectTransform
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedCollider == null) _cachedCollider = base.GetComponent<Collider>();
+                if ((object)_cachedCollider == null) _cachedCollider = GetComponent<Collider>();
 
                 return _cachedCollider;
             }
@@ -85,7 +85,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedCollider2D == null) _cachedCollider2D = base.GetComponent<Collider2D>();
+                if ((object)_cachedCollider2D == null) _cachedCollider2D = GetComponent<Collider2D>();
 
                 return _cachedCollider2D;
             }
@@ -95,7 +95,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedRigidbody == null) _cachedRigidbody = base.GetComponent<Rigidbody>();
+                if ((object)_cachedRigidbody == null) _cachedRigidbody = GetComponent<Rigidbody>();
 
                 return _cachedRigidbody;
             }
@@ -105,16 +105,16 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedRigidbody2D == null) _cachedRigidbody2D = base.GetComponent<Rigidbody2D>();
+                if ((object)_cachedRigidbody2D == null) _cachedRigidbody2D = GetComponent<Rigidbody2D>();
                 return _cachedRigidbody2D;
             }
         }
 
-        public new Joint joint
+        public Joint joint
         {
             get
             {
-                if ((object)_cachedJoint == null) _cachedJoint = base.GetComponent<Joint>();
+                if ((object)_cachedJoint == null) _cachedJoint = GetComponent<Joint>();
                 return _cachedJoint;
             }
         }
@@ -124,7 +124,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedCamera == null) _cachedCamera = base.GetComponent<Camera>();
+                if ((object)_cachedCamera == null) _cachedCamera = GetComponent<Camera>();
 
                 return _cachedCamera;
             }
@@ -134,7 +134,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedAudioSource == null) _cachedAudioSource = base.GetComponent<AudioSource>();
+                if ((object)_cachedAudioSource == null) _cachedAudioSource = GetComponent<AudioSource>();
 
                 return _cachedAudioSource;
             }
@@ -144,7 +144,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedLight == null) _cachedLight = base.GetComponent<Light>();
+                if ((object)_cachedLight == null) _cachedLight = GetComponent<Light>();
 
                 return _cachedLight;
             }
@@ -154,7 +154,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedRenderer == null) _cachedRenderer = base.GetComponent<Renderer>();
+                if ((object)_cachedRenderer == null) _cachedRenderer = GetComponent<Renderer>();
 
                 return _cachedRenderer;
             }
@@ -164,7 +164,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Cached
         {
             get
             {
-                if ((object)_cachedParticleSystem == null) _cachedParticleSystem = base.GetComponent<ParticleSystem>();
+                if ((object)_cachedParticleSystem == null) _cachedParticleSystem = GetComponent<ParticleSystem>();
 
                 return _cachedParticleSystem;
             }

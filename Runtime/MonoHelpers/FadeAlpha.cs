@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+// ReSharper disable StringLiteralTypo
 
 
 namespace Caxapexac.Common.Sharp.Runtime.MonoHelpers

@@ -13,7 +13,11 @@ namespace MyBox.Internal
     public class ButtonInspector
     {
         public readonly List<(MethodInfo Method, string Name, ButtonMethodDrawOrder order)> TargetMethods;
-        public int Amount => TargetMethods?.Count ?? 0;
+
+        public int Amount
+        {
+            get => TargetMethods?.Count ?? 0;
+        }
 
         private readonly Object _target;
 
@@ -66,7 +70,10 @@ namespace MyBox.Internal
             }
         }
 
-        public void Invoke(MethodInfo method) => InvokeMethod(_target, method);
+        public void Invoke(MethodInfo method)
+        {
+            InvokeMethod(_target, method);
+        }
 
 
         private void InvokeMethod(Object target, MethodInfo method)

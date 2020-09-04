@@ -7,31 +7,31 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
 {
     public static class RngExtra
     {
-        public static System.Random GetRandom()
+        public static Random GetRandom()
         {
-            return new System.Random(Guid.NewGuid().GetHashCode());
+            return new Random(Guid.NewGuid().GetHashCode());
         }
 
         public static List<int> GetRandomValue(int min, int max, int count)
         {
-            System.Random rand = GetRandom();
-            List<int> randVals = new List<int>();
+            Random rand = GetRandom();
+            List<int> randValues = new List<int>();
 
-            while (randVals.Count < count)
+            while (randValues.Count < count)
             {
                 int next = rand.Next(min, max);
-                randVals.Add(next);
+                randValues.Add(next);
             }
 
-            return randVals;
+            return randValues;
         }
 
         public static HashSet<int> GetUniqueRandomValue(int min, int max, int count, List<int> exception = null)
         {
-            System.Random rand = GetRandom();
+            Random rand = GetRandom();
             count = count.Clamp(0, max);
-            HashSet<int> randVals = new HashSet<int>();
-            while (randVals.Count < count)
+            HashSet<int> randValues = new HashSet<int>();
+            while (randValues.Count < count)
             {
                 //rand.Next max value is exclusive
                 int next = rand.Next(min, max);
@@ -41,13 +41,13 @@ namespace Caxapexac.Common.Sharp.Runtime.MathExtra
                 }
                 else
                 {
-                    randVals.Add(next);
+                    randValues.Add(next);
                 }
             }
 
-            return randVals;
+            return randValues;
         }
-        
+
         public static int[] GetUniqueRandomValueArr(int min, int max, int count, List<int> exception = null)
         {
             HashSet<int> rands = GetUniqueRandomValue(min, max, count, exception);

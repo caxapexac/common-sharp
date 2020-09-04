@@ -45,7 +45,7 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.FieldsAccessibility
         {
             get => _props.Count > 0;
         }
-        
+
         public void OnInspectorGUI()
         {
             Header();
@@ -102,7 +102,7 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.FieldsAccessibility
                 }
             }
         }
-        
+
         private void Setup()
         {
             if (_initialized) return;
@@ -143,7 +143,8 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.FieldsAccessibility
                     _cacheFolds.Add(fold.name,
                         new CacheFoldProp {atr = fold, types = new HashSet<string> {objectFields[i].Name}, expanded = expanded});
                 }
-                else c.types.Add(objectFields[i].Name);
+                else
+                    c.types.Add(objectFields[i].Name);
 
                 #endregion
             }

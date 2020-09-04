@@ -12,9 +12,9 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Audio
     public class SoundFromInspectorManager : MonoBehaviourService<SoundFromInspectorManager>
     {
         [SerializeField]
-        private AudioMixerGroup MixerGroup;
+        private AudioMixerGroup MixerGroup = null;
         [SerializeField]
-        private Sound[] Sounds;
+        private Sound[] Sounds = null;
 
         protected override void OnCreateService()
         {

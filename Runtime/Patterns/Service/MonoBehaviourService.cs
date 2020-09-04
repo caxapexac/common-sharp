@@ -36,7 +36,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Patterns.Service
                 if (i == -1)
                 {
                     throw new UnityException(
-                        string.Format("\"{0}\" service cant be used at scene \"{1}\"", type.Name, sceneName));
+                        $"\"{type.Name}\" service cant be used at scene \"{sceneName}\"");
                 }
             }
 #endif

@@ -14,7 +14,11 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.Inspectors
     [CustomPropertyDrawer(typeof(ConditionalFieldAttribute))]
     public class ConditionalFieldInspector : PropertyDrawer
     {
-        private ConditionalFieldAttribute Conditional => _conditional ?? (_conditional = attribute as ConditionalFieldAttribute);
+        private ConditionalFieldAttribute Conditional
+        {
+            get => _conditional ?? (_conditional = attribute as ConditionalFieldAttribute);
+        }
+
         private ConditionalFieldAttribute _conditional;
 
         private bool _customDrawersCached;

@@ -24,8 +24,7 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.FieldDropDown
 
         private void PropertyTypeWarning(SerializedProperty property)
         {
-            Debug.LogWarning(string.Format("Property <color=brown>{0}</color> in object <color=brown>{1}</color> is of wrong type. Expected: Int",
-                property.name, property.serializedObject.targetObject));
+            Debug.LogWarning($"Property <color=brown>{property.name}</color> in object <color=brown>{property.serializedObject.targetObject}</color> is of wrong type. Expected: Int");
             _checkedType = true;
         }
 
@@ -40,9 +39,8 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.FieldDropDown
             if (!layerFound)
             {
                 // Set to default layer. (Previous layer was removed)
-                Debug.Log(string.Format(
-                    "Property <color=brown>{0}</color> in object <color=brown>{1}</color> is set to the default layer. Reason: previously selected layer was removed.",
-                    property.name, property.serializedObject.targetObject));
+                Debug.Log(
+                    $"Property <color=brown>{property.name}</color> in object <color=brown>{property.serializedObject.targetObject}</color> is set to the default layer. Reason: previously selected layer was removed.");
                 property.intValue = 0;
                 currentSpriteLayerIndex = 0;
             }

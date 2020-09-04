@@ -29,7 +29,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
             _frames++;
         }
 
-        IEnumerator Fps()
+        private IEnumerator Fps()
         {
             // Infinite loop executed every "frenquency" secondes.
             while (true)

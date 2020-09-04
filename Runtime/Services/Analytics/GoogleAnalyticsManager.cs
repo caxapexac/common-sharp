@@ -28,9 +28,9 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Analytics
         /// <summary>
         /// Is TrackerID filled ans manager ready to send data.
         /// </summary>
-        public bool IsInited
+        public bool WasInit
         {
-            get { return !string.IsNullOrEmpty(TrackerId); }
+            get => !string.IsNullOrEmpty(TrackerId);
         }
 
         /// <summary>
@@ -51,13 +51,8 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Analytics
                 }
 
                 // Dont care about floating point regional format for double.
-                var userData = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}",
-                    SystemInfo.graphicsDeviceVendor, SystemInfo.graphicsDeviceVersion,
-                    SystemInfo.deviceModel,
-                    SystemInfo.deviceName, SystemInfo.operatingSystem,
-                    SystemInfo.processorCount,
-                    SystemInfo.systemMemorySize, Application.systemLanguage,
-                    (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds);
+                var userData =
+                    $"{SystemInfo.graphicsDeviceVendor}/{SystemInfo.graphicsDeviceVersion}/{SystemInfo.deviceModel}/{SystemInfo.deviceName}/{SystemInfo.operatingSystem}/{SystemInfo.processorCount}/{SystemInfo.systemMemorySize}/{Application.systemLanguage}/{(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds}";
                 var data = new MD5CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(userData));
                 var sb = new StringBuilder();
                 for (var i = 0; i < data.Length; i++)
@@ -123,8 +118,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Analytics
                     // If tracking id defined and url inited.
                     if (!string.IsNullOrEmpty(_requestUrl))
                     {
-                        url = string.Format("{0}{1}&{2}&ul={3}",
-                            _requestUrl, UnityEngine.Random.Range(1, 99999), data, Service<CsvLocalization>.Get().Language);
+                        url = $"{_requestUrl}{UnityEngine.Random.Range(1, 99999)}&{data}&ul={Service<CsvLocalization>.Get().Language}";
                     }
                 }
 
@@ -168,7 +162,8 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Analytics
         public void TrackScreen(string screenName)
         {
             // Old version of screen tracking: EnqueueRequest (string.Format ("t=screenview&cd={0}", UnityWebRequest.EscapeURL (screenName)));
-            EnqueueRequest(string.Format("t=pageview&dp={0}", UnityWebRequest.EscapeURL(screenName)));
+            // ReSharper disable once StringLiteralTypo
+            EnqueueRequest($"t=pageview&dp={UnityWebRequest.EscapeURL(screenName)}");
         }
 
         /// <summary>
@@ -178,7 +173,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Analytics
         /// <param name="action">Action name.</param>
         public void TrackEvent(string category, string action)
         {
-            EnqueueRequest(string.Format("t=event&ec={0}&ea={1}", UnityWebRequest.EscapeURL(category), UnityWebRequest.EscapeURL(action)));
+            EnqueueRequest($"t=event&ec={UnityWebRequest.EscapeURL(category)}&ea={UnityWebRequest.EscapeURL(action)}");
         }
 
         /// <summary>
@@ -190,12 +185,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Analytics
         /// <param name="value">Value.</param>
         public void TrackEvent(string category, string action, string label, string value)
         {
-            EnqueueRequest(string.Format("t=event&ec={0}&ea={1}&el={2}&ev={3}",
-                UnityWebRequest.EscapeURL(category),
-                UnityWebRequest.EscapeURL(action),
-                UnityWebRequest.EscapeURL(label),
-                UnityWebRequest.EscapeURL(value)
-            ));
+            EnqueueRequest($"t=event&ec={UnityWebRequest.EscapeURL(category)}&ea={UnityWebRequest.EscapeURL(action)}&el={UnityWebRequest.EscapeURL(label)}&ev={UnityWebRequest.EscapeURL(value)}");
         }
 
         /// <summary>
@@ -209,18 +199,9 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Analytics
         public void TrackTransaction(string transactionId, string productName, string sku, decimal price, string currency = "USD")
         {
             transactionId = (transactionId.Length <= 100) ? transactionId : transactionId.Substring(0, 100);
-            EnqueueRequest(string.Format("t=transaction&ti={0}&tr={1}&cu={2}&ts=0&tt=0",
-                UnityWebRequest.EscapeURL(transactionId),
-                price,
-                UnityWebRequest.EscapeURL(currency)
-            ));
-            EnqueueRequest(string.Format("t=item&ti={0}&in={1}&ic={2}&ip={3}&iq=1&cu={4}",
-                UnityWebRequest.EscapeURL(transactionId),
-                UnityWebRequest.EscapeURL(productName),
-                UnityWebRequest.EscapeURL(sku),
-                price,
-                UnityWebRequest.EscapeURL(currency)
-            ));
+            EnqueueRequest($"t=transaction&ti={UnityWebRequest.EscapeURL(transactionId)}&tr={price}&cu={UnityWebRequest.EscapeURL(currency)}&ts=0&tt=0");
+            EnqueueRequest(
+                $"t=item&ti={UnityWebRequest.EscapeURL(transactionId)}&in={UnityWebRequest.EscapeURL(productName)}&ic={UnityWebRequest.EscapeURL(sku)}&ip={price}&iq=1&cu={UnityWebRequest.EscapeURL(currency)}");
         }
 
         /// <summary>
@@ -230,7 +211,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Services.Analytics
         /// <param name="isFatal">Is exception fatal.</param>
         public void TrackException(string description, bool isFatal)
         {
-            EnqueueRequest(string.Format("t=exception&exd={0}&exf={1}", UnityWebRequest.EscapeURL(description), isFatal ? 1 : 0));
+            EnqueueRequest($"t=exception&exd={UnityWebRequest.EscapeURL(description)}&exf={(isFatal ? 1 : 0)}");
         }
     }
 }

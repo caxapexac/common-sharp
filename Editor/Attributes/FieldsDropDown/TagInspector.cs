@@ -23,8 +23,7 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.Fields
 
         private void Warning(SerializedProperty property)
         {
-            Debug.LogWarning(string.Format("Property <color=brown>{0}</color> in object <color=brown>{1}</color> is of wrong type. Expected: String",
-                property.name, property.serializedObject.targetObject));
+            Debug.LogWarning($"Property <color=brown>{property.name}</color> in object <color=brown>{property.serializedObject.targetObject}</color> is of wrong type. Expected: String");
             _checked = true;
         }
     }

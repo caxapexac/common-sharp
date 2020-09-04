@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 
 
 namespace Caxapexac.Common.Sharp.Runtime.Extensions
@@ -14,6 +13,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
         {
             return string.IsNullOrEmpty(self);
         }
+
         public static int ParseInt(this string self)
         {
             return string.IsNullOrEmpty(self) ? 0 : int.Parse(self, CultureInfo.InvariantCulture);
@@ -151,7 +151,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions
             Array.Reverse(array);
             return new string(array);
         }
-        
+
         public static int CountChar(this string str, char ch)
         {
             return str.Count(t => t == ch);

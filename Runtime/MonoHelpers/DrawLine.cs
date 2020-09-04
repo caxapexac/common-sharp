@@ -24,7 +24,7 @@ namespace Caxapexac.Common.Sharp.Runtime.MonoHelpers
             _lineRenderer.material = customMaterial == null ? new Material(Shader.Find("UI/Unlit/Text")) : customMaterial;
         }
 
-        void Update()
+        private void Update()
         {
             if (!lineStart || lineEnd == null) return;
             Vector3[] positions = new Vector3[2];

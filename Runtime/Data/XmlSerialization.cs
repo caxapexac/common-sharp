@@ -83,7 +83,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         /// </summary>
         public string Value
         {
-            get { return _valueLength > 0 ? _xmlSource.Substring(_valueStart, _valueLength) : null; }
+            get => _valueLength > 0 ? _xmlSource.Substring(_valueStart, _valueLength) : null;
         }
 
         public bool UseHashesForNames { get; private set; }

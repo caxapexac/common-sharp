@@ -21,7 +21,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Layouts
         /// </summary>
         public int ItemsInRow
         {
-            get { return _itemsInRow; }
+            get => _itemsInRow;
             set
             {
                 if (_itemsInRow != value && _itemsInRow > 0)
@@ -37,7 +37,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Layouts
         /// </summary>
         public Vector2 CellSize
         {
-            get { return _cellSize; }
+            get => _cellSize;
             set
             {
                 if (_cellSize != value)

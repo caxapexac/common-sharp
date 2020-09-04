@@ -26,16 +26,14 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         {
             var path = Path.Combine(_absolutePath, relativePath);
 
-            if (File.Exists(path))
-                File.Delete(path);
+            if (File.Exists(path)) File.Delete(path);
         }
 
         public static void Write(string relativePath, byte[] data)
         {
             var path = Path.Combine(_absolutePath, relativePath);
 
-            if (File.Exists(path))
-                File.Delete(path);
+            if (File.Exists(path)) File.Delete(path);
 
             File.WriteAllBytes(path, data);
         }
@@ -44,8 +42,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         {
             var path = Path.Combine(_absolutePath, relativePath);
 
-            if (File.Exists(path))
-                return File.ReadAllBytes(path);
+            if (File.Exists(path)) return File.ReadAllBytes(path);
 
             return null;
         }
@@ -54,8 +51,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         {
             var path = Path.Combine(_absolutePath, relativePath);
 
-            if (File.Exists(path))
-                File.Delete(path);
+            if (File.Exists(path)) File.Delete(path);
 
             File.WriteAllText(path, data);
         }
@@ -64,8 +60,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
         {
             var path = Path.Combine(_absolutePath, relativePath);
 
-            if (File.Exists(path))
-                return File.ReadAllText(path);
+            if (File.Exists(path)) return File.ReadAllText(path);
 
             return string.Empty;
         }

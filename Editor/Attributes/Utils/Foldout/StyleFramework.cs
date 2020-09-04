@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Caxapexac.Common.Sharp.Editor.Attributes.Utils
 {
-    static class StyleFramework
+    internal static class StyleFramework
     {
         public static readonly GUIStyle Box;
         public static readonly GUIStyle BoxChild;
@@ -75,8 +75,7 @@ namespace Caxapexac.Common.Sharp.Editor.Attributes.Utils
 
         public static string FirstLetterToUpperCase(this string s)
         {
-            if (string.IsNullOrEmpty(s))
-                return string.Empty;
+            if (string.IsNullOrEmpty(s)) return string.Empty;
 
             var a = s.ToCharArray();
             a[0] = char.ToUpper(a[0]);

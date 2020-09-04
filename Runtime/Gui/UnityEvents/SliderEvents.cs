@@ -7,7 +7,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.UnityEvents
     public class SliderEvents : MonoBehaviour
     {
         public UnityEventFloat onValueChangedEvent;
-        
+
         private Slider _slider;
 
         private void Awake()

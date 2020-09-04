@@ -12,7 +12,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions.Unity
             self.localRotation = Quaternion.identity;
             self.localScale = Vector3.one;
         }
-        
+
         public static void ResetPosition(this Transform self)
         {
             self.localPosition = Vector3.zero;

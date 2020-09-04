@@ -9,12 +9,12 @@ namespace Caxapexac.Common.Sharp.Runtime.Extensions.Unity
         {
             return self.gameObject.AddComponent<T>();
         }
-        
+
         public static T EnsureComponent<T>(this Component self) where T : Component
         {
             return self.GetComponent<T>() ?? self.AddComponent<T>();
         }
-        
+
         public static bool HasComponent<T>(this Component self) where T : Component
         {
             return self.GetComponent<T>() != null;

@@ -13,15 +13,16 @@ namespace Caxapexac.Common.Sharp.Editor.Other
         WireSphere,
         LineToCamera,
     }
-    
+
+
     [ExecuteAlways]
-    public class Gizmono : MonoBehaviour
+    public class GizmosDrawer : MonoBehaviour
     {
         public bool DrawOnlySelected = false;
         public GizmoType Type = GizmoType.Cube;
         public Color Color = Color.magenta;
         public float Size = 1;
-        
+
         private void OnDrawGizmos()
         {
             if (DrawOnlySelected) return;

@@ -294,7 +294,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
 
         private void ScrollToBottom()
         {
-            _scrollPosition = new Vector2(0, Int32.MaxValue);
+            _scrollPosition = new Vector2(0, int.MaxValue);
         }
 
         private void TrimExcessLogs()
@@ -362,7 +362,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Gui.Widgets
     /// </remarks>
     public class ConcurrentQueue<T>
     {
-        private readonly System.Object _queueLock = new System.Object();
+        private readonly object _queueLock = new object();
         private readonly Queue<T> _queue = new Queue<T>();
 
         public void Enqueue(T item)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyBox.Internal
 {
-    class FastComparable : IEqualityComparer<int>
+    internal class FastComparable : IEqualityComparer<int>
     {
         public static FastComparable Default = new FastComparable();
 

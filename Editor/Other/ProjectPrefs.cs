@@ -15,94 +15,119 @@ using Caxapexac.Common.Sharp.Runtime.Patterns.Service;
 using UnityEngine;
 
 
-namespace Caxapexac.Common.Sharp.Editor.Other {
+namespace Caxapexac.Common.Sharp.Editor.Other
+{
     /// <summary>
     /// EditorPrefs replacement with keeping data per project.
     /// </summary>
-    public static class ProjectPrefs {
+    public static class ProjectPrefs
+    {
         private const string StorePath = "{0}/../ProjectSettings/LeopotamGroupProjectPrefs.txt";
 
         private static string _storeFile;
 
         private static Dictionary<string, string> _data;
 
-        static ProjectPrefs () {
-            Service<JsonSerialization>.Get ();
+        static ProjectPrefs()
+        {
+            Service<JsonSerialization>.Get();
         }
 
-        private static void LoadData () {
-            if (_storeFile == null) {
-                _storeFile = string.Format (StorePath, Application.dataPath);
+        private static void LoadData()
+        {
+            if (_storeFile == null)
+            {
+                _storeFile = string.Format(StorePath, Application.dataPath);
             }
-            if (_data != null) {
+            if (_data != null)
+            {
                 return;
             }
-            try {
-                var content = File.ReadAllText (_storeFile);
-                _data = Service<JsonSerialization>.Get ().Deserialize<Dictionary<string, string>> (content);
-                if (_data == null) {
-                    throw new UnityException ();
+            try
+            {
+                var content = File.ReadAllText(_storeFile);
+                _data = Service<JsonSerialization>.Get().Deserialize<Dictionary<string, string>>(content);
+                if (_data == null)
+                {
+                    throw new UnityException();
                 }
-            } catch {
-                _data = new Dictionary<string, string> ();
+            }
+            catch
+            {
+                _data = new Dictionary<string, string>();
             }
         }
 
-        private static void SaveData () {
-            try {
-                if (_data.Count > 0) {
-                    File.WriteAllText (_storeFile, Service<JsonSerialization>.Get ().Serialize (_data));
-                } else {
-                    if (File.Exists (_storeFile)) {
-                        File.Delete (_storeFile);
+        private static void SaveData()
+        {
+            try
+            {
+                if (_data.Count > 0)
+                {
+                    File.WriteAllText(_storeFile, Service<JsonSerialization>.Get().Serialize(_data));
+                }
+                else
+                {
+                    if (File.Exists(_storeFile))
+                    {
+                        File.Delete(_storeFile);
                     }
                 }
-            } catch (Exception ex) {
-                Debug.LogWarning ("ProjectPrefs.SaveData: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning("ProjectPrefs.SaveData: " + ex.Message);
             }
         }
 
         /// <summary>
         /// Force reload data.
         /// </summary>
-        public static void Reset () {
+        public static void Reset()
+        {
             _data = null;
-            LoadData ();
+            LoadData();
         }
 
         /// <summary>
         /// Is key-store contains specified key.
         /// </summary>
         /// <param name="key">Key.</param>
-        public static bool HasKey (string key) {
-            if (string.IsNullOrEmpty (key)) {
-                throw new UnityException ("Invalid key");
+        public static bool HasKey(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new UnityException("Invalid key");
             }
-            LoadData ();
-            return _data.ContainsKey (key);
+            LoadData();
+            return _data.ContainsKey(key);
         }
 
         /// <summary>
         /// Delete all keys.
         /// </summary>
-        public static void DeleteAll () {
-            if (_storeFile == null) {
-                _storeFile = string.Format (StorePath, Application.dataPath);
+        public static void DeleteAll()
+        {
+            if (_storeFile == null)
+            {
+                _storeFile = string.Format(StorePath, Application.dataPath);
             }
-            _data.Clear ();
-            SaveData ();
+            _data.Clear();
+            SaveData();
         }
 
         /// <summary>
         /// Delete key.
         /// </summary>
         /// <param name="key">Key.</param>
-        public static void DeleteKey (string key) {
-            LoadData ();
-            if (HasKey (key)) {
-                _data.Remove (key);
+        public static void DeleteKey(string key)
+        {
+            LoadData();
+            if (HasKey(key))
+            {
+                _data.Remove(key);
             }
-            SaveData ();
+            SaveData();
         }
 
         /// <summary>
@@ -110,8 +135,9 @@ namespace Caxapexac.Common.Sharp.Editor.Other {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="defaultValue">Default value.</param>
-        public static string GetString (string key, string defaultValue = null) {
-            return HasKey (key) ? _data[key] : defaultValue;
+        public static string GetString(string key, string defaultValue = null)
+        {
+            return HasKey(key) ? _data[key] : defaultValue;
         }
 
         /// <summary>
@@ -119,10 +145,11 @@ namespace Caxapexac.Common.Sharp.Editor.Other {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="data">Data.</param>
-        public static void SetString (string key, string data) {
-            HasKey (key);
+        public static void SetString(string key, string data)
+        {
+            HasKey(key);
             _data[key] = data;
-            SaveData ();
+            SaveData();
         }
 
         /// <summary>
@@ -130,10 +157,13 @@ namespace Caxapexac.Common.Sharp.Editor.Other {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="defaultValue">Default value.</param>
-        public static int GetInt (string key, int defaultValue = 0) {
-            if (HasKey (key)) {
+        public static int GetInt(string key, int defaultValue = 0)
+        {
+            if (HasKey(key))
+            {
                 int val;
-                if (int.TryParse (_data[key], out val)) {
+                if (int.TryParse(_data[key], out val))
+                {
                     return val;
                 }
             }
@@ -145,8 +175,9 @@ namespace Caxapexac.Common.Sharp.Editor.Other {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="data">Data.</param>
-        public static void SetInt (string key, int data) {
-            SetString (key, data.ToString (NumberFormatInfo.InvariantInfo));
+        public static void SetInt(string key, int data)
+        {
+            SetString(key, data.ToString(NumberFormatInfo.InvariantInfo));
         }
 
         /// <summary>
@@ -154,10 +185,13 @@ namespace Caxapexac.Common.Sharp.Editor.Other {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="defaultValue">Default value.</param>
-        public static float GetFloat (string key, float defaultValue = 0f) {
-            if (HasKey (key)) {
+        public static float GetFloat(string key, float defaultValue = 0f)
+        {
+            if (HasKey(key))
+            {
                 float val;
-                if (float.TryParse (_data[key], NumberStyles.Float, NumberFormatInfo.InvariantInfo, out val)) {
+                if (float.TryParse(_data[key], NumberStyles.Float, NumberFormatInfo.InvariantInfo, out val))
+                {
                     return val;
                 }
             }
@@ -169,8 +203,9 @@ namespace Caxapexac.Common.Sharp.Editor.Other {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="data">Data.</param>
-        public static void SetFloat (string key, float data) {
-            SetString (key, data.ToString (NumberFormatInfo.InvariantInfo));
+        public static void SetFloat(string key, float data)
+        {
+            SetString(key, data.ToString(NumberFormatInfo.InvariantInfo));
         }
 
         /// <summary>
@@ -178,8 +213,9 @@ namespace Caxapexac.Common.Sharp.Editor.Other {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="defaultValue">Default value.</param>
-        public static bool GetBool (string key, bool defaultValue = false) {
-            return GetInt (key, defaultValue ? 1 : 0) != 0;
+        public static bool GetBool(string key, bool defaultValue = false)
+        {
+            return GetInt(key, defaultValue ? 1 : 0) != 0;
         }
 
         /// <summary>
@@ -187,10 +223,12 @@ namespace Caxapexac.Common.Sharp.Editor.Other {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="data">Data.</param>
-        public static void SetBool (string key, bool data) {
-            SetInt (key, data ? 1 : 0);
+        public static void SetBool(string key, bool data)
+        {
+            SetInt(key, data ? 1 : 0);
         }
     }
 }
+
 
 #endif

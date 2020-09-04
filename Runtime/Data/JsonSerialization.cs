@@ -488,7 +488,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
                         var vList = v as IList;
                         if (vList == null)
                         {
-                            throw new Exception(string.Format("Type '{0}' not compatible with array data", _type.Name));
+                            throw new Exception($"Type '{_type.Name}' not compatible with array data");
                         }
                         for (var i = 0; i < list.Count; i++)
                         {
@@ -605,7 +605,7 @@ namespace Caxapexac.Common.Sharp.Runtime.Data
 
             private void SkipWhiteSpaces()
             {
-                while (Char.IsWhiteSpace((char)JsonPeek()))
+                while (char.IsWhiteSpace((char)JsonPeek()))
                 {
                     GetNextChar();
                     if (JsonPeek() == -1)

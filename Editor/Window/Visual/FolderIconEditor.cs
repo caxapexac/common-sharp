@@ -59,7 +59,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window.Visual
 
         private static Texture2D _folderIconBack;
 
-        private static Dictionary<string, FolderIconDesc> _allDescs;
+        private static Dictionary<string, FolderIconDesc> _allDescriptions;
 
         private string _folderPath;
 
@@ -85,7 +85,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window.Visual
         [MenuItem("Tools/Common Visual/Folder Icons/Reset")]
         private static void ClearAllUi()
         {
-            _allDescs.Clear();
+            _allDescriptions.Clear();
             SaveInfo();
             EditorUtility.DisplayDialog(Title, "Successfully reset", "Close");
         }
@@ -106,27 +106,27 @@ namespace Caxapexac.Common.Sharp.Editor.Window.Visual
         {
             try
             {
-                _allDescs = Service<JsonSerialization>.Get()
+                _allDescriptions = Service<JsonSerialization>.Get()
                     .Deserialize<Dictionary<string, FolderIconDesc>>(
                         ProjectPrefs.GetString(StorageKey, "{}"));
-                if (_allDescs == null)
+                if (_allDescriptions == null)
                 {
                     throw new Exception();
                 }
             }
             catch
             {
-                _allDescs = new Dictionary<string, FolderIconDesc>();
+                _allDescriptions = new Dictionary<string, FolderIconDesc>();
             }
         }
 
         private static void SaveInfo()
         {
-            if (_allDescs.Count > 0)
+            if (_allDescriptions.Count > 0)
             {
                 try
                 {
-                    ProjectPrefs.SetString(StorageKey, Service<JsonSerialization>.Get().Serialize(_allDescs));
+                    ProjectPrefs.SetString(StorageKey, Service<JsonSerialization>.Get().Serialize(_allDescriptions));
                 }
                 catch (Exception ex)
                 {
@@ -186,7 +186,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window.Visual
 
         private static FolderIconDesc GetCustomIcon(string guid)
         {
-            return _allDescs.ContainsKey(guid) ? _allDescs[guid] : null;
+            return _allDescriptions.ContainsKey(guid) ? _allDescriptions[guid] : null;
         }
 
         private void Init(string folderPath)
@@ -225,7 +225,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window.Visual
                 _folderDesc.OverlayIcon = newIconName.Length > 0 ? newIconName : null;
                 if (_folderDesc != GetCustomIcon(_folderGuid))
                 {
-                    _allDescs[_folderGuid] = _folderDesc;
+                    _allDescriptions[_folderGuid] = _folderDesc;
                 }
                 EditorApplication.RepaintProjectWindow();
             }
@@ -233,7 +233,7 @@ namespace Caxapexac.Common.Sharp.Editor.Window.Visual
             {
                 if (GetCustomIcon(_folderGuid) != null)
                 {
-                    _allDescs.Remove(_folderGuid);
+                    _allDescriptions.Remove(_folderGuid);
                 }
                 OnLostFocus();
             }
