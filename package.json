@@ -1,15 +1,13 @@
 {
-  "name": "com.caxapexac.common.sharp",
+  "name": "com.caxapexac.common-sharp",
   "author": "caxapexac",
   "displayName": "Caxapexac Common C# Collection",
-  "description": "Collection of C#/Unity3D classes to slightly improve workflow",
+  "description": "Collection of C# classes to slightly improve workflow",
   "unity": "2019.1",
   "version": "2020.0.2",
   "keywords": [
     "csharp",
     "c#",
-    "unity",
-    "unity3d",
     "extensions",
     "patterns"
   ],
